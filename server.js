@@ -15,6 +15,9 @@ const userRoutes = require('./server/routes/users');
 const smsRoutes = require('./server/routes/sms');
 const appRoutes = require('./server/routes/app');
 
+// Default engine supports regular HTML
+app.set('view engine', 'ejs');
+
 // Parser for incoming requests
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
