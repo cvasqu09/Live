@@ -16,7 +16,9 @@ import { ProfileComponent } from './profile/profile.component';
 import { EventDetailsComponent } from './event-details/event-details.component';
 import { LoginAuthComponent } from './login-auth/login-auth.component';
 import { ProfileSettingsComponent } from './profile-settings/profile-settings.component';
+import { AgmCoreModule } from '@agm/core';
 
+// TODO: Remove apiKey
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,7 +35,8 @@ import { ProfileSettingsComponent } from './profile-settings/profile-settings.co
     BrowserModule,
     HttpModule,
     FormsModule,
-    appRoutes
+    appRoutes,
+    AgmCoreModule.forRoot({ apiKey: 'AIzaSyAH3tBDHWwu1z0zQ5qDbeQHVjPVizHrkbo'})
   ],
 
   providers: [
