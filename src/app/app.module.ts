@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { AuthGuard } from './auth.guard';
 import { AuthService } from './auth.service';
 import { HttpModule } from '@angular/http';
+import { IceNumberComponent } from './ice-number/ice-number.component'
 import { UserService } from './user/user.service';
 import { HomeComponent } from './home/home.component';
 import { GoogleMapComponent } from './home/google-map/google-map.component';
@@ -27,12 +28,13 @@ import { ErrorService } from './error/error.service';
     AppComponent,
     HomeComponent,
     GoogleMapComponent,
+    IceNumberComponent,
     SearchBarComponent,
     DropdownComponent,
     ProfileComponent,
     EventDetailsComponent,
     LoginAuthComponent,
-    ProfileSettingsComponent
+    ProfileSettingsComponent,
     TestMessageServiceComponent,
     ErrorComponent
   ],
@@ -47,7 +49,7 @@ import { ErrorService } from './error/error.service';
   providers: [
     UserService,
     AuthService,
-    AuthGuard
+    AuthGuard,
     ErrorService
   ],
   bootstrap: [AppComponent]
