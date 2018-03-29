@@ -17,6 +17,9 @@ import { EventDetailsComponent } from './event-details/event-details.component';
 import { LoginAuthComponent } from './login-auth/login-auth.component';
 import { ProfileSettingsComponent } from './profile-settings/profile-settings.component';
 import { AgmCoreModule } from '@agm/core';
+import { TestMessageServiceComponent } from './test-message-service/test-message-service.component';
+import { ErrorComponent } from './error/error.component';
+import { ErrorService } from './error/error.service';
 
 // TODO: Remove apiKey
 @NgModule({
@@ -30,6 +33,8 @@ import { AgmCoreModule } from '@agm/core';
     EventDetailsComponent,
     LoginAuthComponent,
     ProfileSettingsComponent
+    TestMessageServiceComponent,
+    ErrorComponent
   ],
   imports: [
     BrowserModule,
@@ -43,6 +48,7 @@ import { AgmCoreModule } from '@agm/core';
     UserService,
     AuthService,
     AuthGuard
+    ErrorService
   ],
   bootstrap: [AppComponent]
 })

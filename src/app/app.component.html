@@ -11,12 +11,16 @@
       <li class="nav-item">
         <a class="nav-link" [routerLink]="['/profile']" routerLinkActive="active">Profile</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/sms']">SMS Test</a>
+      </li>
     </ul>
   </div>
 </nav>
 <br>
 <app-login-auth></app-login-auth>
 <router-outlet></router-outlet>
+<app-error></app-error>
 <footer class="footer fixed-bottom">
   <div class="container text-center">
     <span class="text-muted">	&#169; 2018 Live+</span>
