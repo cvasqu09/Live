@@ -3,3 +3,13 @@
     <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
   </agm-map>
 </div>
+
+<!-- Button for opening event creation -->
+<div class="container button-overlay">
+	<button type="button" class="btn btn-success" data-toggle="modal" data-target="#eventModal" (click)="onClick()">
+		<i class="fa fa-plus"></i>
+	</button>
+</div>
+
+<!-- Event creation modal -->
+<app-event></app-event>
