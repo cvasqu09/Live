@@ -11,6 +11,9 @@ export class GoogleMapComponent implements OnInit {
   lat: number = 33.571901;
   lng: number = -101.861329;
 
+
+  // Styke Maps Here: https://mapstyle.withgoogle.com/
+  // Or copy paste custom json google maps 
   styles = [
    {
        "featureType": "landscape.natural",
@@ -162,7 +165,7 @@ export class GoogleMapComponent implements OnInit {
            }
        ]
    }
-]
+  ]
 
   constructor() { }
 
