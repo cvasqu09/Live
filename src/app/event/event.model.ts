@@ -8,5 +8,6 @@ export class Event {
 							public description: string,
 							public eventOwner: string,
 							public _id: string,
+							public rsvps: number,
 							public reports?: number){}
 }

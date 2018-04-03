@@ -21,12 +21,13 @@ var eventSchema = new Schema({
     }
   },
   numPeople: { type: Number, required: true }, // Do we want ranges? Querying may be better if we have just a number
-  location: { type: [Number], index: '2dsphere' }, // Location be required?
+  location: { type: [Number], index: '2dsphere', required: true },
   startTime: { type: Number }, // How are we going to store the time and what time zone will we use as reference?
   endTime: { type: Number },
   description: { type: String }, // Limit the length?
   eventOwner: { type: String, required: true },
   reports: { type: Number, default: 0 },
+  rsvps: { type: Number, default: 0 }
   _id: { type: Schema.Types.ObjectId }
 },
 { versionKey: false });
