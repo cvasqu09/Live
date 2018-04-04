@@ -8,23 +8,24 @@ router.post('/', function (req, res, next) {
   User.findById(req.body.id, function (err, user) {
     if (err) {
       return res.status(500).json({
-        title: 'Error occurred while sending SMS to contacts',
-        error: err
+        title: 'Internal service error',
+        message: 'Error occurred while sending SMS to contacts'
       });
     }
 
     if (user == null) {
       return res.status(404).json({
-        title: 'User not found'
+        title: 'User not found',
+        message: 'The provided user could not be found'
       });
     }
 
     try {
-    	sendNotificationText(req.body);
+    	sendNotificationText(user);
     } catch (e) {
     	return res.status(500).json({
-    		title: 'Error occurred while sending notification text',
-    		error: e.message
+    		title: e.title,
+    		message: e.message
     	});
     }
     // var phoneNumbers = user.ICENumbers;
@@ -42,6 +43,7 @@ router.post('/', function (req, res, next) {
 /* Sends a text messsage to the number provided in the user_info object. user_info is expected
    to have information containing info about location, date, time, and phone number. */
 function sendNotificationText (user_info) {
+  console.log('Sending texts to: ' + user_info.ICENumbers);
   // Create the transporter for our message
   var transporter = nodemailer.createTransport({
 	  service: 'gmail',
@@ -56,23 +58,31 @@ function sendNotificationText (user_info) {
 	  }
   });
 
-  domain = providerDomain('att');
+  user_info.ICENumbers.forEach(function (number) {
+    console.log(number);
+    console.log(number.provider);
+    phoneProviderDomain = providerDomain(number.provider);
+    // Information about our message
+    var options = {
+  	  from: `"Live+ App" <${process.env.LIVE_EMAIL}>`,
+  	  to: `${number.phoneNumber}@${phoneProviderDomain}`, // Replace with phone number / provider, Have a check for the provider domain
+  	  subject: 'Did I make it?',
+  	  text: 'Perhaps' // Change message to contain details about event
+    };
 
-  // Information about our message
-  var options = {
-	  from: `"Live+ App" <${process.env.LIVE_EMAIL}>`,
-	  to: `user_info.number@${domain}`, // Replace with phone number / provider, Have a check for the provider domain
-	  subject: 'Did I make it?',
-	  text: 'Perhaps' // Change message to contain details about event
-  };
-
-  // Send message with the options above
-  transporter.sendMail(options, (error, info) => {
-	  if (error) {
-	    throw new Error(error.message);
-	  }
-	  console.log('The message was sent!');
-	  console.log(info);
+    if (number.confirmed)
+    // Send message with the options above
+    {
+      transporter.sendMail(options, (error, info) => {
+    	  if (error) {
+    	    throw { title: 'SMS error', message: 'Error occurred while sending an SMS' };
+    	  }
+    	  console.log('The message was sent!');
+    	  console.log(info);
+      });
+    } else {
+      throw { title: 'Unconfirmed number', message: 'The provided phone number has not confirmed to be an ICE contact' };
+    }
   });
 }
 

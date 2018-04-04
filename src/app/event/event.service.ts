@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from "rxjs";
 import { Event } from './event.model';
 import { environment } from '../../environments/environment'
+import { ErrorService } from '../error/error.service';
 
 import 'rxjs/Rx';
 
@@ -27,7 +28,7 @@ export class EventService {
 
 
   // Create Event
-  createEvent(event: Event) {
+  createEvent(event: Event): Observable<any> {
   	return this.http.post(this.baseURL, event)
   		.map((response: Response) => {
   			return this.transformIntoEventModel(response)
@@ -38,7 +39,7 @@ export class EventService {
   }
 
   // Delete Event
-  deleteEventWithId(eventId: string) {
+  deleteEventWithId(eventId: string): Observable<any> {
   	return this.http.delete(this.baseURL + eventId)
   		.map((response:Response) => {
   			return this.transformIntoEventModel(response)
@@ -49,7 +50,7 @@ export class EventService {
   }
 
   // Report Event
-  reportEventWithId(eventId: string) {
+  reportEventWithId(eventId: string): Observable<any> {
   	return this.getEventById(eventId).flatMap((event: Event) => {
   		const reports = event.reports++;
   		return this.http.patch(this.baseURL + eventId, {"reports": reports})
@@ -63,7 +64,7 @@ export class EventService {
   }
 
   // Edit Event
-  editEventWithId(eventId: string, changes: object) {
+  editEventWithId(eventId: string, changes: object): Observable<any> {
   	return this.http.patch(this.baseURL + eventId, changes)
   		.map((response: Response) => {
   			return this.transformIntoEventModel(response);

@@ -108,7 +108,7 @@ export class UserService {
 		// Convert json array to array of ICENumbers
 		let iceNumbers: Array<ICENumber> = []
 		for(let number of res.ICENumbers){
-			iceNumbers.push(new ICENumber(number.phoneNumber, number.provider));
+			iceNumbers.push(new ICENumber(number.phoneNumber, number.provider, number.confirmed));
 		}
 
 		const retrievedUser = new User(
