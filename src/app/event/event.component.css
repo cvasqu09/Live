@@ -1,3 +1,7 @@
 .submit-btn {
 	float: right;
 }
+
+input.ng-touched.ng-invalid {
+	border: 2px solid rgba(244, 66, 66, .7);
+}

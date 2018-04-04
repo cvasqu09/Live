@@ -18,8 +18,13 @@
 								id="event-name" 
 								ngModel 
 								name="eventName" 
-								required>
-							<div class="invalid-feedback">Please enter an event name.</div>
+								required
+								#eventName="ngModel"
+								maxlength="40"
+								pattern="[a-zA-Z0-9\s]+">
+							<small class="input-feedback col-sm-9 offset-sm-3" *ngIf="eventName.invalid && eventName.touched">
+								Please enter a valid event name. Alphanumeric and whitespace allowed
+							</small>
 						</div>
 					</div>
 					<div class="form-group">
@@ -29,12 +34,18 @@
 					<div class="form-group">
 						<div class="form-row">
 							<label for="num-people" class="col-sm-2 col-form-label">People:</label>
-							<input type="text" 
+							<input type="number" 
 								class="col-sm-3 form-control" 
 								id="num-people"
 								ngModel
 								name="numPeople"
+								#numPeople="ngModel"
+								min="1"
+								max="20"
 								required>
+							<small class="input-feedback col-sm-9 offset-sm-2" *ngIf="numPeople.invalid && numPeople.touched">
+								Please enter the number of people required to attend
+							</small>
 						</div>
 					</div>
 					<div class="form-group">
@@ -45,28 +56,49 @@
 								id="location"
 								ngModel
 								name="location"
+								#location="ngModel"
+								pattern="[a-zA-Z0-9\s]+"
 								required>
+							<small class="input-feedback col-sm-10 offset-sm-2" *ngIf="location.invalid && location.touched">
+								Please enter a valid location. Alphanumeric and whitespace allowed.
+							</small>
 						</div>
 					</div>
 					<div class="form-group">
 						<div class="form-row">
 							<label for="start-time" class="col-sm-3 col-form-label">Start Time:</label>
 							<input 
-								type="text" 
+								type="number" 
 								class="col-sm-3 form-control" 
 								id="start-time" 
 								ngModel
-								name="startTime">
+								name="startTime"
+								#startTime="ngModel"
+								min="0"
+								max="2400"
+								required
+								>
+							<small class="input-feedback col-sm-9 offset-sm-3" *ngIf="startTime.invalid && startTime.touched">
+								Please enter a valid start time. Range: 0-2400.
+							</small>
 						</div>
 					</div>
 					<div class="form-group">
 						<div class="form-row">
 							<label for="end-time" class="col-sm-3 col-form-label">End Time:</label>
-							<input type="text"
+							<input 
+								type="number"
 								class="col-sm-3 form-control"
 								id="end-time"
 								ngModel
-								name="endTime">
+								name="endTime"
+								#endTime="ngModel"
+								min="0"
+								max="2400"
+								required>
+							<small class="input-feedback col-sm-9 offset-sm-3" *ngIf="endTime.invalid && endTime.touched">
+								Please enter a valid end time. Range 0-2400.
+							</small>
 						</div>
 					</div>
 					<div class="form-group">
@@ -77,11 +109,12 @@
 								id="description" 
 								rows="3"
 								ngModel
+								maxlength="300"
 								name="description"></textarea>
 						</div>
 					</div>
 					<div class="modal-footer">
-						<button type="submit" class="btn btn-success submit-btn">Create</button>
+						<button type="submit" class="btn btn-success submit-btn" [disabled]="!eventForm.valid">Create</button>
 					</div>
 				</form>
 			</div>
