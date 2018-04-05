@@ -8,7 +8,7 @@ import { NgForm } from '@angular/forms';
 })
 export class EventComponent implements OnInit {
   selectedCategories: Array<string> = [];
-  categories: Array<string> = ["chess", "basketball", "hell"]
+  categories: Array<string> = ["chess", "sports", "music"]
   constructor() { }
 
   ngOnInit() {
