@@ -8,12 +8,48 @@ import { Component, OnInit } from '@angular/core';
 
 export class GoogleMapComponent implements OnInit {
 
-  lat: number = 33.571901;
-  lng: number = -101.861329;
+  //Initial Zoom
+  zoom: number = 15;
 
+  //Center coordinates for the map
+  // if (navigator.geolocation) {
+  //   navigator.geolocation.getCurrentPosition(
+  //     function(position) {
+  //       lat: number = position.coords.latitude;
+  //       lng: number = position.coords.longitude;
+  //     });
+  // } else {
+  //   lat: number = 51.678418;
+  //   lng: number = 7.809007;
+  // }
+
+  lat: number = 33.585414;
+  lng: number = -101.868846;
+
+  //Markers array
+  markers: marker[] = [
+  {
+    lat: 33.582983,
+    lng: -101.875326,
+    label: 'A',
+    draggable: true
+  },
+  {
+    lat: 33.582982,
+    lng: -101.867258,
+    label: 'B',
+    draggable: false
+  },
+  {
+    lat: 33.586413,
+    lng: -101.862280,
+    label: 'C',
+    draggable: true
+  }
+  ]
 
   // Styke Maps Here: https://mapstyle.withgoogle.com/
-  // Or copy paste custom json google maps 
+  // Or copy paste custom json google maps
   styles = [
    {
        "featureType": "landscape.natural",

@@ -1,5 +1,15 @@
 <div class="agm-wrapper pt-2">
-  <agm-map [latitude]="lat" [longitude]="lng" [styles]="styles">
-    <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+  <agm-map
+  [zoom] = "zoom"
+  [latitude]="lat"
+  [longitude]="lng"
+  [styles]="styles">
+    <agm-marker
+      *ngFor="let m of markers; let i = index"
+      (markerClick)="clickedMarker(m.label, i)"
+      [latitude]="m.lat"
+      [longitude]="m.lng">
+      <agm-info-window>InfoWindow content</agm-info-window>
+    </agm-marker>
   </agm-map>
 </div>
