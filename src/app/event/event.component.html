@@ -68,18 +68,16 @@
 						<div class="form-row">
 							<label for="start-time" class="col-sm-3 col-form-label">Start Time:</label>
 							<input 
-								type="number" 
+								type="time" 
 								class="col-sm-3 form-control" 
 								id="start-time" 
 								ngModel
 								name="startTime"
 								#startTime="ngModel"
-								min="0"
-								max="2400"
 								required
 								>
 							<small class="input-feedback col-sm-9 offset-sm-3" *ngIf="startTime.invalid && startTime.touched">
-								Please enter a valid start time. Range: 0-2400.
+								Please enter a valid start time.
 							</small>
 						</div>
 					</div>
@@ -87,17 +85,15 @@
 						<div class="form-row">
 							<label for="end-time" class="col-sm-3 col-form-label">End Time:</label>
 							<input 
-								type="number"
+								type="time"
 								class="col-sm-3 form-control"
 								id="end-time"
 								ngModel
 								name="endTime"
 								#endTime="ngModel"
-								min="0"
-								max="2400"
 								required>
 							<small class="input-feedback col-sm-9 offset-sm-3" *ngIf="endTime.invalid && endTime.touched">
-								Please enter a valid end time. Range 0-2400.
+								Please enter a valid end time.
 							</small>
 						</div>
 					</div>
