@@ -21,6 +21,7 @@ import { AgmCoreModule } from '@agm/core';
 import { TestMessageServiceComponent } from './test-message-service/test-message-service.component';
 import { ErrorComponent } from './error/error.component';
 import { ErrorService } from './error/error.service';
+import { ViewEventComponent } from './home/view-event/view-event.component';
 
 // TODO: Remove apiKey
 @NgModule({
@@ -36,7 +37,8 @@ import { ErrorService } from './error/error.service';
     LoginAuthComponent,
     ProfileSettingsComponent,
     TestMessageServiceComponent,
-    ErrorComponent
+    ErrorComponent,
+    ViewEventComponent
   ],
   imports: [
     BrowserModule,

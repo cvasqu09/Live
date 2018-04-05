@@ -6,10 +6,10 @@
   [styles]="styles">
     <agm-marker
       *ngFor="let m of markers; let i = index"
-      (markerClick)="clickedMarker(m.label, i)"
+      (markerClick)="setCurrentEvent(m)"
       [latitude]="m.lat"
       [longitude]="m.lng">
-      <agm-info-window>InfoWindow content</agm-info-window>
     </agm-marker>
   </agm-map>
 </div>
+<app-view-event [currentEvent]='selectedEvent'></app-view-event>
