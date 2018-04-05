@@ -28,8 +28,17 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="categories" class="col-form-label">Categories:</label>
-						<p>Place category list here</p> <!-- Add ngmodel to input -->
+						<div class="form-row">
+						  <button type="button" class="btn btn-success dropdown-toggle col-sm-3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						    Categories
+						  </button>
+						  <div class="dropdown-menu">
+						    <button type="button" *ngFor="let category of categories" class="dropdown-item" (click)="onSelectCategory(category)">{{ category }}</button>
+						  </div>
+					 		<div class="col-sm-9">
+					  		<span *ngFor="let category of selectedCategories" class="badge badge-pill badge-success" (click)="onRemoveCategory(category)">{{ category }} &times;</span>
+					  	</div>
+						</div>
 					</div>
 					<div class="form-group">
 						<div class="form-row">

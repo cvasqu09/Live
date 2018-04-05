@@ -18,3 +18,14 @@ input.ng-touched.ng-invalid {
 .input-feedback {
 	color: rgba(244, 66, 66, .9);
 }
+
+.badge-pill {
+	height:  1.5rem;
+	margin-right: .2rem;
+	padding: .4rem .4rem;
+}
+
+.badge-pill:hover {
+	background-color: #228e3b;
+	cursor: default;
+}
