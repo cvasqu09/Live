@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, ElementRef, ViewChild } from '@angular/core';
-import { EventService } from '../event/event.service';
+import { EventService } from '../../event/event.service';
+import { Event } from '../../event/event.model';
 
 
 @Component({
@@ -10,7 +11,7 @@ import { EventService } from '../event/event.service';
 })
 export class ViewEventComponent implements OnInit {
 
-  @Input() currentEvent: object = {};
+  @Input() currentEvent: Event;
 
   constructor(public eventService: EventService) { }
 
@@ -26,16 +27,14 @@ export class ViewEventComponent implements OnInit {
 
   updateRSVP(){
 
-    console.log(this.currentEvent);
-    //this.currentEvent.rsvpPeople++;
-  //
-  //   this.eventService.editEventWithId("5ac6e17510988a56e8cd8b2d", this.currentEvent).subscribe(
-  //     response => {
-  //       console.log(response);
-  //     },
-  //     error => {
-  //       this.profileSettings.triggerNewUserModal(true);
-  //     }
-  //   );
+    this.currentEvent.rsvps += 1;
+    this.eventService.editEventWithId(this.currentEvent._id, this.currentEvent).subscribe(
+      response => {
+        console.log(response);
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 }

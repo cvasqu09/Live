@@ -32,44 +32,57 @@ export class GoogleMapComponent implements OnInit {
   markers: object[] =
   [
     {
-      "location": [33.58298, -101.875326],
-      name: 'Chess Game',
-      maxPeople: 3,
-      rsvpPeople: 2,
+      location: [-101.875326, 33.58298],
+      eventName: 'Chess Game',
+      numPeople: 3,
+      rsvps: 2,
       startTime: '1400',
       endTime: '1800',
       description: 'This is a test description for chess game. I need this to be longer for testing for here are some extra words that will help me out!',
-      draggable: true
+      eventOwner: 'auth0-TestUser',
+      reports: 0,
+      _id: "5ac6e17510988a56e8cd8b2d",
+      categories: ['sports','reading'],
     },
     {
-      "location": [33.582982, -101.867258],
-      name: 'Basketball',
-      maxPeople: 3,
-      rsvpPeople: 3,
+      location: [ -101.867258, 33.582982],
+      categories: ['sports','reading'],
+      eventName: 'Basketball',
+      numPeople: 3,
+      rsvps: 3,
       startTime: '1400',
       endTime: '1800',
       description: 'This is a test description for basketball.  I need this to be longer for testing for here are some extra words that will help me out!',
-      draggable: true
+      eventOwner: "euth0-TestingAgain",
+      reports: 0,
+      _id: "5a847edee5847831acb269a4",
     },
     {
-      "location": [33.586413, -101.862280],
-      name: 'Kickball',
-      maxPeople: 3,
-      rsvpPeople: 1,
-      startTime: '1400',
-      endTime: '1800',
+      eventName: 'Kickball',
+      categories: ['sports','reading'],
+      numPeople: 3,
+      location: [-101.862280, 33.586413],
+      startTime: 1400,
+      endTime: 1800,
       description: 'This is a test description for kickball.  I need this to be longer for testing for here are some extra words that will help me out!',
-      draggable: true
+      eventOwner: "euth0-TestingAgain",
+      reports: 0,
+      rsvps: 1,
+      _id: "5a847edee5847831acb269a8",
+
     },
     {
-      "location": [33.590204, -101.873437],
-      name: 'Cooking',
-      maxPeople: 10,
-      rsvpPeople: 3,
+      location: [-101.873437, 33.590204],
+      eventName: 'Cooking',
+      numPeople: 10,
+      rsvps: 3,
       startTime: '1400',
       endTime: '1800',
       description: 'This is a test description for a cooking class.  I need this to be longer for testing for here are some extra words that will help me out!',
-      draggable: true
+      eventOwner: "euth0-TestingAgain",
+      reports: 0,
+      _id: "5a847edee5847831acb269a7",
+      categories: ['sports','reading']
     }
 
   ];
