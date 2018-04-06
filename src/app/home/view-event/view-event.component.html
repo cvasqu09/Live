@@ -40,9 +40,10 @@
           <div class="event-rsvp event-info">
             <span class="event-section-title">RSVP</span>
             <div class="event-rsvp progress">
-              <div class="progress-bar" [style.width]="(currentEvent.rsvpPeople/currentEvent.maxPeople) * 100 + '%'">{{currentEvent.rsvpPeople}} of {{currentEvent.maxPeople}}</div>
+              <div *ngIf="currentEvent.rsvpPeople != currentEvent.maxPeople" class="progress-bar" [style.width]="(currentEvent.rsvpPeople/currentEvent.maxPeople) * 100 + '%'">{{currentEvent.rsvpPeople}} of {{currentEvent.maxPeople}}</div>
+              <div *ngIf="currentEvent.rsvpPeople == currentEvent.maxPeople" class="progress-bar" [style.width]="100 + '%'">Full!</div>
             </div>
-            <button class="btn btn-outline-primary btn-rsvp">Join Now!</button>
+            <button *ngIf="currentEvent.rsvpPeople != currentEvent.maxPeople" class="btn btn-outline-primary btn-rsvp">Join Now!</button>
           </div>
         </div>
       </div>
