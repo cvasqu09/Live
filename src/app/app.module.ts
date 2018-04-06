@@ -8,6 +8,7 @@ import { AuthService } from './auth.service';
 import { HttpModule } from '@angular/http';
 import { IceNumberComponent } from './ice-number/ice-number.component'
 import { UserService } from './user/user.service';
+import { EventService } from './event/event.service';
 import { HomeComponent } from './home/home.component';
 import { GoogleMapComponent } from './home/google-map/google-map.component';
 import { SearchBarComponent } from './home/search-bar/search-bar.component';
@@ -52,6 +53,7 @@ import { ViewEventComponent } from './home/view-event/view-event.component';
 
   providers: [
     UserService,
+    EventService,
     AuthService,
     AuthGuard,
     ErrorService
