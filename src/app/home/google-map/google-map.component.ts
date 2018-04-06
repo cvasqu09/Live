@@ -39,7 +39,7 @@ export class GoogleMapComponent implements OnInit {
       rsvpPeople: 2,
       startTime: '2:00pm',
       endTime: '4:00pm',
-      description: 'This is a test description for chess game',
+      description: 'This is a test description for chess game. I need this to be longer for testing for here are some extra words that will help me out!',
       draggable: true
     },
     {
@@ -50,7 +50,7 @@ export class GoogleMapComponent implements OnInit {
       rsvpPeople: 3,
       startTime: '2:00pm',
       endTime: '4:00pm',
-      description: 'This is a test description for basketball',
+      description: 'This is a test description for basketball.  I need this to be longer for testing for here are some extra words that will help me out!',
       draggable: true
     },
     {
@@ -61,7 +61,7 @@ export class GoogleMapComponent implements OnInit {
       rsvpPeople: 1,
       startTime: '2:00pm',
       endTime: '4:00pm',
-      description: 'This is a test description for kickball',
+      description: 'This is a test description for kickball.  I need this to be longer for testing for here are some extra words that will help me out!',
       draggable: true
     }
   ];
