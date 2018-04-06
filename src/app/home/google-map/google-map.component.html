@@ -1,6 +1,15 @@
 <div class="agm-wrapper pt-2">
-  <agm-map [latitude]="lat" [longitude]="lng">
-    <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+  <agm-map
+  [zoom] = "zoom"
+  [latitude]="lat"
+  [longitude]="lng"
+  [styles]="styles">
+    <agm-marker
+      *ngFor="let m of markers; let i = index"
+      (markerClick)="setCurrentEvent(m)"
+      [latitude]="m.location[0]"
+      [longitude]="m.location[1]">
+    </agm-marker>
   </agm-map>
 </div>
 
@@ -13,3 +22,4 @@
 
 <!-- Event creation modal -->
 <app-event></app-event>
+<app-view-event [currentEvent]='selectedEvent'></app-view-event>
