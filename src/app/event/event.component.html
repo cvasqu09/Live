@@ -1,3 +1,128 @@
-<p>
-  event works!
-</p>
+<div class="modal fade" id="eventModal" role="dialog" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Create a New Event</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close" #closeButton>
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<form (ngSubmit)="onSubmit(eventForm)" #eventForm="ngForm">
+					<div class="form-group">
+						<div class="form-row">
+							<label for="event-name" class="col-sm-3 col-form-label">Event Name:</label>
+							<input
+								type="text"
+								class="col-sm-9 form-control"
+								id="event-name"
+								ngModel
+								name="eventName"
+								required
+								#eventName="ngModel"
+								maxlength="40"
+								pattern="[a-zA-Z0-9\s]+">
+							<small class="input-feedback col-sm-9 offset-sm-3" *ngIf="eventName.invalid && eventName.touched">
+								Please enter a valid event name. Alphanumeric and whitespace allowed
+							</small>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="form-row">
+						  <button type="button" class="btn btn-success dropdown-toggle col-sm-3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" (click)="onDropdownTouched()">
+						    Categories
+						  </button>
+						  <div class="dropdown-menu">
+						    <button type="button" *ngFor="let category of categories" class="dropdown-item" (click)="onSelectCategory(category)">{{ category }}</button>
+						  </div>
+					 		<div class="col-sm-9">
+					  		<span *ngFor="let category of selectedCategories" class="badge badge-pill badge-success" (click)="onRemoveCategory(category)">{{ category }} &times;</span>
+					  	</div>
+					  	<small class="input-feedback" *ngIf="dropdownTouched && selectedCategories?.length === 0">Note: You must have at least one category selected</small>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="form-row">
+							<label for="num-people" class="col-sm-2 col-form-label">People:</label>
+							<input type="text"
+								class="col-sm-3 form-control"
+								id="num-people"
+								ngModel
+								name="numPeople"
+								#numPeople="ngModel"
+								pattern="([1-9]|1[0-9]|20)"
+								required>
+							<small class="input-feedback col-sm-9 offset-sm-2" *ngIf="numPeople.invalid && numPeople.touched">
+								Please enter the number of people required to attend. Between 1-20
+							</small>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="form-row">
+							<label for="location" class="col-sm-2 col-form-label">Location:</label>
+							<input type="text"
+								class="col-sm-10 form-control"
+								id="location"
+								ngModel
+								name="location"
+								#location="ngModel"
+								pattern="[a-zA-Z0-9\s]+"
+								required>
+							<small class="input-feedback col-sm-10 offset-sm-2" *ngIf="location.invalid && location.touched">
+								Please enter a valid location. Alphanumeric and whitespace allowed.
+							</small>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="form-row">
+							<label for="start-time" class="col-sm-3 col-form-label">Start Time:</label>
+							<input
+								type="time"
+								class="col-sm-3 form-control"
+								id="start-time"
+								ngModel
+								name="startTime"
+								#startTime="ngModel"
+								required
+								>
+							<small class="input-feedback col-sm-9 offset-sm-3" *ngIf="startTime.invalid && startTime.touched">
+								Please enter a valid start time.
+							</small>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="form-row">
+							<label for="end-time" class="col-sm-3 col-form-label">End Time:</label>
+							<input
+								type="time"
+								class="col-sm-3 form-control"
+								id="end-time"
+								ngModel
+								name="endTime"
+								#endTime="ngModel"
+								required>
+							<small class="input-feedback col-sm-9 offset-sm-3" *ngIf="endTime.invalid && endTime.touched">
+								Please enter a valid end time.
+							</small>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="form-row">
+							<label for="description" class="col-form-label">Description:</label>
+							<textarea
+								class="form-control"
+								id="description"
+								rows="3"
+								ngModel
+								maxlength="300"
+								name="description"></textarea>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="submit" class="btn btn-success submit-btn" [disabled]="!eventForm.valid || selectedCategories?.length === 0">Create</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
