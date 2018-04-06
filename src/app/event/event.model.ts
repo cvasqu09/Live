@@ -7,7 +7,7 @@ export class Event {
 							public endTime: number,
 							public description: string,
 							public eventOwner: string,
-							public _id: string,
+							public _id: string = null,
 							public rsvps: number,
 							public reports?: number){}
 }

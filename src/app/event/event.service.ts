@@ -18,7 +18,7 @@ export class EventService {
   getAllEvents(): Observable<any> {
     return this.http.get(this.baseURL)
       .map((response: Response) => {
-        return response;
+        return response.json();
       })
       .catch((error: Response) => {
         return Observable.throw(error.json());

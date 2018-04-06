@@ -22,6 +22,7 @@ input.ng-touched.ng-invalid {
 .badge-pill {
 	height:  1.5rem;
 	margin-right: .2rem;
+	margin-top: .4rem;
 	padding: .4rem .4rem;
 }
 
