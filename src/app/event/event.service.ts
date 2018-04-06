@@ -14,6 +14,16 @@ export class EventService {
   constructor(private http: Http) { 
 
   }
+
+  getAllEvents(): Observable<any> {
+    return this.http.get(this.baseURL)
+      .map((response: Response) => {
+        return response;
+      })
+      .catch((error: Response) => {
+        return Observable.throw(error.json());
+      })
+  }
   
   // Get EventById
   getEventById(eventId: string): Observable<any> {

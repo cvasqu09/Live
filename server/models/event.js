@@ -10,12 +10,12 @@ var categoryValidator = function (categoryArray) {
   return true;
 };
 
-var timeValidator = function(time: Number) {
-  if(time < 0 || time > 2400){
-    return false
+var timeValidator = function (time) {
+  if (time < 0 || time > 2400) {
+    return false;
   }
   return true;
-}
+};
 
 var eventSchema = new Schema({
   eventName: {
@@ -32,32 +32,32 @@ var eventSchema = new Schema({
       message: 'Categories cannot be empty.'
     }
   },
-  numPeople: { 
-    type: Number, 
+  numPeople: {
+    type: Number,
     required: true,
-    min: [1, "Enter number of people for the event"],
-    max: [20, "Max of 20 people allowed for an event"]
+    min: [1, 'Enter number of people for the event'],
+    max: [20, 'Max of 20 people allowed for an event']
   },
   location: { type: [Number], index: '2dsphere', required: true },
-  startTime: { 
-    type: Number, 
+  startTime: {
+    type: Number,
     required: true,
     validate: {
       validator: timeValidator,
-      message: "Invalid time entered"
+      message: 'Invalid time entered'
     }
   },
-  endTime: { 
-    type: Number, 
+  endTime: {
+    type: Number,
     required: true,
     validate: {
       validator: timeValidator,
-      message: "Invalid time"
+      message: 'Invalid time'
     }
   },
-  description: { 
-    type: String
-    max: [300, "Description is too long. Max 300 characters"]
+  description: {
+    type: String,
+    max: [300, 'Description is too long. Max 300 characters']
   },
   eventOwner: { type: String, required: true },
   reports: { type: Number, default: 0 },
