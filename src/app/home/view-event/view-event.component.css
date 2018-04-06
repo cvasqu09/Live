@@ -1,0 +1,71 @@
+.event-header {
+
+  color: white;
+  background-color: #1D1959;
+}
+
+.event-date, .event-times {
+
+  font-size: 18pt;
+  text-align: center;
+}
+
+.event-section-title {
+
+  font-size: 12pt;
+  color: #9B9B9C;
+}
+
+.event-info {
+
+  font-size: 14pt;
+  font-weight: bold;
+}
+
+.event-rsvp {
+
+  width: 100%;
+}
+
+.progress, .progress-bar {
+
+  height: 40px;
+}
+
+.progress {
+
+  border-width: 1px;
+  border-color: #1D1959;
+  border-style: solid;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  background-color: white;
+}
+
+.progress-bar {
+
+  background-color: #1D1959;
+}
+
+.btn-rsvp {
+
+  width: 100%;
+  margin-top: -1px;
+  border-top: none;
+  border-color: #1D1959;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  color: #1D1959;
+  font-weight: bold;
+}
+
+.btn-rsvp:hover {
+
+  border-color: #1D1959;
+  background-color: #1D1959;
+  color: white;
+}
+
+.event-header button {
+  color: white;
+}
