@@ -14,6 +14,7 @@ import { SearchBarComponent } from './home/search-bar/search-bar.component';
 import { DropdownComponent } from './home/dropdown/dropdown.component';
 import { appRoutes } from './frontend.routing';
 import { ProfileComponent } from './profile/profile.component';
+import { EventComponent } from './event/event.component';
 import { EventDetailsComponent } from './event-details/event-details.component';
 import { LoginAuthComponent } from './login-auth/login-auth.component';
 import { ProfileSettingsComponent } from './profile-settings/profile-settings.component';
@@ -33,6 +34,7 @@ import { ErrorService } from './error/error.service';
     DropdownComponent,
     ProfileComponent,
     EventDetailsComponent,
+    EventComponent,
     LoginAuthComponent,
     ProfileSettingsComponent,
     TestMessageServiceComponent,

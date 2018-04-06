@@ -7,3 +7,12 @@
 agm-map {
   height: 100%;
 }
+
+.button-overlay {
+	position: absolute;
+	left: 10px;
+	bottom: 10px;
+	border-radius: 50%;
+	font-size: 200%;
+}
+
