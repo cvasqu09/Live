@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ViewEventComponent } from '../view-event/view-event.component';
-
+import { EventService } from '../../event/event.service'
 @Component({
   selector: 'app-google-map',
   templateUrl: './google-map.component.html',
   styleUrls: ['./google-map.component.css'],
-  providers: [ViewEventComponent]
+  providers: [ViewEventComponent, EventService]
 })
 
 export class GoogleMapComponent implements OnInit {
@@ -232,9 +232,13 @@ export class GoogleMapComponent implements OnInit {
 
   selectedEvent: object = {};
 
-  constructor(public viewEvent: ViewEventComponent) { }
+  constructor(public viewEvent: ViewEventComponent, private eventService: EventService) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.eventService.getAllEvents().subscribe (res => {
+      console.log (res);
+    })
+  }
 
   setCurrentEvent(event){
 
