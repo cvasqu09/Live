@@ -1,10 +1,12 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, NgZone } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { EventService } from './event.service';
-import { Event } from './event.model'
-import { UserService } from '../user/user.service'
-import { User } from '../user/user.model'
-import { ErrorService } from '../error/error.service'
+import { Event } from './event.model';
+import { UserService } from '../user/user.service';
+import { User } from '../user/user.model';
+import { ErrorService } from '../error/error.service';
+import { MapsAPILoader } from '@agm/core';
+import { } from 'googlemaps';
 
 @Component({
   selector: 'app-event',
@@ -13,14 +15,40 @@ import { ErrorService } from '../error/error.service'
   providers: [UserService, EventService, ErrorService]
 })
 export class EventComponent implements OnInit {
+
   selectedCategories: Array<string> = [];
   categories: Array<string> = ["chess", "sports", "music"] // TODO: Have a global for supported categories
   dropdownTouched: boolean = false;
+  eventLat: number;
+  eventLng: number;
   @ViewChild('closeButton') closeButton: ElementRef;
+  @ViewChild('search') searchLocation: ElementRef;
 
-  constructor(private eventService: EventService, private userService: UserService, private errorService: ErrorService) { }
+  constructor(
+    private eventService: EventService,
+    private userService: UserService,
+    private errorService: ErrorService,
+    private mapsAPI: MapsAPILoader,
+    private ngZone: NgZone
+  ) {}
 
   ngOnInit() {
+
+    this.mapsAPI.load().then(() => {
+      let autocomplete = new google.maps.places.Autocomplete(this.searchLocation.nativeElement, {
+        types: ["address"]
+      });
+      autocomplete.addListener("place_changed", () => {
+        this.ngZone.run(() => {
+          let place: google.maps.places.PlaceResult = autocomplete.getPlace(); // Gets the place results
+          if (place.geometry === undefined || place.geometry === null){
+            return;
+          }
+          this.eventLat = place.geometry.location.lat();
+          this.eventLng = place.geometry.location.lng();
+        });
+      });
+    });
   }
 
   onSubmit(eventForm: NgForm) {
@@ -30,7 +58,7 @@ export class EventComponent implements OnInit {
         eventForm.value.eventName,
         this.selectedCategories,
         eventForm.value.numPeople,
-        [-97.734375, 37.3002752813443], // Hardcoded values for testing. Will have to convert string location to array of coordinates
+        [this.eventLng, this.eventLat],
         Number(eventForm.value.startTime.replace(":", "")),
         Number(eventForm.value.endTime.replace(":", "")),
         eventForm.value.description,
