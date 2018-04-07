@@ -32,38 +32,46 @@ export class GoogleMapComponent implements OnInit {
   markers: object[] =
   [
     {
-      lat: 33.582983,
-      lng: -101.875326,
+      "location": [33.58298, -101.875326],
       name: 'Chess Game',
       maxPeople: 3,
       rsvpPeople: 2,
-      startTime: '2:00pm',
-      endTime: '4:00pm',
+      startTime: '1400',
+      endTime: '1800',
       description: 'This is a test description for chess game. I need this to be longer for testing for here are some extra words that will help me out!',
       draggable: true
     },
     {
-      lat: 33.582982,
-      lng: -101.867258,
+      "location": [33.582982, -101.867258],
       name: 'Basketball',
       maxPeople: 3,
       rsvpPeople: 3,
-      startTime: '2:00pm',
-      endTime: '4:00pm',
+      startTime: '1400',
+      endTime: '1800',
       description: 'This is a test description for basketball.  I need this to be longer for testing for here are some extra words that will help me out!',
       draggable: true
     },
     {
-      lat: 33.586413,
-      lng: -101.862280,
+      "location": [33.586413, -101.862280],
       name: 'Kickball',
       maxPeople: 3,
       rsvpPeople: 1,
-      startTime: '2:00pm',
-      endTime: '4:00pm',
+      startTime: '1400',
+      endTime: '1800',
       description: 'This is a test description for kickball.  I need this to be longer for testing for here are some extra words that will help me out!',
       draggable: true
+    },
+    {
+      "location": [33.590204, -101.873437],
+      name: 'Cooking',
+      maxPeople: 10,
+      rsvpPeople: 3,
+      startTime: '1400',
+      endTime: '1800',
+      description: 'This is a test description for a cooking class.  I need this to be longer for testing for here are some extra words that will help me out!',
+      draggable: true
     }
+
   ];
 
   // Styke Maps Here: https://mapstyle.withgoogle.com/
