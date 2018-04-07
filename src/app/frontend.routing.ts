@@ -11,8 +11,8 @@ const ROUTES: Routes = [
 	// { path: "signin", component: }
 	{ path: "profile", component: ProfileComponent, canActivate: [AuthGuard] }, // Change path to profile/:id once profiles are handled
 	{ path: "home", component: HomeComponent, canActivate: [AuthGuard] },
-	{ path: "sms", component: TestMessageServiceComponent },
-	{ path: "review", component: ReviewComponent }
+	{ path: "sms", component: TestMessageServiceComponent, canActivate: [AuthGuard] },
+	{ path: "review", component: ReviewComponent, canActivate: [AuthGuard] }
 ];
 
 // Registers the frontend routes in angular

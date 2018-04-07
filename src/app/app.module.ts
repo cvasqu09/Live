@@ -10,6 +10,7 @@ import { HttpModule } from '@angular/http';
 import { IceNumberComponent } from './ice-number/ice-number.component'
 import { UserService } from './user/user.service';
 import { EventService } from './event/event.service';
+import { ReviewService } from './review/review.service';
 import { HomeComponent } from './home/home.component';
 import { GoogleMapComponent } from './home/google-map/google-map.component';
 import { SearchBarComponent } from './home/search-bar/search-bar.component';
@@ -27,6 +28,7 @@ import { ErrorService } from './error/error.service';
 import { ViewEventComponent } from './home/view-event/view-event.component';
 import { DatePickerComponent } from './date-picker/date-picker.component';
 import { ReviewComponent } from './review/review.component';
+import { ToasterComponent } from './toaster/toaster.component';
 
 // TODO: Remove apiKey
 @NgModule({
@@ -47,6 +49,7 @@ import { ReviewComponent } from './review/review.component';
     ViewEventComponent,
     DatePickerComponent
     ReviewComponent
+    ToasterComponent
   ],
   imports: [
     BrowserModule,
@@ -66,7 +69,8 @@ import { ReviewComponent } from './review/review.component';
     EventService,
     AuthService,
     AuthGuard,
-    ErrorService
+    ErrorService,
+    ReviewService
   ],
   bootstrap: [AppComponent]
 })
