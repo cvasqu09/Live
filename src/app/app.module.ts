@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
 import { AuthGuard } from './auth.guard';
@@ -24,6 +25,7 @@ import { TestMessageServiceComponent } from './test-message-service/test-message
 import { ErrorComponent } from './error/error.component';
 import { ErrorService } from './error/error.service';
 import { ViewEventComponent } from './home/view-event/view-event.component';
+import { DatePickerComponent } from './date-picker/date-picker.component';
 
 // TODO: Remove apiKey
 @NgModule({
@@ -41,14 +43,20 @@ import { ViewEventComponent } from './home/view-event/view-event.component';
     ProfileSettingsComponent,
     TestMessageServiceComponent,
     ErrorComponent,
-    ViewEventComponent
+    ViewEventComponent,
+    DatePickerComponent
   ],
   imports: [
     BrowserModule,
     HttpModule,
     FormsModule,
+    ReactiveFormsModule,
     appRoutes,
-    AgmCoreModule.forRoot({ apiKey: 'AIzaSyAH3tBDHWwu1z0zQ5qDbeQHVjPVizHrkbo'})
+    NgbModule.forRoot(),
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyAH3tBDHWwu1z0zQ5qDbeQHVjPVizHrkbo',
+      libraries: ["places"]
+    })
   ],
 
   providers: [
