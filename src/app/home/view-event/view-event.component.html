@@ -7,7 +7,7 @@
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="event-header modal-header">
-        <h3 class="modal-title text-left" id="viewEventModalTitle">{{currentEvent.name}}</h3>
+        <h3 class="modal-title text-left" id="viewEventModalTitle">{{currentEvent.eventName}}</h3>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -40,10 +40,10 @@
           <div class="event-rsvp event-info">
             <span class="event-section-title">RSVP</span>
             <div class="event-rsvp progress">
-              <div *ngIf="currentEvent.rsvpPeople != currentEvent.maxPeople" class="progress-bar" [style.width]="(currentEvent.rsvpPeople/currentEvent.maxPeople) * 100 + '%'">{{currentEvent.rsvpPeople}} of {{currentEvent.maxPeople}}</div>
-              <div *ngIf="currentEvent.rsvpPeople == currentEvent.maxPeople" class="progress-bar" [style.width]="100 + '%'">Full!</div>
+              <div *ngIf="currentEvent.rsvps != currentEvent.numPeople" class="progress-bar" [style.width]="(currentEvent.rsvps/currentEvent.numPeople) * 100 + '%'">{{currentEvent.rsvps}} of {{currentEvent.numPeople}}</div>
+              <div *ngIf="currentEvent.rsvps == currentEvent.numPeople" class="progress-bar" [style.width]="100 + '%'">Full!</div>
             </div>
-            <button *ngIf="currentEvent.rsvpPeople != currentEvent.maxPeople" class="btn btn-outline-primary btn-rsvp" (click)="updateRSVP()">Join Now!</button>
+            <button *ngIf="currentEvent.rsvps != currentEvent.numPeople" class="btn btn-outline-primary btn-rsvp" (click)="updateRSVP()">Join Now!</button>
           </div>
         </div>
       </div>
