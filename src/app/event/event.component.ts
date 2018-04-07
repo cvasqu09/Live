@@ -21,6 +21,8 @@ export class EventComponent implements OnInit {
   dropdownTouched: boolean = false;
   eventLat: number;
   eventLng: number;
+  startDate: { year: number, month: number, day: number };
+  endDate: { year: number, month: number, day: number };
   @ViewChild('closeButton') closeButton: ElementRef;
   @ViewChild('search') searchLocation: ElementRef;
 
@@ -52,29 +54,38 @@ export class EventComponent implements OnInit {
   }
 
   onSubmit(eventForm: NgForm) {
+
     this.userService.getUserInfo(localStorage.getItem('user_id')).subscribe(user => {
+      // Construct JS Date objects using UTC time
+      const startTime = eventForm.value.startTime.split(":")
+      const startUTCDate: Date = new Date(this.startDate.year, this.startDate.month - 1, this.startDate.day, // Month begin at 0 = Jan
+                                          Number(startTime[0]), Number(startTime[1]))
+
+      const endTime = eventForm.value.endTime.split(":")
+      const endUTCDate: Date = new Date(this.endDate.year, this.endDate.month - 1, this.endDate.day,
+                                        Number(endTime[0]), Number(endTime[0]))
+
       // Create an event with the form data and user info
       const event: Event = new Event(
         eventForm.value.eventName,
         this.selectedCategories,
         eventForm.value.numPeople,
-        [this.eventLng, this.eventLat],
-        Number(eventForm.value.startTime.replace(":", "")),
-        Number(eventForm.value.endTime.replace(":", "")),
+        [-97.734375, 37.3002752813443], // Hardcoded values for testing. Will have to convert string location to array of coordinates
+        startUTCDate,
+        endUTCDate,
         eventForm.value.description,
         user.fullName,
         null,
-        0,
-        0
-      );
-
+        {numRsvps: 0, rsvpUsers: new Array<string>() },
+        0);
+      
+      console.log(JSON.stringify(event))
       // Post to the Database
       this.eventService.createEvent(event).subscribe(res => {
         // Close the modal after successful submission.
         this.closeButton.nativeElement.click();
       }, err => {
-        // Display a message with error
-        // this.errorService.emitError(err)
+        // Return error
       });
     }, err => {
       // Display a message with error
@@ -98,4 +109,19 @@ export class EventComponent implements OnInit {
     this.dropdownTouched = true;
   }
 
+  onDateChange(type, event){
+    switch(type) {
+      case 'start': {
+        this.startDate = event
+      }
+
+      case 'end': {
+        this.endDate = event
+      }
+
+      default: {
+        this.startDate = event
+      }
+    }
+  }
 }
