@@ -10,8 +10,20 @@ var categoryValidator = function (categoryArray) {
   return true;
 };
 
+var timeValidator = function (time) {
+  if (time < 0 || time > 2400) {
+    return false;
+  }
+  return true;
+};
+
 var eventSchema = new Schema({
-  eventName: { type: String, required: true },
+  eventName: {
+    type: String,
+    required: true,
+    min: [1, 'Event name must be provided'],
+    max: [40, 'Event name is too long']
+  },
   categories: {
     type: Array,
     required: true,
@@ -20,13 +32,36 @@ var eventSchema = new Schema({
       message: 'Categories cannot be empty.'
     }
   },
-  numPeople: { type: Number, required: true }, // Do we want ranges? Querying may be better if we have just a number
-  location: { type: [Number], index: '2dsphere' }, // Location be required?
-  startTime: { type: Number }, // How are we going to store the time and what time zone will we use as reference?
-  endTime: { type: Number },
-  description: { type: String }, // Limit the length?
+  numPeople: {
+    type: Number,
+    required: true,
+    min: [1, 'Enter number of people for the event'],
+    max: [20, 'Max of 20 people allowed for an event']
+  },
+  location: { type: [Number], index: '2dsphere', required: true },
+  startTime: {
+    type: Number,
+    required: true,
+    validate: {
+      validator: timeValidator,
+      message: 'Invalid time entered'
+    }
+  },
+  endTime: {
+    type: Number,
+    required: true,
+    validate: {
+      validator: timeValidator,
+      message: 'Invalid time'
+    }
+  },
+  description: {
+    type: String,
+    max: [300, 'Description is too long. Max 300 characters']
+  },
   eventOwner: { type: String, required: true },
   reports: { type: Number, default: 0 },
+  rsvps: { type: Number, default: 0 },
   _id: { type: Schema.Types.ObjectId }
 },
 { versionKey: false });
