@@ -83,7 +83,7 @@
 					<div class="form-group">
 						<div class="form-row">
 							<div class="col-sm-3 col-form-label">Start date:</div>
-							<app-date-picker></app-date-picker>
+							<app-date-picker (dateEmitter)="onDateChange('start', $event)" ngModel></app-date-picker>
 						</div>
 					</div>
 
@@ -107,7 +107,7 @@
 					<div class="form-group">
 						<div class="form-row">
 							<div class="col-sm-3 col-form-label">End date:</div>
-							<app-date-picker></app-date-picker>
+							<app-date-picker (dateEmitter)="onDateChange('end', $event)" ngModel></app-date-picker>
 						</div>
 					</div>
 

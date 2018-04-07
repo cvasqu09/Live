@@ -10,11 +10,15 @@ var categoryValidator = function (categoryArray) {
   return true;
 };
 
-var timeValidator = function (time) {
-  if (time < 0 || time > 2400) {
-    return false;
+var dateValidator = function (date) {
+  currentTime = Date.now();
+  diffInMilli = Math.abs(date.getTime() - currentTime);
+  diffInDays = diffInMilli / (1000 * 60 * 60 * 24);
+
+  if (diffInDays >= 0 && diffInDays < 2) {
+    return true;
   }
-  return true;
+  return false;
 };
 
 var eventSchema = new Schema({
@@ -39,20 +43,20 @@ var eventSchema = new Schema({
     max: [20, 'Max of 20 people allowed for an event']
   },
   location: { type: [Number], index: '2dsphere', required: true },
-  startTime: {
-    type: Number,
+  start: {
+    type: Date,
     required: true,
     validate: {
-      validator: timeValidator,
-      message: 'Invalid time entered'
+      validator: dateValidator,
+      message: 'Invalid date entered'
     }
   },
-  endTime: {
-    type: Number,
+  end: {
+    type: Date,
     required: true,
     validate: {
-      validator: timeValidator,
-      message: 'Invalid time'
+      validator: dateValidator,
+      message: 'Invalid date entered'
     }
   },
   description: {
