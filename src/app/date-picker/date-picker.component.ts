@@ -12,6 +12,7 @@ export class DatePickerComponent implements OnInit {
 
 	model: NgbDateStruct;
   date: {year: number, month: number};
+  time = {hour: 13, minute: 30};
 
   selectToday() {
  	  this.model = {year: now.getFullYear(), month: now.getMonth() + 1, day: now.getDate()};
