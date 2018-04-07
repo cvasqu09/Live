@@ -26,6 +26,7 @@ import { ErrorComponent } from './error/error.component';
 import { ErrorService } from './error/error.service';
 import { ViewEventComponent } from './home/view-event/view-event.component';
 import { DatePickerComponent } from './date-picker/date-picker.component';
+import { ReviewComponent } from './review/review.component';
 
 // TODO: Remove apiKey
 @NgModule({
@@ -45,6 +46,7 @@ import { DatePickerComponent } from './date-picker/date-picker.component';
     ErrorComponent,
     ViewEventComponent,
     DatePickerComponent
+    ReviewComponent
   ],
   imports: [
     BrowserModule,
