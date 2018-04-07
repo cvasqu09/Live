@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ViewEventComponent } from '../view-event/view-event.component';
-
+import { EventService } from '../../event/event.service'
 @Component({
   selector: 'app-google-map',
   templateUrl: './google-map.component.html',
   styleUrls: ['./google-map.component.css'],
-  providers: [ViewEventComponent]
+  providers: [ViewEventComponent, EventService]
 })
 
 export class GoogleMapComponent implements OnInit {
@@ -27,65 +27,6 @@ export class GoogleMapComponent implements OnInit {
 
   lat: number = 33.585414;
   lng: number = -101.868846;
-
-  //Markers array
-  markers: object[] =
-  [
-    {
-      location: [-101.875326, 33.58298],
-      eventName: 'Chess Game',
-      numPeople: 3,
-      rsvps: 2,
-      startTime: '1400',
-      endTime: '1800',
-      description: 'This is a test description for chess game. I need this to be longer for testing for here are some extra words that will help me out!',
-      eventOwner: 'auth0-TestUser',
-      reports: 0,
-      _id: "5ac6e17510988a56e8cd8b2d",
-      categories: ['sports','reading'],
-    },
-    {
-      location: [ -101.867258, 33.582982],
-      categories: ['sports','reading'],
-      eventName: 'Basketball',
-      numPeople: 3,
-      rsvps: 3,
-      startTime: '1400',
-      endTime: '1800',
-      description: 'This is a test description for basketball.  I need this to be longer for testing for here are some extra words that will help me out!',
-      eventOwner: "euth0-TestingAgain",
-      reports: 0,
-      _id: "5a847edee5847831acb269a4",
-    },
-    {
-      eventName: 'Kickball',
-      categories: ['sports','reading'],
-      numPeople: 3,
-      location: [-101.862280, 33.586413],
-      startTime: 1400,
-      endTime: 1800,
-      description: 'This is a test description for kickball.  I need this to be longer for testing for here are some extra words that will help me out!',
-      eventOwner: "euth0-TestingAgain",
-      reports: 0,
-      rsvps: 1,
-      _id: "5a847edee5847831acb269a8",
-
-    },
-    {
-      location: [-101.873437, 33.590204],
-      eventName: 'Cooking',
-      numPeople: 10,
-      rsvps: 3,
-      startTime: '1400',
-      endTime: '1800',
-      description: 'This is a test description for a cooking class.  I need this to be longer for testing for here are some extra words that will help me out!',
-      eventOwner: "euth0-TestingAgain",
-      reports: 0,
-      _id: "5a847edee5847831acb269a7",
-      categories: ['sports','reading']
-    }
-
-  ];
 
   // Styke Maps Here: https://mapstyle.withgoogle.com/
   // Or copy paste custom json google maps
@@ -244,10 +185,16 @@ export class GoogleMapComponent implements OnInit {
  ];
 
   selectedEvent: object = {};
+  markers: object[];
+  constructor(public viewEvent: ViewEventComponent, private eventService: EventService) { }
 
-  constructor(public viewEvent: ViewEventComponent) { }
+  ngOnInit() {
+    this.eventService.getAllEvents().subscribe (res => {
+      this.markers = res;
+      console.log(res);
+    })
+  }
 
-  ngOnInit() { }
 
   setCurrentEvent(event){
 

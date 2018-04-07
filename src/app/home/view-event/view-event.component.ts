@@ -1,5 +1,7 @@
 import { Component, OnInit, Input, ElementRef, ViewChild } from '@angular/core';
-import { EventService } from './event/event.service';
+import { DatePipe } from '@angular/common';
+import { EventService } from '../../event/event.service';
+import { Event } from '../../event/event.model';
 
 @Component({
   selector: 'app-view-event',
@@ -9,7 +11,7 @@ import { EventService } from './event/event.service';
 })
 export class ViewEventComponent implements OnInit {
 
-  @Input() currentEvent: object = {};
+  @Input() currentEvent: Event;
 
   constructor() { }
 
@@ -26,7 +28,7 @@ export class ViewEventComponent implements OnInit {
   updateRSVP(){
 
     console.log(this.currentEvent);
-    this.currentEvent.rsvpPeople++;
+    this.currentEvent.rsvps['numRsvps']++;
   //
   //   this.eventService.editEventWithId("5ac6e17510988a56e8cd8b2d", this.currentEvent).subscribe(
   //     response => {

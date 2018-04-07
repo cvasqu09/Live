@@ -15,10 +15,10 @@
       <div class="modal-body p-2">
         <div class="row mx-auto">
           <div class="event-date col">
-            <strong>Apr. 5th 2018</strong>
+            <strong>{{currentEvent.start | date:'fullDate'}}</strong>
           </div>
           <div class="event-times col">
-            <strong>{{currentEvent.startTime}} - {{currentEvent.endTime}}</strong>
+            <strong>{{currentEvent.start | date:'shortTime'}} - {{currentEvent.end | date:'shortTime'}}</strong>
           </div>
         </div>
         <hr>
@@ -40,10 +40,10 @@
           <div class="event-rsvp event-info">
             <span class="event-section-title">RSVP</span>
             <div class="event-rsvp progress">
-              <div *ngIf="currentEvent.rsvps != currentEvent.numPeople" class="progress-bar" [style.width]="(currentEvent.rsvps/currentEvent.numPeople) * 100 + '%'">{{currentEvent.rsvps}} of {{currentEvent.numPeople}}</div>
-              <div *ngIf="currentEvent.rsvps == currentEvent.numPeople" class="progress-bar" [style.width]="100 + '%'">Full!</div>
+              <div *ngIf="currentEvent?.rsvps?.numRsvps != currentEvent?.numPeople" class="progress-bar" [style.width]="(currentEvent.rsvps.numRsvps/currentEvent.numPeople) * 100 + '%'">{{currentEvent.rsvps.numRsvps}} of {{currentEvent.numPeople}}</div>
+              <div *ngIf="currentEvent?.rsvps?.numRsvps == currentEvent?.numPeople" class="progress-bar" [style.width]="100 + '%'">Full!</div>
             </div>
-            <button *ngIf="currentEvent.rsvps != currentEvent.numPeople" class="btn btn-outline-primary btn-rsvp" (click)="updateRSVP()">Join Now!</button>
+            <button *ngIf="currentEvent?.rsvps?.numRsvps != currentEvent?.numPeople" class="btn btn-outline-primary btn-rsvp" (click)="updateRSVP()">Join Now!</button>
           </div>
         </div>
       </div>
