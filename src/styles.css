@@ -9,3 +9,8 @@ body, html {
 
   margin: 0 auto;
 }
+
+/* Used for Google Maps location autorecommend. Without this, it does not work in bootstrap modals */
+.pac-container {
+  z-index: 1054 !important;
+}

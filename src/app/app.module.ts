@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
@@ -46,8 +46,12 @@ import { ViewEventComponent } from './home/view-event/view-event.component';
     BrowserModule,
     HttpModule,
     FormsModule,
+    ReactiveFormsModule,
     appRoutes,
-    AgmCoreModule.forRoot({ apiKey: 'AIzaSyAH3tBDHWwu1z0zQ5qDbeQHVjPVizHrkbo'})
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyAH3tBDHWwu1z0zQ5qDbeQHVjPVizHrkbo',
+      libraries: ["places"]
+    })
   ],
 
   providers: [
