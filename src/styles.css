@@ -14,3 +14,8 @@ body, html {
 .pac-container {
   z-index: 1054 !important;
 }
+
+.dropdown-item:hover {
+
+  cursor: pointer;
+}

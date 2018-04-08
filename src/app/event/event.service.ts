@@ -11,7 +11,7 @@ import 'rxjs/Rx';
 export class EventService {
 	baseURL = `${environment.domain_name}/api/events/`;
 
-  constructor(private http: Http) { 
+  constructor(private http: Http) {
 
   }
 
@@ -24,7 +24,7 @@ export class EventService {
         return Observable.throw(error.json());
       })
   }
-  
+
   // Get EventById
   getEventById(eventId: string): Observable<any> {
   	return this.http.get(this.baseURL + eventId)

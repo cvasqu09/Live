@@ -7,7 +7,7 @@
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="event-header modal-header">
-        <h3 class="modal-title text-left" id="viewEventModalTitle">{{currentEvent.name}}</h3>
+        <h3 class="modal-title text-left" id="viewEventModalTitle">{{currentEvent.eventName}}</h3>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -15,10 +15,10 @@
       <div class="modal-body p-2">
         <div class="row mx-auto">
           <div class="event-date col">
-            <strong>Apr. 5th 2018</strong>
+            <strong>{{currentEvent.start | date:'fullDate'}}</strong>
           </div>
           <div class="event-times col">
-            <strong>{{currentEvent.startTime}} - {{currentEvent.endTime}}</strong>
+            <strong>{{currentEvent.start | date:'shortTime'}} - {{currentEvent.end | date:'shortTime'}}</strong>
           </div>
         </div>
         <hr>
@@ -40,9 +40,15 @@
           <div class="event-rsvp event-info">
             <span class="event-section-title">RSVP</span>
             <div class="event-rsvp progress">
-              <div class="progress-bar" [style.width]="(currentEvent.rsvpPeople/currentEvent.maxPeople) * 100 + '%'">{{currentEvent.rsvpPeople}} of {{currentEvent.maxPeople}}</div>
+              <div *ngIf="currentEvent?.rsvps?.numRsvps != currentEvent?.numPeople" class="progress-bar" [style.width]="(currentEvent?.rsvps?.numRsvps/currentEvent?.numPeople) * 100 + '%'">{{currentEvent.rsvps.numRsvps}} of {{currentEvent.numPeople}}</div>
+              <div *ngIf="currentEvent?.rsvps?.numRsvps == currentEvent?.numPeople" class="progress-bar" [style.width]="100 + '%'">Full!</div>
             </div>
-            <button class="btn btn-outline-primary btn-rsvp">Join Now!</button>
+            <div *ngIf="userRSVPEvent(currentEvent?.rsvps?.rsvpUsers); else notJoined">
+              <button class="btn btn-outline-primary btn-rsvp" disable>You're Joined!</button>
+            </div>
+            <ng-template #notJoined>
+              <button *ngIf="currentEvent?.rsvps?.numRsvps != currentEvent?.numPeople" class="btn btn-outline-primary btn-rsvp" (click)="updateRSVP()">Join Now!</button>
+            </ng-template>
           </div>
         </div>
       </div>

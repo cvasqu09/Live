@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ViewEventComponent } from '../view-event/view-event.component';
-
+import { EventService } from '../../event/event.service'
+import { Event } from '../../event/event.model'
 @Component({
   selector: 'app-google-map',
   templateUrl: './google-map.component.html',
   styleUrls: ['./google-map.component.css'],
-  providers: [ViewEventComponent]
+  providers: [ViewEventComponent, EventService]
 })
 
 export class GoogleMapComponent implements OnInit {
@@ -27,52 +28,6 @@ export class GoogleMapComponent implements OnInit {
 
   lat: number = 33.585414;
   lng: number = -101.868846;
-
-  //Markers array
-  markers: object[] =
-  [
-    {
-      "location": [33.58298, -101.875326],
-      name: 'Chess Game',
-      maxPeople: 3,
-      rsvpPeople: 2,
-      startTime: '1400',
-      endTime: '1800',
-      description: 'This is a test description for chess game. I need this to be longer for testing for here are some extra words that will help me out!',
-      draggable: true
-    },
-    {
-      "location": [33.582982, -101.867258],
-      name: 'Basketball',
-      maxPeople: 3,
-      rsvpPeople: 3,
-      startTime: '1400',
-      endTime: '1800',
-      description: 'This is a test description for basketball.  I need this to be longer for testing for here are some extra words that will help me out!',
-      draggable: true
-    },
-    {
-      "location": [33.586413, -101.862280],
-      name: 'Kickball',
-      maxPeople: 3,
-      rsvpPeople: 1,
-      startTime: '1400',
-      endTime: '1800',
-      description: 'This is a test description for kickball.  I need this to be longer for testing for here are some extra words that will help me out!',
-      draggable: true
-    },
-    {
-      "location": [33.590204, -101.873437],
-      name: 'Cooking',
-      maxPeople: 10,
-      rsvpPeople: 3,
-      startTime: '1400',
-      endTime: '1800',
-      description: 'This is a test description for a cooking class.  I need this to be longer for testing for here are some extra words that will help me out!',
-      draggable: true
-    }
-
-  ];
 
   // Styke Maps Here: https://mapstyle.withgoogle.com/
   // Or copy paste custom json google maps
@@ -231,10 +186,20 @@ export class GoogleMapComponent implements OnInit {
  ];
 
   selectedEvent: object = {};
+  markers: Event[] = [];
+  constructor(
+    public viewEvent: ViewEventComponent,
+    private eventService: EventService
+  ) { }
 
-  constructor(public viewEvent: ViewEventComponent) { }
+  ngOnInit() {
 
-  ngOnInit() { }
+    this.eventService.getAllEvents().subscribe (res => {
+      this.markers = res;
+      // console.log(res);
+    })
+  }
+
 
   setCurrentEvent(event){
 
