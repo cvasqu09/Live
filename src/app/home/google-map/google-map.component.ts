@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ViewEventComponent } from '../view-event/view-event.component';
+import { Event } from '../../event/event.model'
 import { EventService } from '../../event/event.service';
 import { Coord } from '../coord';
 
@@ -192,8 +193,11 @@ export class GoogleMapComponent implements OnInit {
  ];
 
   selectedEvent: object = {};
-  markers: object[];
-  constructor(public viewEvent: ViewEventComponent, private eventService: EventService) { }
+  markers: Event[] = [];
+  constructor(
+    public viewEvent: ViewEventComponent,
+    private eventService: EventService
+  ) { }
 
   ngOnInit() {
     //Just some default values for map's center
@@ -205,6 +209,7 @@ export class GoogleMapComponent implements OnInit {
     this.setCurrentPosition();
     this.eventService.getAllEvents().subscribe (res => {
       this.markers = res;
+      // console.log(res);
     })
   }
 

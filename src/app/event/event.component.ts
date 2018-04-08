@@ -7,12 +7,13 @@ import { User } from '../user/user.model';
 import { ErrorService } from '../error/error.service';
 import { MapsAPILoader } from '@agm/core';
 import { } from 'googlemaps';
+import { GoogleMapComponent } from '../home/google-map/google-map.component';
 
 @Component({
   selector: 'app-event',
   templateUrl: './event.component.html',
   styleUrls: ['./event.component.css'],
-  providers: [UserService, EventService, ErrorService]
+  providers: [UserService, EventService, ErrorService, GoogleMapComponent]
 })
 export class EventComponent implements OnInit {
 
@@ -31,7 +32,8 @@ export class EventComponent implements OnInit {
     private userService: UserService,
     private errorService: ErrorService,
     private mapsAPI: MapsAPILoader,
-    private ngZone: NgZone
+    private ngZone: NgZone,
+    private googleMaps: GoogleMapComponent
   ) {}
 
   ngOnInit() {
@@ -70,16 +72,15 @@ export class EventComponent implements OnInit {
         eventForm.value.eventName,
         this.selectedCategories,
         eventForm.value.numPeople,
-        [-97.734375, 37.3002752813443], // Hardcoded values for testing. Will have to convert string location to array of coordinates
+        [this.eventLng, this.eventLat], // Hardcoded values for testing. Will have to convert string location to array of coordinates
         startUTCDate,
         endUTCDate,
         eventForm.value.description,
-        user.fullName,
+        user._id, // This will allow us to have direct connect between accoutns and events
         null,
-        {numRsvps: 0, rsvpUsers: new Array<string>() },
+        {numRsvps: 1, rsvpUsers: [user._id] },
         0);
-      
-      console.log(JSON.stringify(event))
+
       // Post to the Database
       this.eventService.createEvent(event).subscribe(res => {
         // Close the modal after successful submission.
