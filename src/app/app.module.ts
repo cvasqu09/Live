@@ -28,6 +28,7 @@ import { TestMessageServiceComponent } from './test-message-service/test-message
 import { ErrorComponent } from './error/error.component';
 import { ErrorService } from './error/error.service';
 import { ViewEventComponent } from './home/view-event/view-event.component';
+import { LocationSearchComponent } from './home/location-search/location-search.component';
 import { DatePickerComponent } from './date-picker/date-picker.component';
 import { ReviewComponent } from './review/review.component';
 import { ToasterComponent } from './toaster/toaster.component';
@@ -49,6 +50,7 @@ import { ToasterComponent } from './toaster/toaster.component';
     TestMessageServiceComponent,
     ErrorComponent,
     ViewEventComponent,
+    LocationSearchComponent,
     DatePickerComponent,
     ReviewComponent,
     ToasterComponent

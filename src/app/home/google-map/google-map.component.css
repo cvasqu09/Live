@@ -5,7 +5,7 @@
 }
 
 agm-map {
-  height: 100%;
+  height: 80%;
 }
 
 .button-overlay {
@@ -15,4 +15,3 @@ agm-map {
 	border-radius: 50%;
 	font-size: 200%;
 }
-

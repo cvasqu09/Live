@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ViewEventComponent } from '../view-event/view-event.component';
-import { EventService } from '../../event/event.service'
 import { Event } from '../../event/event.model'
+import { EventService } from '../../event/event.service';
+import { Coord } from '../coord';
+
 @Component({
   selector: 'app-google-map',
   templateUrl: './google-map.component.html',
@@ -12,22 +14,14 @@ import { Event } from '../../event/event.model'
 export class GoogleMapComponent implements OnInit {
 
   //Initial Zoom
-  zoom: number = 15;
+  public zoom: number;
+  public lat: number;
+  public lng: number;
 
-  //Center coordinates for the map
-  // if (navigator.geolocation) {
-  //   navigator.geolocation.getCurrentPosition(
-  //     function(position) {
-  //       lat: number = position.coords.latitude;
-  //       lng: number = position.coords.longitude;
-  //     });
-  // } else {
-  //   lat: number = 51.678418;
-  //   lng: number = 7.809007;
-  // }
-
-  lat: number = 33.585414;
-  lng: number = -101.868846;
+  public centerCoord: Coord = {
+    lat: 5,
+    lng: 10
+  };
 
   // Styke Maps Here: https://mapstyle.withgoogle.com/
   // Or copy paste custom json google maps
@@ -193,16 +187,24 @@ export class GoogleMapComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-
+    this.zoom = 15;
+    //This function will change the default values for the center of the map
+    this.setCurrentPosition();
     this.eventService.getAllEvents().subscribe (res => {
       this.markers = res;
-      // console.log(res);
     })
   }
 
+  private setCurrentPosition() {
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.centerCoord.lat = position.coords.latitude;
+        this.centerCoord.lng = position.coords.longitude;
+      });
+    }
+  }
 
   setCurrentEvent(event){
-
     this.selectedEvent = event;
     this.viewEvent.eventClicked();
   }
