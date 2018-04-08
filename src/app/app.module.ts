@@ -23,6 +23,7 @@ import { TestMessageServiceComponent } from './test-message-service/test-message
 import { ErrorComponent } from './error/error.component';
 import { ErrorService } from './error/error.service';
 import { ViewEventComponent } from './home/view-event/view-event.component';
+import { LocationSearchComponent } from './home/location-search/location-search.component';
 
 // TODO: Remove apiKey
 @NgModule({
@@ -40,7 +41,8 @@ import { ViewEventComponent } from './home/view-event/view-event.component';
     ProfileSettingsComponent,
     TestMessageServiceComponent,
     ErrorComponent,
-    ViewEventComponent
+    ViewEventComponent,
+    LocationSearchComponent
   ],
   imports: [
     BrowserModule,
