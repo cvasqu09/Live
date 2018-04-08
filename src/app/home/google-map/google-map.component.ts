@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, NgZone } from '@angular/core';
 import { ViewEventComponent } from '../view-event/view-event.component';
 import { EventService } from '../../event/event.service'
+import { MapsAPILoader } from '@agm/core';
+import { } from 'googlemaps';
+
 @Component({
   selector: 'app-google-map',
   templateUrl: './google-map.component.html',
@@ -186,11 +189,14 @@ export class GoogleMapComponent implements OnInit {
 
   selectedEvent: object = {};
   markers: object[];
-  constructor(public viewEvent: ViewEventComponent, private eventService: EventService) { }
+
+  @ViewChild('search') searchLocation: ElementRef;
+
+  constructor(public viewEvent: ViewEventComponent, private eventService: EventService, private mapsAPI: MapsAPILoader, private ngZone: NgZone) { }
 
   ngOnInit() {
     //Just some default values for map's center
-    this.lat = 33.585414;
+    this.lat = 30.585414;
     this.lng = -101.868846;
     //Default zoom
     this.zoom = 15;
@@ -199,7 +205,23 @@ export class GoogleMapComponent implements OnInit {
 
     this.eventService.getAllEvents().subscribe (res => {
       this.markers = res;
-    })
+    });
+
+    this.mapsAPI.load().then(() => {
+      let autocomplete = new google.maps.places.Autocomplete(this.searchLocation.nativeElement, {
+        types: ["address"]
+      });
+      autocomplete.addListener("place_changed", () => {
+        this.ngZone.run(() => {
+          let place: google.maps.places.PlaceResult = autocomplete.getPlace(); // Gets the place results
+          if (place.geometry === undefined || place.geometry === null){
+            return;
+          }
+          this.lat = place.geometry.location.lat();
+          this.lng = place.geometry.location.lng();
+        });
+      });
+    });
   }
 
   private setCurrentPosition() {
