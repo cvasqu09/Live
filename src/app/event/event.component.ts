@@ -70,16 +70,16 @@ export class EventComponent implements OnInit {
         eventForm.value.eventName,
         this.selectedCategories,
         eventForm.value.numPeople,
-        [-97.734375, 37.3002752813443], // Hardcoded values for testing. Will have to convert string location to array of coordinates
+        [this.eventLng, this.eventLat], // Hardcoded values for testing. Will have to convert string location to array of coordinates
         startUTCDate,
         endUTCDate,
         eventForm.value.description,
-        user.fullName,
+        user._id, // This will allow us to have direct connect between accoutns and events
         null,
-        {numRsvps: 0, rsvpUsers: new Array<string>() },
+        {numRsvps: 1, rsvpUsers: [user._id] },
         0);
 
-      console.log(JSON.stringify(event))
+      console.log(event)
       // Post to the Database
       this.eventService.createEvent(event).subscribe(res => {
         // Close the modal after successful submission.

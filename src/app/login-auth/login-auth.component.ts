@@ -24,7 +24,7 @@ export class LoginAuthComponent implements OnInit {
 
       this.userService.getUserInfo(localStorage.getItem('user_id')).subscribe(
         response => {
-          console.log(response);
+          // console.log(response);
         },
         error => {
           this.profileSettings.triggerNewUserModal(true);

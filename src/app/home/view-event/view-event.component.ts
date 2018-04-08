@@ -33,7 +33,7 @@ export class ViewEventComponent implements OnInit {
     this.currentEvent.rsvps.rsvpUsers.push(localStorage.getItem("user_id"));
     this.eventService.editEventWithId(this.currentEvent._id, this.currentEvent).subscribe(
       response => {
-        console.log(response);
+        // console.log(response);
       },
       error => {
 

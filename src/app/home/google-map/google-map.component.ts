@@ -191,7 +191,7 @@ export class GoogleMapComponent implements OnInit {
   ngOnInit() {
     this.eventService.getAllEvents().subscribe (res => {
       this.markers = res;
-      console.log(res);
+      // console.log(res);
     })
   }
 
