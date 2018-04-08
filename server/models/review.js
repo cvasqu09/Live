@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var reviewSchema = new Schema({
-  review: {
+  reviewText: {
     type: String,
     required: true,
     min: [1, 'Please provide a review'],
@@ -11,6 +11,6 @@ var reviewSchema = new Schema({
   userId: {
     type: String, ref: 'User'
   }
-});
+}, { versionKey: false });
 
 module.exports = mongoose.model('Review', reviewSchema);

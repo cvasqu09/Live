@@ -12,8 +12,7 @@ import { GoogleMapComponent } from '../home/google-map/google-map.component';
 @Component({
   selector: 'app-event',
   templateUrl: './event.component.html',
-  styleUrls: ['./event.component.css'],
-  providers: [UserService, EventService, ErrorService, GoogleMapComponent]
+  styleUrls: ['./event.component.css']
 })
 export class EventComponent implements OnInit {
 

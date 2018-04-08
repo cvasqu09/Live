@@ -6,8 +6,7 @@ import { User } from '../user/user.model'
 @Component({
   selector: 'app-test-message-service',
   templateUrl: './test-message-service.component.html',
-  styleUrls: ['./test-message-service.component.css'],
-  providers: [UserService, MessagingService]
+  styleUrls: ['./test-message-service.component.css']
 })
 export class TestMessageServiceComponent implements OnInit {
 	user: User;

@@ -6,6 +6,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppComponent } from './app.component';
 import { AuthGuard } from './auth.guard';
 import { AuthService } from './auth.service';
+import { ToasterService } from './toaster/toaster.service';
+import { MessagingService } from './messaging.service';
 import { HttpModule } from '@angular/http';
 import { IceNumberComponent } from './ice-number/ice-number.component'
 import { UserService } from './user/user.service';
@@ -47,8 +49,8 @@ import { ToasterComponent } from './toaster/toaster.component';
     TestMessageServiceComponent,
     ErrorComponent,
     ViewEventComponent,
-    DatePickerComponent
-    ReviewComponent
+    DatePickerComponent,
+    ReviewComponent,
     ToasterComponent
   ],
   imports: [
@@ -67,10 +69,12 @@ import { ToasterComponent } from './toaster/toaster.component';
   providers: [
     UserService,
     EventService,
+    MessagingService,
     AuthService,
     AuthGuard,
     ErrorService,
-    ReviewService
+    ReviewService,
+    ToasterService
   ],
   bootstrap: [AppComponent]
 })

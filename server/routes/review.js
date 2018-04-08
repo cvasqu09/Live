@@ -7,7 +7,6 @@ const Review = require('../models/review');
 /* Used to post a review */
 router.post('/', function (req, res, next) {
   var review = new Review(req.body);
-  console.log('Review: ' + review);
   Review.find()
     .where('userId').equals(review.userId)
     .exec(function (error, reviews) {
@@ -18,11 +17,11 @@ router.post('/', function (req, res, next) {
         });
       }
 
-      console.log(reviews);
-      if (reviews != null) {
+      // If reviews for the given user_id are retrieved
+      if (Object.keys(reviews).length !== 0) {
         return res.status(409).json({
-          title: '409 Error',
-          message: 'Already posted a review'
+          title: 'Error occurred',
+          message: 'Already submitted a review'
         });
       }
 
