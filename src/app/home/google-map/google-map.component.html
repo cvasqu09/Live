@@ -1,8 +1,13 @@
+<div class="container">
+  <div class="row">
+    <app-location-search class="col-sm-12" [eventCoord]="centerCoord"></app-location-search>
+  </div>
+</div>
 <div class="agm-wrapper pt-2">
   <agm-map
   [zoom] = "zoom"
-  [latitude]="lat"
-  [longitude]="lng"
+  [latitude]="centerCoord.lat"
+  [longitude]="centerCoord.lng"
   [styles]="styles">
     <agm-marker
       *ngFor="let m of markers; let i = index"

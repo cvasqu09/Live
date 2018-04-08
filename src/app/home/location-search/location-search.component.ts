@@ -1,6 +1,7 @@
-import { Component, OnInit, ViewChild, ElementRef, NgZone } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, NgZone, Input } from '@angular/core';
 import { MapsAPILoader } from '@agm/core';
 import { } from 'googlemaps';
+import { Coord } from '../coord';
 
 @Component({
   selector: 'app-location-search',
@@ -10,6 +11,10 @@ import { } from 'googlemaps';
 export class LocationSearchComponent implements OnInit {
   eventLat: number;
   eventLng: number;
+  @Input() public eventCoord: Coord = {
+    lat: 5,
+    lng: 10
+  };
   @ViewChild('search') searchLocation: ElementRef;
 
   constructor(private mapsAPI: MapsAPILoader, private ngZone: NgZone) { }
@@ -25,8 +30,8 @@ export class LocationSearchComponent implements OnInit {
           if (place.geometry === undefined || place.geometry === null){
             return;
           }
-          this.eventLat = place.geometry.location.lat();
-          this.eventLng = place.geometry.location.lng();
+          this.eventCoord.lat = place.geometry.location.lat();
+          this.eventCoord.lng = place.geometry.location.lng();
         });
       });
     });

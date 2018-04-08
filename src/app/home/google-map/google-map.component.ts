@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ViewEventComponent } from '../view-event/view-event.component';
-import { EventService } from '../../event/event.service'
+import { EventService } from '../../event/event.service';
+import { Coord } from '../coord';
+
 @Component({
   selector: 'app-google-map',
   templateUrl: './google-map.component.html',
@@ -27,6 +29,11 @@ export class GoogleMapComponent implements OnInit {
 
   public lat: number;
   public lng: number;
+
+  public centerCoord: Coord = {
+    lat: 5,
+    lng: 10
+  };
 
   // Styke Maps Here: https://mapstyle.withgoogle.com/
   // Or copy paste custom json google maps
@@ -190,13 +197,12 @@ export class GoogleMapComponent implements OnInit {
 
   ngOnInit() {
     //Just some default values for map's center
-    this.lat = 33.585414;
-    this.lng = -101.868846;
+    // this.lat = 33.585414;
+    // this.lng = -101.868846;
     //Default zoom
     this.zoom = 15;
     //This function will change the default values for the center of the map
     this.setCurrentPosition();
-
     this.eventService.getAllEvents().subscribe (res => {
       this.markers = res;
     })
@@ -205,8 +211,8 @@ export class GoogleMapComponent implements OnInit {
   private setCurrentPosition() {
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
-        this.lat = position.coords.latitude;
-        this.lng = position.coords.longitude;
+        this.centerCoord.lat = position.coords.latitude;
+        this.centerCoord.lng = position.coords.longitude;
       });
     }
   }
