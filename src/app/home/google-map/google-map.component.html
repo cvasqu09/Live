@@ -1,6 +1,8 @@
 <div class="container">
   <div class="row">
-    <app-location-search class="col-sm-12" [eventCoord]="centerCoord"></app-location-search>
+    <!-- The eventCoord variable is passed from google-map (parent) to location-search (child) through
+          @Input. This is used to retrive [lat, lng] of the address entered in the location-search bar -->
+    <app-location-search class="col-sm-12 py-1" [eventCoord]="centerCoord"></app-location-search>
   </div>
 </div>
 <div class="agm-wrapper pt-2">

@@ -15,19 +15,6 @@ export class GoogleMapComponent implements OnInit {
 
   //Initial Zoom
   public zoom: number;
-
-  //Center coordinates for the map
-  // if (navigator.geolocation) {
-  //   navigator.geolocation.getCurrentPosition(
-  //     function(position) {
-  //       lat: number = position.coords.latitude;
-  //       lng: number = position.coords.longitude;
-  //     });
-  // } else {
-  //   lat: number = 51.678418;
-  //   lng: number = 7.809007;
-  // }
-
   public lat: number;
   public lng: number;
 
@@ -200,16 +187,11 @@ export class GoogleMapComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    //Just some default values for map's center
-    // this.lat = 33.585414;
-    // this.lng = -101.868846;
-    //Default zoom
     this.zoom = 15;
     //This function will change the default values for the center of the map
     this.setCurrentPosition();
     this.eventService.getAllEvents().subscribe (res => {
       this.markers = res;
-      // console.log(res);
     })
   }
 
