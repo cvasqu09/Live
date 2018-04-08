@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ViewEventComponent } from '../view-event/view-event.component';
 import { EventService } from '../../event/event.service'
+import { Event } from '../../event/event.model'
 @Component({
   selector: 'app-google-map',
   templateUrl: './google-map.component.html',
@@ -185,10 +186,14 @@ export class GoogleMapComponent implements OnInit {
  ];
 
   selectedEvent: object = {};
-  markers: object[];
-  constructor(public viewEvent: ViewEventComponent, private eventService: EventService) { }
+  markers: Event[] = [];
+  constructor(
+    public viewEvent: ViewEventComponent,
+    private eventService: EventService
+  ) { }
 
   ngOnInit() {
+
     this.eventService.getAllEvents().subscribe (res => {
       this.markers = res;
       // console.log(res);

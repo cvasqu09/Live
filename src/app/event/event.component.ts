@@ -7,12 +7,13 @@ import { User } from '../user/user.model';
 import { ErrorService } from '../error/error.service';
 import { MapsAPILoader } from '@agm/core';
 import { } from 'googlemaps';
+import { GoogleMapComponent } from '../home/google-map/google-map.component';
 
 @Component({
   selector: 'app-event',
   templateUrl: './event.component.html',
   styleUrls: ['./event.component.css'],
-  providers: [UserService, EventService, ErrorService]
+  providers: [UserService, EventService, ErrorService, GoogleMapComponent]
 })
 export class EventComponent implements OnInit {
 
@@ -31,7 +32,8 @@ export class EventComponent implements OnInit {
     private userService: UserService,
     private errorService: ErrorService,
     private mapsAPI: MapsAPILoader,
-    private ngZone: NgZone
+    private ngZone: NgZone,
+    private googleMaps: GoogleMapComponent
   ) {}
 
   ngOnInit() {
@@ -79,7 +81,6 @@ export class EventComponent implements OnInit {
         {numRsvps: 1, rsvpUsers: [user._id] },
         0);
 
-      console.log(event)
       // Post to the Database
       this.eventService.createEvent(event).subscribe(res => {
         // Close the modal after successful submission.

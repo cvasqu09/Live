@@ -14,6 +14,8 @@ export class ProfileSettingsComponent implements OnInit {
 
   public settingsRequest = false;
   public userCatagories = [];
+  public userICENumber: string = "";
+  public userProvider: string = "";
   public catagories: any[] = [
     {
       "name": "Chess",
@@ -31,7 +33,13 @@ export class ProfileSettingsComponent implements OnInit {
       "name": "Disc Golf",
       "id": "disc-golf-tag"
     }
-  ] // TODO: Generalize this object for the entire project
+  ]; // TODO: Generalize this object for the entire project
+  public providers: any[] = [
+    {"name" : "att"},
+    {"name" : "verizon"},
+    {"name" : "tmobile"},
+    {"name" : "sprint"}
+  ];
 
   constructor(private userService: UserService) { }
 
@@ -58,10 +66,18 @@ export class ProfileSettingsComponent implements OnInit {
     }
   }
 
+  providerSelected(provider): void {
+
+    this.userProvider = provider;
+
+  }
+
   submitNewUser(): void {
 
     var fullName =  (<HTMLInputElement>document.getElementById("fName")).value + " " +(<HTMLInputElement>document.getElementById("lName")).value;
-    const newUser = new User(fullName, this.userCatagories, [], 0, [], localStorage.getItem("user_id"));
+    this.userICENumber =  (<HTMLInputElement>document.getElementById("iceNumber")).value.replace(/\-/g, '').replace(/\(/g, '').replace(/\)/g, '');
+
+    const newUser = new User(fullName, this.userCatagories, [], 0, [{ "phoneNumber" : this.userICENumber, "provider": this.userProvider, "confirmed" : true}], localStorage.getItem("user_id"));
     console.log(newUser);
     this.userService.createUser(newUser).subscribe(
       response => {
