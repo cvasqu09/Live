@@ -14,10 +14,14 @@
       <li class="nav-item">
         <a class="nav-link" [routerLink]="['/sms']">SMS Test</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/review']">Review</a>
+      </li>
     </ul>
   </div>
 </nav>
 <br>
+<app-toaster></app-toaster>
 <app-login-auth></app-login-auth>
 <router-outlet></router-outlet>
 <app-error></app-error>

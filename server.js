@@ -14,6 +14,7 @@ const eventsRoutes = require('./server/routes/events');
 const userRoutes = require('./server/routes/users');
 const smsRoutes = require('./server/routes/sms');
 const appRoutes = require('./server/routes/app');
+const reviewRoutes = require('./server/routes/review');
 
 // Default engine supports regular HTML
 app.set('view engine', 'ejs');
@@ -37,6 +38,7 @@ app.use(function (req, res, next) {
 app.use('/', appRoutes);
 
 // API locations
+app.use('/api/review', reviewRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/events', eventsRoutes);
 app.use('/api/sms', smsRoutes);
