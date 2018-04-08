@@ -1,18 +1,10 @@
 <div class="container">
 	<div class="row">
-		<div class="col-xs-8 col-md-6">
-			<app-search-bar></app-search-bar>
-		</div>
-		<div class="col-xs-4 col-md-6">
-			<div class="dropdown">
-				<app-dropdown></app-dropdown>
-			</div>
-		</div>
+		<app-search-bar class="col-sm-8"></app-search-bar>
+		<app-dropdown class="col-sm-4 .offset-sm-2"></app-dropdown>
 	</div>
 	<div class="row">
-		<div class="col-xs-12">
-			<app-location-search></app-location-search>
-		</div>
+		<app-location-search class="col-sm-12"></app-location-search>
 	</div>
 </div>
 <app-google-map></app-google-map>

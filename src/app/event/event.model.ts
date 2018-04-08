@@ -3,11 +3,11 @@ export class Event {
 							public categories: Array<string>,
 							public numPeople: number,
 							public location: Array<number>,
-							public startTime: number,
-							public endTime: number,
+							public start: Date,
+							public end: Date,
 							public description: string,
 							public eventOwner: string,
 							public _id: string = null,
-							public rsvps: number,
+							public rsvps: { numRsvps: number, rsvpUsers: Array<string> },
 							public reports?: number){}
 }
