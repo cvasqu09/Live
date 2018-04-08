@@ -6,10 +6,13 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppComponent } from './app.component';
 import { AuthGuard } from './auth.guard';
 import { AuthService } from './auth.service';
+import { ToasterService } from './toaster/toaster.service';
+import { MessagingService } from './messaging.service';
 import { HttpModule } from '@angular/http';
 import { IceNumberComponent } from './ice-number/ice-number.component'
 import { UserService } from './user/user.service';
 import { EventService } from './event/event.service';
+import { ReviewService } from './review/review.service';
 import { HomeComponent } from './home/home.component';
 import { GoogleMapComponent } from './home/google-map/google-map.component';
 import { SearchBarComponent } from './home/search-bar/search-bar.component';
@@ -27,6 +30,8 @@ import { ErrorService } from './error/error.service';
 import { ViewEventComponent } from './home/view-event/view-event.component';
 import { LocationSearchComponent } from './home/location-search/location-search.component';
 import { DatePickerComponent } from './date-picker/date-picker.component';
+import { ReviewComponent } from './review/review.component';
+import { ToasterComponent } from './toaster/toaster.component';
 
 // TODO: Remove apiKey
 @NgModule({
@@ -46,7 +51,9 @@ import { DatePickerComponent } from './date-picker/date-picker.component';
     ErrorComponent,
     ViewEventComponent,
     LocationSearchComponent,
-    DatePickerComponent
+    DatePickerComponent,
+    ReviewComponent,
+    ToasterComponent
   ],
   imports: [
     BrowserModule,
@@ -64,9 +71,12 @@ import { DatePickerComponent } from './date-picker/date-picker.component';
   providers: [
     UserService,
     EventService,
+    MessagingService,
     AuthService,
     AuthGuard,
-    ErrorService
+    ErrorService,
+    ReviewService,
+    ToasterService
   ],
   bootstrap: [AppComponent]
 })

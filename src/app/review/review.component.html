@@ -1,0 +1,21 @@
+<div class="container">
+  <form *ngIf="!userSumbittedReview()" (ngSubmit)="onSubmit(reviewForm)" #reviewForm="ngForm">
+    <div class="form-group">
+      <h3>Share your experience to help us improve Live+!</h3>
+      <hr>
+      <textarea
+        ngModel
+        #reviewText="ngModel"
+        class="form-control"
+        id="exampleFormControlTextarea1"
+        rows="6"
+        required
+        name="reviewText">
+      </textarea>
+    </div>
+    <button type="submit" class="btn btn-success mb-2">Submit</button>
+  </form>
+  <div *ngIf="userSumbittedReview()" class="text-center">
+    <h3>Thank you for submitting a review!</h3>
+  </div>
+</div>
