@@ -75,6 +75,7 @@ function sendNotificationText (user_info) {
     {
       transporter.sendMail(options, (error, info) => {
     	  if (error) {
+          console.log(error);
     	    throw { title: 'SMS error', message: 'Error occurred while sending an SMS' };
     	  }
     	  console.log('The message was sent!');
