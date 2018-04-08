@@ -40,10 +40,15 @@
           <div class="event-rsvp event-info">
             <span class="event-section-title">RSVP</span>
             <div class="event-rsvp progress">
-              <div *ngIf="currentEvent?.rsvps?.numRsvps != currentEvent?.numPeople" class="progress-bar" [style.width]="(currentEvent.rsvps.numRsvps/currentEvent.numPeople) * 100 + '%'">{{currentEvent.rsvps.numRsvps}} of {{currentEvent.numPeople}}</div>
+              <div *ngIf="currentEvent?.rsvps?.numRsvps != currentEvent?.numPeople" class="progress-bar" [style.width]="(currentEvent?.rsvps?.numRsvps/currentEvent?.numPeople) * 100 + '%'">{{currentEvent.rsvps.numRsvps}} of {{currentEvent.numPeople}}</div>
               <div *ngIf="currentEvent?.rsvps?.numRsvps == currentEvent?.numPeople" class="progress-bar" [style.width]="100 + '%'">Full!</div>
             </div>
-            <button *ngIf="currentEvent?.rsvps?.numRsvps != currentEvent?.numPeople" class="btn btn-outline-primary btn-rsvp" (click)="updateRSVP()">Join Now!</button>
+            <div *ngIf="userRSVPEvent(currentEvent?.rsvps?.rsvpUsers); else notJoined">
+              <button class="btn btn-outline-primary btn-rsvp" disable>You're Joined!</button>
+            </div>
+            <ng-template #notJoined>
+              <button *ngIf="currentEvent?.rsvps?.numRsvps != currentEvent?.numPeople" class="btn btn-outline-primary btn-rsvp" (click)="updateRSVP()">Join Now!</button>
+            </ng-template>
           </div>
         </div>
       </div>

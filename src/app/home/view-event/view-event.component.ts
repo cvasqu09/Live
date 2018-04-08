@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ElementRef, ViewChild } from '@angular/core';
-import { DatePipe } from '@angular/common';
+import { DatePipe, NgIf, NgForOf } from '@angular/common';
 import { EventService } from '../../event/event.service';
 import { Event } from '../../event/event.model';
 
@@ -12,8 +12,10 @@ import { Event } from '../../event/event.model';
 export class ViewEventComponent implements OnInit {
 
   @Input() currentEvent: Event;
+  userList: any = [];
+  currentUser: string = localStorage.getItem('user_id');
 
-  constructor() { }
+  constructor(private eventService: EventService) { }
 
   ngOnInit() {
 
@@ -27,16 +29,24 @@ export class ViewEventComponent implements OnInit {
 
   updateRSVP(){
 
-    console.log(this.currentEvent);
     this.currentEvent.rsvps['numRsvps']++;
-  //
-  //   this.eventService.editEventWithId("5ac6e17510988a56e8cd8b2d", this.currentEvent).subscribe(
-  //     response => {
-  //       console.log(response);
-  //     },
-  //     error => {
-  //       this.profileSettings.triggerNewUserModal(true);
-  //     }
-  //   );
+    this.currentEvent.rsvps.rsvpUsers.push(localStorage.getItem("user_id"));
+    this.eventService.editEventWithId(this.currentEvent._id, this.currentEvent).subscribe(
+      response => {
+        console.log(response);
+      },
+      error => {
+
+      }
+    );
+  }
+
+  userRSVPEvent(userList): boolean {
+    if(userList != null && userList.indexOf(localStorage.getItem('user_id')) != -1){
+      return true;
+    }
+    else {
+      return false;
+    }
   }
 }

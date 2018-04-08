@@ -78,7 +78,7 @@ export class EventComponent implements OnInit {
         null,
         {numRsvps: 0, rsvpUsers: new Array<string>() },
         0);
-      
+
       console.log(JSON.stringify(event))
       // Post to the Database
       this.eventService.createEvent(event).subscribe(res => {
