@@ -4,12 +4,11 @@ import { Injectable } from '@angular/core';
 import { Observable } from "rxjs";
 import { User } from './user/user.model';
 import { environment } from '../environments/environment';
-import { ErrorService } from './error/error.service';
-import { Error } from './error/error.model';
+
 
 @Injectable()
 export class MessagingService{
-  constructor(private http: Http, private errorService: ErrorService) {}
+  constructor(private http: Http) {}
 
   // Given a user's id, this will send notification texts to the provided user's ICE Numbers 
   sendNotificationTexts(){
@@ -21,7 +20,7 @@ export class MessagingService{
   			return res;
   		})
   		.catch((error: Response) => {
-        this.errorService.emitError(error);
+        // Create an alert with the toaster
   			return Observable.throw(error);
   		})
   }

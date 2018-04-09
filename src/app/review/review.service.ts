@@ -3,7 +3,6 @@ import { Http, Response, Headers } from "@angular/http";
 import { Observable } from "rxjs";
 import { Review } from './review.model';
 import { environment } from '../../environments/environment'
-import { ErrorService } from '../error/error.service';
 
 @Injectable()
 export class ReviewService {

@@ -25,8 +25,6 @@ import { LoginAuthComponent } from './login-auth/login-auth.component';
 import { ProfileSettingsComponent } from './profile-settings/profile-settings.component';
 import { AgmCoreModule } from '@agm/core';
 import { TestMessageServiceComponent } from './test-message-service/test-message-service.component';
-import { ErrorComponent } from './error/error.component';
-import { ErrorService } from './error/error.service';
 import { ViewEventComponent } from './home/view-event/view-event.component';
 import { LocationSearchComponent } from './home/location-search/location-search.component';
 import { DatePickerComponent } from './date-picker/date-picker.component';
@@ -48,7 +46,6 @@ import { ToasterComponent } from './toaster/toaster.component';
     LoginAuthComponent,
     ProfileSettingsComponent,
     TestMessageServiceComponent,
-    ErrorComponent,
     ViewEventComponent,
     LocationSearchComponent,
     DatePickerComponent,
@@ -74,7 +71,6 @@ import { ToasterComponent } from './toaster/toaster.component';
     MessagingService,
     AuthService,
     AuthGuard,
-    ErrorService,
     ReviewService,
     ToasterService
   ],
