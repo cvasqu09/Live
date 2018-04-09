@@ -21,6 +21,7 @@ export class EventComponent implements OnInit {
   dropdownTouched: boolean = false;
   eventLat: number;
   eventLng: number;
+  eventAddress: string;
   startDate: { year: number, month: number, day: number };
   endDate: { year: number, month: number, day: number };
   @ViewChild('closeButton') closeButton: ElementRef;
@@ -47,6 +48,7 @@ export class EventComponent implements OnInit {
           if (place.geometry === undefined || place.geometry === null){
             return;
           }
+          this.eventAddress = place.formatted_address;
           this.eventLat = place.geometry.location.lat();
           this.eventLng = place.geometry.location.lng();
         });
@@ -71,6 +73,7 @@ export class EventComponent implements OnInit {
         eventForm.value.eventName,
         this.selectedCategories,
         eventForm.value.numPeople,
+        this.eventAddress,
         [this.eventLng, this.eventLat], // Hardcoded values for testing. Will have to convert string location to array of coordinates
         startUTCDate,
         endUTCDate,

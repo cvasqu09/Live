@@ -93,6 +93,7 @@ export class EventService {
   		res.eventName,
   		res.categories,
   		res.numPeople,
+			res.address,
   		res.location,
   		res.startTime,
   		res.endTime,
