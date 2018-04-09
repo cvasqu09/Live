@@ -16,7 +16,15 @@ agm-map {
 	font-size: 200%;
 }
 
-.zoom-button-overlay {
+.zoom-in-button-overlay {
+	position: absolute;
+	right: 10px;
+	bottom: 45px;
+	border-radius: 50%;
+	font-size: 200%;
+}
+
+.zoom-out-button-overlay {
 	position: absolute;
 	right: 10px;
 	bottom: 10px;
