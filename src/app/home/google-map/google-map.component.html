@@ -21,9 +21,17 @@
 </div>
 
 <!-- Button for opening event creation -->
-<div class="container button-overlay">
+<div class="button-overlay">
 	<button type="button" class="btn btn-success" data-toggle="modal" data-target="#eventModal">
 		<i class="fa fa-plus"></i>
+	</button>
+</div>
+<div class="zoom-button-overlay">
+  <button type="button" class="btn btn-secondary" (click)="zoomIn()">
+		<i class="fa fa-plus"></i>
+	</button>
+  <button type="button" class="btn btn-secondary" (click)="zoomOut()">
+		<i class="fa fa-minus"></i>
 	</button>
 </div>
 

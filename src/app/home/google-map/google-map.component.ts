@@ -19,8 +19,8 @@ export class GoogleMapComponent implements OnInit {
   public lng: number;
 
   public centerCoord: Coord = {
-    lat: 5,
-    lng: 10
+    lat: 33.578682,
+    lng: -101.871623
   };
 
   // Styke Maps Here: https://mapstyle.withgoogle.com/
@@ -207,5 +207,15 @@ export class GoogleMapComponent implements OnInit {
   setCurrentEvent(event){
     this.selectedEvent = event;
     this.viewEvent.eventClicked();
+  }
+
+  zoomIn(){
+
+    this.zoom += 1;
+  }
+
+  zoomOut(){
+
+    this.zoom -= 1;
   }
 }
