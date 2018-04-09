@@ -4,7 +4,6 @@ import { EventService } from './event.service';
 import { Event } from './event.model';
 import { UserService } from '../user/user.service';
 import { User } from '../user/user.model';
-import { ErrorService } from '../error/error.service';
 import { MapsAPILoader } from '@agm/core';
 import { } from 'googlemaps';
 import { GoogleMapComponent } from '../home/google-map/google-map.component';
@@ -15,7 +14,7 @@ import { GoogleMapComponent } from '../home/google-map/google-map.component';
   styleUrls: ['./event.component.css']
 })
 export class EventComponent implements OnInit {
-
+  formReset: boolean = false;
   selectedCategories: Array<string> = [];
   categories: Array<string> = ["chess", "sports", "music"] // TODO: Have a global for supported categories
   dropdownTouched: boolean = false;
@@ -30,11 +29,10 @@ export class EventComponent implements OnInit {
   constructor(
     private eventService: EventService,
     private userService: UserService,
-    private errorService: ErrorService,
     private mapsAPI: MapsAPILoader,
     private ngZone: NgZone,
     private googleMaps: GoogleMapComponent
-  ) {}
+    ) {}
 
   ngOnInit() {
 
@@ -57,16 +55,15 @@ export class EventComponent implements OnInit {
   }
 
   onSubmit(eventForm: NgForm) {
-
     this.userService.getUserInfo(localStorage.getItem('user_id')).subscribe(user => {
       // Construct JS Date objects using UTC time
       const startTime = eventForm.value.startTime.split(":")
       const startUTCDate: Date = new Date(this.startDate.year, this.startDate.month - 1, this.startDate.day, // Month begin at 0 = Jan
-                                          Number(startTime[0]), Number(startTime[1]))
+        Number(startTime[0]), Number(startTime[1]))
 
       const endTime = eventForm.value.endTime.split(":")
       const endUTCDate: Date = new Date(this.endDate.year, this.endDate.month - 1, this.endDate.day,
-                                        Number(endTime[0]), Number(endTime[0]))
+        Number(endTime[0]), Number(endTime[0]))
 
       // Create an event with the form data and user info
       const event: Event = new Event(
@@ -85,11 +82,16 @@ export class EventComponent implements OnInit {
 
       // Post to the Database
       this.eventService.createEvent(event).subscribe(res => {
-        // Close the modal after successful submission.
+        // Reset the form and close the modal
+        console.log("successfully sent" + JSON.stringify(event))
+        eventForm.resetForm();
+        this.formReset = true;
         this.closeButton.nativeElement.click();
       }, err => {
         // Return error
       });
+      // Set the formReset back to false so that it can be set to true upon the next submission
+      this.formReset = false;
     }, err => {
       // Display a message with error
       console.log(err)
@@ -116,14 +118,17 @@ export class EventComponent implements OnInit {
     switch(type) {
       case 'start': {
         this.startDate = event
+        break;
       }
 
       case 'end': {
         this.endDate = event
+        break;
       }
 
       default: {
         this.startDate = event
+        break;
       }
     }
   }

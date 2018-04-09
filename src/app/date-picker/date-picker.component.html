@@ -7,10 +7,10 @@
 	[(ngModel)]="model"
 	(ngModelChange)="onDateChange($event)"
 	ngbDatepicker
-	#d="ngbDatepicker"
+	#datepicker="ngbDatepicker"
 	required>
 	<div class="input-group-append">
-		<button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
+		<button class="btn btn-outline-secondary" (click)="datepicker.toggle()" type="button">
 			<i class="fas fa-calendar-alt"></i>
 		</button>
 	</div>
