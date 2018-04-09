@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, NgZone } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, NgZone, Output, EventEmitter } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { EventService } from './event.service';
 import { Event } from './event.model';
@@ -23,6 +23,7 @@ export class EventComponent implements OnInit {
   eventAddress: string;
   startDate: { year: number, month: number, day: number };
   endDate: { year: number, month: number, day: number };
+  @Output() onEventCreated = new EventEmitter<void>(); // Emits events to google-map.component in order to update.
   @ViewChild('closeButton') closeButton: ElementRef;
   @ViewChild('search') searchLocation: ElementRef;
 
@@ -35,7 +36,6 @@ export class EventComponent implements OnInit {
     ) {}
 
   ngOnInit() {
-
     this.mapsAPI.load().then(() => {
       let autocomplete = new google.maps.places.Autocomplete(this.searchLocation.nativeElement, {
         types: ["address"]
@@ -71,21 +71,21 @@ export class EventComponent implements OnInit {
         this.selectedCategories,
         eventForm.value.numPeople,
         this.eventAddress,
-        [this.eventLng, this.eventLat], // Hardcoded values for testing. Will have to convert string location to array of coordinates
+        [this.eventLng, this.eventLat],
         startUTCDate,
         endUTCDate,
         eventForm.value.description,
-        user._id, // This will allow us to have direct connect between accoutns and events
+        user._id,
         null,
         {numRsvps: 1, rsvpUsers: [user._id] },
         0);
 
-      // Post to the Database
       this.eventService.createEvent(event).subscribe(res => {
         // Reset the form and close the modal
         console.log("successfully sent" + JSON.stringify(event))
         eventForm.resetForm();
         this.formReset = true;
+        this.onEventCreated.emit();
         this.closeButton.nativeElement.click();
       }, err => {
         // Return error
@@ -93,7 +93,6 @@ export class EventComponent implements OnInit {
       // Set the formReset back to false so that it can be set to true upon the next submission
       this.formReset = false;
     }, err => {
-      // Display a message with error
       console.log(err)
     });
   }
