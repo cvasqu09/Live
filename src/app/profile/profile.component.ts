@@ -24,7 +24,7 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
     var id = localStorage.getItem("user_id")
     this.userService.getUserInfo(id).subscribe((user) => {
-      this.user = user   
+      this.user = user
     })
   }
 

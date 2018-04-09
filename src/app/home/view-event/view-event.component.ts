@@ -2,6 +2,7 @@ import { Component, OnInit, Input, ElementRef, ViewChild } from '@angular/core';
 import { DatePipe, NgIf, NgForOf } from '@angular/common';
 import { EventService } from '../../event/event.service';
 import { Event } from '../../event/event.model';
+import { MessagingService } from '../../messaging.service';
 
 @Component({
   selector: 'app-view-event',
@@ -15,7 +16,10 @@ export class ViewEventComponent implements OnInit {
   userList: any = [];
   currentUser: string = localStorage.getItem('user_id');
 
-  constructor(private eventService: EventService) { }
+  constructor(
+    private eventService: EventService,
+    private smsService: MessagingService
+  ) { }
 
   ngOnInit() {
 
@@ -33,6 +37,7 @@ export class ViewEventComponent implements OnInit {
     this.currentEvent.rsvps.rsvpUsers.push(localStorage.getItem("user_id"));
     this.eventService.editEventWithId(this.currentEvent._id, this.currentEvent).subscribe(
       response => {
+        this.smsService.sendNotificationTexts().subscribe();
         // console.log(response);
       },
       error => {
@@ -42,6 +47,7 @@ export class ViewEventComponent implements OnInit {
   }
 
   userRSVPEvent(userList): boolean {
+    //If user is already in the RSVP list
     if(userList != null && userList.indexOf(localStorage.getItem('user_id')) != -1){
       return true;
     }
