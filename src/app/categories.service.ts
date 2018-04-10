@@ -8,7 +8,7 @@ export class CategoriesService {
     {
       "name": "Chess",
       "id": "check-tag",
-      "icon": "chess-event-48.png"
+      "icon": "assets/markers/chess-event-48.png"
     },
     {
       "name": "Baseball",
@@ -18,7 +18,7 @@ export class CategoriesService {
     {
       "name": "Volleyball",
       "id": "volleyball-tag",
-      "icon": ""
+      "icon": "assets/markers/volleyball-event-48.png"
     },
     {
       "name": "Disc Golf",
@@ -28,7 +28,7 @@ export class CategoriesService {
     {
       "name": "Basketball",
       "id": "basketball-tag",
-      "icon": ""
+      "icon": "assets/markers/basketball-event-48.png"
     }
   ];
 

@@ -229,6 +229,11 @@ export class GoogleMapComponent implements OnInit {
     if(markerInfo.rsvps.rsvpUsers.indexOf(localStorage.getItem('user_id')) != -1){
       return "assets/markers/joined-event-48.png";
     }
+    // If event is full display this
+    else if (markerInfo.numPeople == markerInfo.rsvps.numRsvps){
+      return "assets/markers/full-event-48.png"
+    }
+    // Try to see if we have an icon, if not, use the default
     else {
       for (let category of this.mainCategories.categories){
         if (currentCategory == category.name && category.icon != ""){
