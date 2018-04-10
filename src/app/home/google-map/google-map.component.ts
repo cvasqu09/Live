@@ -218,4 +218,14 @@ export class GoogleMapComponent implements OnInit {
 
     this.zoom -= 1;
   }
+
+  getProperMarker(markerInfo): string {
+
+    if(markerInfo.rsvps.rsvpUsers.indexOf(localStorage.getItem('user_id')) != -1){
+      return "assets/markers/joined-event-32.png";
+    }
+    else {
+      return "assets/markers/default-event-32.png";
+    }
+  }
 }

@@ -15,7 +15,8 @@
       *ngFor="let m of markers; let i = index"
       (markerClick)="setCurrentEvent(m)"
       [latitude]="m.location[1]"
-      [longitude]="m.location[0]">
+      [longitude]="m.location[0]"
+      [iconUrl]="getProperMarker(m)">
     </agm-marker>
   </agm-map>
 </div>
