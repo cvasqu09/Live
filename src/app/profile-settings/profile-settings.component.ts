@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef} from '@angular/core';
 import { User } from '../user/user.model';
 import { UserService } from '../user/user.service';
+import { CatagoriesService } from '../catagories.service';
 
 @Component({
   selector: 'app-profile-settings',
@@ -16,24 +17,7 @@ export class ProfileSettingsComponent implements OnInit {
   public userCatagories = [];
   public userICENumber: string = "";
   public userProvider: string = "att";
-  public catagories: any[] = [
-    {
-      "name": "Chess",
-      "id": "check-tag"
-    },
-    {
-      "name": "Baseball",
-      "id": "baseball-tag"
-    },
-    {
-      "name": "Volleyball",
-      "id": "volleyball-tag"
-    },
-    {
-      "name": "Disc Golf",
-      "id": "disc-golf-tag"
-    }
-  ]; // TODO: Generalize this object for the entire project
+  public catagories: any[];
   public providers: any[] = [
     {"name" : "att"},
     {"name" : "verizon"},
@@ -41,9 +25,13 @@ export class ProfileSettingsComponent implements OnInit {
     {"name" : "sprint"}
   ];
 
-  constructor(private userService: UserService) { }
+  constructor(
+    private userService: UserService,
+    private mainCatagories: CatagoriesService
+  ) { }
 
   ngOnInit() {
+    this.catagories = this.mainCatagories.catagories;
     this.openCreateUserModal.nativeElement.click();
   }
 
