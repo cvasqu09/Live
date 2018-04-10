@@ -37,9 +37,8 @@
                 </div>
                 <input type="text" class="form-control" id="iceNumber" placeholder="Emergency Number" required>
                 <div class="input-group-append">
-                  <button *ngIf="userProvider == ''" class="btn btn-secondary dropdown-toggle" role="button" id="providersDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Providers</button>
-                  <button *ngIf="userProvider != ''" class="btn btn-secondary dropdown-toggle" role="button" id="providersDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{userProvider}}</button>
-                  <div class="dropdown-menu" aria-labelledby="providersDropdown">
+                  <button class="btn btn-secondary dropdown-toggle" type="button" id="providersDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{userProvider}}</button>
+                  <div class="dropdown-menu">
                     <a  *ngFor="let provider of providers" class="dropdown-item" (click)="providerSelected(provider.name)">{{provider.name}}</a>
                   </div>
                 </div>

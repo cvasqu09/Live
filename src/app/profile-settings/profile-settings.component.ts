@@ -15,7 +15,7 @@ export class ProfileSettingsComponent implements OnInit {
   public settingsRequest = false;
   public userCatagories = [];
   public userICENumber: string = "";
-  public userProvider: string = "";
+  public userProvider: string = "att";
   public catagories: any[] = [
     {
       "name": "Chess",
