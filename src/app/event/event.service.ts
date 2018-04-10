@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { Observable } from "rxjs";
 import { Event } from './event.model';
 import { environment } from '../../environments/environment'
-import { ErrorService } from '../error/error.service';
 
 import 'rxjs/Rx';
 

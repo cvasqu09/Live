@@ -10,12 +10,22 @@ var categoryValidator = function (categoryArray) {
   return true;
 };
 
-var dateValidator = function (date) {
+var startDateValidator = function (startDate) {
   currentTime = Date.now();
-  diffInMilli = Math.abs(date.getTime() - currentTime);
+  diffInMilli = startDate.getTime() - currentTime;
   diffInDays = diffInMilli / (1000 * 60 * 60 * 24);
 
-  if (diffInDays >= 0 && diffInDays < 2) {
+  if (diffInDays <= 2 && diffInDays > 0) {
+    return true;
+  }
+  return false;
+};
+
+var endDateValidator = function (endDate) {
+  diffInMilli = endDate.getTime() - this.start.getTime();
+  diffInDays = diffInMilli / (1000 * 60 * 60 * 24);
+
+  if (diffInDays <= 2 && diffInDays > 0) {
     return true;
   }
   return false;
@@ -51,7 +61,7 @@ var eventSchema = new Schema({
     type: Date,
     required: true,
     validate: {
-      validator: dateValidator,
+      validator: startDateValidator,
       message: 'Invalid date entered'
     }
   },
@@ -59,7 +69,7 @@ var eventSchema = new Schema({
     type: Date,
     required: true,
     validate: {
-      validator: dateValidator,
+      validator: endDateValidator,
       message: 'Invalid date entered'
     }
   },
