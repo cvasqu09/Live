@@ -42,6 +42,10 @@ var eventSchema = new Schema({
     min: [1, 'Enter number of people for the event'],
     max: [20, 'Max of 20 people allowed for an event']
   },
+  address: {
+    type: String,
+    required: true
+  },
   location: { type: [Number], index: '2dsphere', required: true },
   start: {
     type: Date,
