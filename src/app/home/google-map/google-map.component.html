@@ -15,15 +15,26 @@
       *ngFor="let m of markers; let i = index"
       (markerClick)="setCurrentEvent(m)"
       [latitude]="m.location[1]"
-      [longitude]="m.location[0]">
+      [longitude]="m.location[0]"
+      [iconUrl]="getProperMarker(m)">
     </agm-marker>
   </agm-map>
 </div>
 
 <!-- Button for opening event creation -->
-<div class="container button-overlay">
+<div class="button-overlay">
 	<button type="button" class="btn btn-success" data-toggle="modal" data-target="#eventModal">
 		<i class="fa fa-plus"></i>
+	</button>
+</div>
+<div class="zoom-in-button-overlay">
+  <button type="button" class="btn btn-secondary" (click)="zoomIn()">
+		<i class="fa fa-plus"></i>
+	</button>
+</div>
+<div class="zoom-out-button-overlay">
+  <button type="button" class="btn btn-secondary" (click)="zoomOut()">
+		<i class="fa fa-minus"></i>
 	</button>
 </div>
 
