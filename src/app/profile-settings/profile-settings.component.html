@@ -10,46 +10,54 @@
         <h3 class="modal-title text-center" id="loginModalTitle">Create new account!</h3>
       </div>
       <div class="modal-body text-center">
-        <form>
+        <form class="container" (ngSubmit)="onSubmit(newUserForm)" #newUserForm="ngForm">
           <div class="form-group">
-            <div class="form-row">
-              <div class="col">
-                <input type="text" class="form-control" id="fName" placeholder="First name">
+            <div class="form-row">.
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">
+                    <i class="fa fa-user-circle"></i>
+                  </span>
+                </div>
+                <input type="text" class="form-control" id="fName" placeholder="First Name" required>
               </div>
-              <div class="col">
-                <input type="text" class="form-control" id="lName" placeholder="Last name">
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">
+                    <i class="fa fa-user-circle"></i>
+                  </span>
+                </div>
+                <input type="text" class="form-control" id="lName" placeholder="Last Name" required>
+              </div>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">
+                    <i class="fa fa-mobile-alt"></i>
+                  </span>
+                </div>
+                <input type="text" class="form-control" id="iceNumber" placeholder="Emergency Number" required>
+                <div class="input-group-append">
+                  <button class="btn btn-secondary dropdown-toggle" type="button" id="providersDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{userProvider}}</button>
+                  <div class="dropdown-menu">
+                    <a  *ngFor="let provider of providers" class="dropdown-item" (click)="providerSelected(provider.name)">{{provider.name}}</a>
+                  </div>
+                </div>
               </div>
             </div>
             <hr>
             <h4>Select Categories</h4>
             <div class="form-row">
               <div class="btn-group-toggle" data-toggle="buttons" *ngFor="let catagory of catagories" (click)=catagorySelected(catagory.name)>
-                <label class="btn btn-secondary" id={{catagory.id}}>
-                  <input type="checkbox" checked autocomplete="off">{{catagory.name}}
+                <label class="btn btn-secondary m-1" id={{catagory.id}}>
+                  <input type="checkbox" autocomplete="off">{{catagory.name}}
                 </label>
               </div>
             </div>
-            <hr>
-            <h4>Add Emergency Number</h4>
-            <div class="form-row">
-              <div class="dropdown show">
-                <a class="btn btn-secondary dropdown-toggle" role="button" id="providersDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <a *ngIf="userProvider == ''">Providers</a>
-                  <a *ngIf="userProvider != ''">{{userProvider}}</a>
-                </a>
-                <div class="dropdown-menu" aria-labelledby="providersDropdown">
-                  <a  *ngFor="let provider of providers" class="dropdown-item" (click)="providerSelected(provider.name)">{{provider.name}}</a>
-                </div>
-              </div>
-              <div>
-                <input class="form-control" id="iceNumber" type="text" placeholder="(555)-555-5555">
-              </div>
-            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-outline-success" data-dismiss="modal" (click)=submitNewUser() [disabled]="!newUserForm.valid || catagories?.length === 0">Submit</button>
           </div>
         </form>
-      </div>
-      <div class="modal-footer align-self-center">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)=submitNewUser()>Submit</button>
       </div>
     </div>
   </div>
