@@ -8,6 +8,7 @@ import { ErrorService } from '../error/error.service';
 import { MapsAPILoader } from '@agm/core';
 import { } from 'googlemaps';
 import { GoogleMapComponent } from '../home/google-map/google-map.component';
+import { CategoriesService } from '../categories.service';
 
 @Component({
   selector: 'app-event',
@@ -17,7 +18,7 @@ import { GoogleMapComponent } from '../home/google-map/google-map.component';
 export class EventComponent implements OnInit {
 
   selectedCategories: Array<string> = [];
-  categories: Array<string> = ["chess", "sports", "music"] // TODO: Have a global for supported categories
+  categories: any[];
   dropdownTouched: boolean = false;
   eventLat: number;
   eventLng: number;
@@ -33,11 +34,14 @@ export class EventComponent implements OnInit {
     private errorService: ErrorService,
     private mapsAPI: MapsAPILoader,
     private ngZone: NgZone,
-    private googleMaps: GoogleMapComponent
+    private googleMaps: GoogleMapComponent,
+    private mainCategories: CategoriesService
   ) {}
 
   ngOnInit() {
 
+    this.categories = this.mainCategories.categories;
+    
     this.mapsAPI.load().then(() => {
       let autocomplete = new google.maps.places.Autocomplete(this.searchLocation.nativeElement, {
         types: ["address"]

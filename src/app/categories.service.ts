@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class CategoriesService {
 
-  public baseUrl: string = "assets/markers/";
+  public baseUrl: string = "";
   public categories: any[] = [
     {
       "name": "Chess",
@@ -13,7 +13,7 @@ export class CategoriesService {
     {
       "name": "Baseball",
       "id": "baseball-tag",
-      "icon": "baseball-event-48"
+      "icon": "assets/markers/baseball-event-48.png"
     },
     {
       "name": "Volleyball",
