@@ -39,5 +39,5 @@
 </div>
 
 <!-- Event creation modal -->
-<app-event></app-event>
+<app-event (onEventCreated)="onEventCreated()"></app-event>
 <app-view-event [currentEvent]='selectedEvent'></app-view-event>

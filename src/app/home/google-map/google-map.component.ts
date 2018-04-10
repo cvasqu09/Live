@@ -192,9 +192,7 @@ export class GoogleMapComponent implements OnInit {
     this.zoom = 15;
     //This function will change the default values for the center of the map
     this.setCurrentPosition();
-    this.eventService.getAllEvents().subscribe (res => {
-      this.markers = res;
-    })
+    this.getEvents();
   }
 
   private setCurrentPosition() {
@@ -204,6 +202,16 @@ export class GoogleMapComponent implements OnInit {
         this.centerCoord.lng = position.coords.longitude;
       });
     }
+  }
+
+  onEventCreated(){
+    this.getEvents();
+  }
+
+  getEvents(){
+    this.eventService.getAllEvents().subscribe (res => {
+      this.markers = res;
+    })
   }
 
   setCurrentEvent(event){
