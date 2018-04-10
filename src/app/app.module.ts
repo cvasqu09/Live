@@ -32,7 +32,7 @@ import { LocationSearchComponent } from './home/location-search/location-search.
 import { DatePickerComponent } from './date-picker/date-picker.component';
 import { ReviewComponent } from './review/review.component';
 import { ToasterComponent } from './toaster/toaster.component';
-import { CatagoriesService } from './catagories.service';
+import { CategoriesService } from './categories.service';
 
 // TODO: Remove apiKey
 @NgModule({
@@ -78,7 +78,7 @@ import { CatagoriesService } from './catagories.service';
     ErrorService,
     ReviewService,
     ToasterService,
-    CatagoriesService
+    CategoriesService
   ],
   bootstrap: [AppComponent]
 })

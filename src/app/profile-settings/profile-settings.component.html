@@ -1,4 +1,4 @@
-<!-- Create New User Modal -->
+category<!-- Create New User Modal -->
 <button #openCreateUserModal class="btn btn-primary" id="openCreateUserModal" type="button" [hidden]="true" data-toggle="modal" data-target="#createUserModal">
   Launch Create New User Modal
 </button>
@@ -47,15 +47,15 @@
             <hr>
             <h4>Select Categories</h4>
             <div class="form-row">
-              <div class="btn-group-toggle" data-toggle="buttons" *ngFor="let catagory of catagories" (click)=catagorySelected(catagory.name)>
-                <label class="btn btn-secondary m-1" id={{catagory.id}}>
-                  <input type="checkbox" autocomplete="off">{{catagory.name}}
+              <div class="btn-group-toggle" data-toggle="buttons" *ngFor="let category of categories" (click)=categorySelected(category.name)>
+                <label class="btn btn-secondary m-1" id={{category.id}}>
+                  <input type="checkbox" autocomplete="off">{{category.name}}
                 </label>
               </div>
             </div>
           </div>
           <div class="modal-footer">
-            <button type="submit" class="btn btn-outline-success" data-dismiss="modal" (click)=submitNewUser() [disabled]="!newUserForm.valid || catagories?.length === 0">Submit</button>
+            <button type="submit" class="btn btn-outline-success" data-dismiss="modal" (click)=submitNewUser() [disabled]="!newUserForm.valid || categories?.length === 0">Submit</button>
           </div>
         </form>
       </div>

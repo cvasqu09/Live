@@ -221,11 +221,13 @@ export class GoogleMapComponent implements OnInit {
 
   getProperMarker(markerInfo): string {
 
+    // let currentCategory = markerInfo.categories[]
+    // If user joined the event
     if(markerInfo.rsvps.rsvpUsers.indexOf(localStorage.getItem('user_id')) != -1){
-      return "assets/markers/joined-event-32.png";
+      return "assets/markers/baseball-event-48.png";
     }
     else {
-      return "assets/markers/default-event-32.png";
+      return "assets/markers/default-event-48.png";
     }
   }
 }

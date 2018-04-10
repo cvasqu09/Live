@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CatagoriesService } from '../../catagories.service';
+import { CategoriesService } from '../../categories.service';
 
 @Component({
   selector: 'app-dropdown',
@@ -9,11 +9,11 @@ import { CatagoriesService } from '../../catagories.service';
 export class DropdownComponent implements OnInit {
 	private presetCategories: any[];
   constructor(
-    private mainCatagories: CatagoriesService
+    private mainCategories: CategoriesService
   ) { }
 
   ngOnInit() {
-    this.presetCategories = this.mainCatagories.catagories;
+    this.presetCategories = this.mainCategories.categories;
   }
 
 }

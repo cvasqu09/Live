@@ -1,18 +1,19 @@
 import { Injectable } from '@angular/core';
 
 @Injectable()
-export class CatagoriesService {
+export class CategoriesService {
 
-  public catagories: any[] = [
+  public baseUrl: string = "assets/markers/";
+  public categories: any[] = [
     {
       "name": "Chess",
       "id": "check-tag",
-      "icon": ""
+      "icon": "chess-event-48.png"
     },
     {
       "name": "Baseball",
       "id": "baseball-tag",
-      "icon": ""
+      "icon": "baseball-event-48"
     },
     {
       "name": "Volleyball",
@@ -29,7 +30,7 @@ export class CatagoriesService {
       "id": "basketball-tag",
       "icon": ""
     }
-  ]; // TODO: Generalize this object for the entire project
+  ];
 
   constructor() { }
 
