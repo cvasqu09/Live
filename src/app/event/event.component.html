@@ -3,7 +3,7 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<h5 class="modal-title">Create a New Event</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close" #closeButton>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close" #closeButton (click)="onClose()">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
@@ -38,7 +38,7 @@
 							<div class="col-sm-9">
 								<span *ngFor="let category of selectedCategories" class="badge badge-pill badge-success" (click)="onRemoveCategory(category)">{{ category }} &times;</span>
 							</div>
-							<small class="input-feedback" *ngIf="dropdownTouched && selectedCategories?.length === 0">Note: You must have at least one category selected</small>
+							<small class="input-feedback" *ngIf="selectedCategories?.length === 0" [ngStyle]="getCategoryButtonStyle()">Note: You must have at least one category selected</small>
 						</div>
 					</div>
 					<div class="form-group">
@@ -84,6 +84,9 @@
 						<div class="form-row">
 							<div class="col-sm-3 col-form-label">Start date:</div>
 							<app-date-picker [formReset]="formReset" (dateEmitter)="onDateChange('start', $event)"></app-date-picker>
+							<small class="input-feedback col-sm-9 offset-sm-3" *ngIf="startDate != null && !validStartDate() && startTime != null">
+								Please enter a start date within two days from now.
+							</small>
 						</div>
 					</div>
 
@@ -96,10 +99,11 @@
 							id="start-time"
 							ngModel
 							name="startTime"
-							#startTime="ngModel"
+							#startTimeRef="ngModel"
+							[(ngModel)] = "startTime"
 							required>
 						</div>
-						<small class="input-feedback col-sm-9 offset-sm-3" *ngIf="startTime.invalid && startTime.touched">
+						<small class="input-feedback col-sm-9 offset-sm-3" *ngIf="startTimeRef.invalid && startTimeRef.touched">
 							Please enter a valid start time.
 						</small>
 					</div>
@@ -108,6 +112,9 @@
 						<div class="form-row">
 							<div class="col-sm-3 col-form-label">End date:</div>
 							<app-date-picker [formReset]="formReset" (dateEmitter)="onDateChange('end', $event)"></app-date-picker>
+							<small class="input-feedback col-sm-9 offset-sm-3" *ngIf="bothDatesGiven() && !validEndDate()">
+								Please enter an end date within two days from the start date.
+							</small>
 						</div>
 					</div>
 
@@ -120,10 +127,11 @@
 							id="end-time"
 							ngModel
 							name="endTime"
-							#endTime="ngModel"
+							#endTimeRef="ngModel"
+							[(ngModel)]="endTime"
 							required>
 						</div>
-						<small class="input-feedback col-sm-9 offset-sm-3" *ngIf="endTime.invalid && endTime.touched">
+						<small class="input-feedback col-sm-9 offset-sm-3" *ngIf="endTimeRef.invalid && endTimeRef.touched">
 							Please enter a valid start time.
 						</small>
 					</div>
@@ -141,7 +149,7 @@
 						</div>
 					</div>
 					<div class="modal-footer">
-						<button type="submit" class="btn btn-success submit-btn" [disabled]="!eventForm.valid || selectedCategories?.length === 0">Create</button>
+						<button type="submit" class="btn btn-success submit-btn" [disabled]="!eventForm.valid || selectedCategories?.length === 0 || !validDates()">Create</button>
 					</div>
 				</form>
 			</div>

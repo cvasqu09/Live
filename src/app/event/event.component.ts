@@ -22,7 +22,9 @@ export class EventComponent implements OnInit {
   eventLng: number;
   eventAddress: string;
   startDate: { year: number, month: number, day: number };
+  startTime: string;
   endDate: { year: number, month: number, day: number };
+  endTime: string;
   @Output() onEventCreated = new EventEmitter<void>(); // Emits events to google-map.component in order to update.
   @ViewChild('closeButton') closeButton: ElementRef;
   @ViewChild('search') searchLocation: ElementRef;
@@ -57,13 +59,13 @@ export class EventComponent implements OnInit {
   onSubmit(eventForm: NgForm) {
     this.userService.getUserInfo(localStorage.getItem('user_id')).subscribe(user => {
       // Construct JS Date objects using UTC time
-      const startTime = eventForm.value.startTime.split(":")
+      const startTimeValues: Array<string> = this.startTime.split(":")
       const startUTCDate: Date = new Date(this.startDate.year, this.startDate.month - 1, this.startDate.day, // Month begin at 0 = Jan
-        Number(startTime[0]), Number(startTime[1]))
+        Number(startTimeValues[0]), Number(startTimeValues[1]))
 
-      const endTime = eventForm.value.endTime.split(":")
+      const endTimeValues: Array<string> = this.endTime.split(":")
       const endUTCDate: Date = new Date(this.endDate.year, this.endDate.month - 1, this.endDate.day,
-        Number(endTime[0]), Number(endTime[0]))
+        Number(endTimeValues[0]), Number(endTimeValues[1]))
 
       // Create an event with the form data and user info
       const event: Event = new Event(
@@ -88,6 +90,7 @@ export class EventComponent implements OnInit {
         this.onEventCreated.emit();
         this.closeButton.nativeElement.click();
       }, err => {
+        console.log("error sending" + JSON.stringify(err))
         // Return error
       });
       // Set the formReset back to false so that it can be set to true upon the next submission
@@ -130,5 +133,69 @@ export class EventComponent implements OnInit {
         break;
       }
     }
+  }
+
+  validStartDate(){
+    if(this.startDate == null || this.startTime == null){
+      return false;
+    } else {
+      const startTimeValues: Array<string> = this.startTime.split(":")
+      const startDate: Date = new Date(this.startDate.year, this.startDate.month - 1, this.startDate.day, // Month begin at 0 = Jan
+        Number(startTimeValues[0]), Number(startTimeValues[1]))
+
+      const diff: number = this.getDiffInDays(startDate.getTime(), Date.now());
+      if (diff <= 2 && diff >= 0){
+        return true;
+      }
+      return false;
+    }
+  }
+
+  validEndDate(){
+    if(this.endDate == null || this.endTime == null || this.startDate == null || this.startTime == null){
+      return false;
+    } else {
+      const startTimeValues: Array<string> = this.startTime.split(":")
+      const startDate: Date = new Date(this.startDate.year, this.startDate.month - 1, this.startDate.day, // Month begin at 0 = Jan
+        Number(startTimeValues[0]), Number(startTimeValues[1]))
+
+      const endTimeValues: Array<string> = this.endTime.split(":")
+      const endDate: Date = new Date(this.endDate.year, this.endDate.month - 1, this.endDate.day,
+        Number(endTimeValues[0]), Number(endTimeValues[1]))
+
+      const diff: number = this.getDiffInDays(endDate.getTime(), startDate.getTime())
+      if(diff <= 2 && diff > 0){
+        return true;
+      }
+      return false;
+    }
+  }
+
+  bothDatesGiven(){
+    if(this.startDate != null && this.startTime != null && this.endDate != null && this.endTime != null){
+      return true;
+    }
+    return false;
+  }
+
+  validDates(){
+    return this.validStartDate() && this.validEndDate()
+  }
+
+  getCategoryButtonStyle(){
+    let styles = {
+      'color' : this.dropdownTouched ? 'rgba(244, 66, 66, .9)' : 'black'
+    }
+    return styles;
+  }
+
+  onClose(){
+    this.dropdownTouched = false;
+  }
+
+  getDiffInDays(endDateInMilli, startDateInMilli) {
+    const diffInMilli = endDateInMilli - startDateInMilli;
+    const diffInDays = diffInMilli / (1000 * 60 * 60 * 24);
+    return diffInDays
   }
 }
