@@ -10,8 +10,19 @@
       <div class="modal-body">
       	<div class="container">
 			    <div class="row" *ngFor="let row of numRowsNeeded">
-			    	<button class="col-sm-5 btn" [ngClass]="getButtonType(categories[row*2])">{{ categories[row * 2] }}</button>
-			    	<button class="btn col-sm-5 ml-auto" [ngClass]="getButtonType(categories[row*2 + 1])" *ngIf="categoryExistsForIndex(row*2 + 1)">{{ categories[row * 2 + 1] }}</button>
+			    	<button 
+		    		class="col-sm-5 btn" 
+		    		[ngClass]="getButtonType(categories[row*2])"
+		    		(click)="onSelected(categories[row*2])">
+			    		{{ categories[row * 2] }}
+			    	</button>
+			    	<button
+		    		class="btn col-sm-5 ml-auto" 
+		    		[ngClass]="getButtonType(categories[row*2 + 1])" 
+		    		*ngIf="categoryExistsForIndex(row*2 + 1)"
+		    		(click)="onSelected(categories[row*2 + 1])">
+		    			{{ categories[row * 2 + 1] }}
+		    		</button>
 			    </div>
       	</div>
       </div>
