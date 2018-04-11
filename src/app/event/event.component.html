@@ -33,7 +33,9 @@
 								Categories
 							</button>
 							<div class="dropdown-menu">
-								<button type="button" *ngFor="let category of categories" class="dropdown-item" (click)="onSelectCategory(category)">{{ category.name }}</button>
+								<div *ngFor="let category of categories">
+									<button type="button"  *ngIf="selectedCategories?.indexOf(category) == -1" class="dropdown-item" (click)="onSelectCategory(category)">{{ category.name }}</button>
+								</div>
 							</div>
 							<div class="col-sm-9">
 								<span *ngFor="let category of selectedCategories" class="badge badge-pill badge-success" (click)="onRemoveCategory(category)">{{ category.name }} &times;</span>

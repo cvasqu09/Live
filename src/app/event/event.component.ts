@@ -105,12 +105,12 @@ export class EventComponent implements OnInit {
 
   onSelectCategory(category: any[]) {
     this.selectedCategories.push(category)
-    const index = this.categories.indexOf(category)
-    this.categories.splice(index, 1);
+    // const index = this.categories.indexOf(category)
+    //this.categories.splice(index, 1); Removes catagory from the hard list
   }
 
   onRemoveCategory(category: any[]) {
-    this.categories.push(category)
+    // this.categories.push(category) Adds the catagory from the selected cat back to the main one
     const index = this.selectedCategories.indexOf(category)
     this.selectedCategories.splice(index, 1);
   }

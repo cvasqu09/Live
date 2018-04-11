@@ -231,8 +231,7 @@ export class GoogleMapComponent implements OnInit {
 
   getProperMarker(markerInfo): string {
 
-    var currentCategory = markerInfo.categories[0];
-
+    const currentCategory = markerInfo.categories[0];
     // If user joined the event
     if(markerInfo.rsvps.rsvpUsers.indexOf(localStorage.getItem('user_id')) != -1){
       return "assets/markers/joined-event-48.png";
@@ -243,12 +242,12 @@ export class GoogleMapComponent implements OnInit {
     }
     // Try to see if we have an icon, if not, use the default
     else {
-      for (let category of this.mainCategories.categories){
-        if (currentCategory == category.name && category.icon != ""){
-          return category.icon;
-        }
+      if (currentCategory.icon != ""){
+        return currentCategory.icon;
       }
-      return "assets/markers/default-event-48.png";
+      else {
+        return "assets/markers/default-event-48.png";
+      }
     }
   }
 }
