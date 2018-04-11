@@ -16,7 +16,7 @@ import { CategoriesService } from '../categories.service';
 })
 export class EventComponent implements OnInit {
   formReset: boolean = false;
-  selectedCategories: Array<string> = [];
+  selectedCategories: any[]= [];
   categories: any[];
   dropdownTouched: boolean = false;
   eventLat: number;
@@ -38,7 +38,7 @@ export class EventComponent implements OnInit {
     private googleMaps: GoogleMapComponent,
     private mainCategories: CategoriesService
   ) {}
-                                              
+
   ngOnInit() {
     this.categories = this.mainCategories.categories;
     this.mapsAPI.load().then(() => {
@@ -103,13 +103,13 @@ export class EventComponent implements OnInit {
     });
   }
 
-  onSelectCategory(category: string) {
+  onSelectCategory(category: any[]) {
     this.selectedCategories.push(category)
     const index = this.categories.indexOf(category)
     this.categories.splice(index, 1);
   }
 
-  onRemoveCategory(category: string) {
+  onRemoveCategory(category: any[]) {
     this.categories.push(category)
     const index = this.selectedCategories.indexOf(category)
     this.selectedCategories.splice(index, 1);
