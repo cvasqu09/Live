@@ -5,3 +5,7 @@
 .btn {
 	margin-bottom: .2rem;
 }
+
+.invalid-input {
+	color: rgba(244, 66, 66, .9);
+}

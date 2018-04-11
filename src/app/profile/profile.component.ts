@@ -34,23 +34,7 @@ export class ProfileComponent implements OnInit {
     })
   }
 
-  onEditProfile() {
-    console.log("editing profile")
-    // Logic for sending edited user information
-    var changes: Object = {};
-
-    // Initialize changes object to have selected categories and current Ice numbers
-    changes = {"categories": this.selectedCategories, "ICENumbers": [{phoneNumber:"5555555555", provider:"verizon", confirmed: true}]/*this.currentICENumbers*/}
-
-    this.userService.editUser(this.user_id, changes).subscribe(user => {
-      // use toaster service to create a success alert
-      const notification: ToasterNotification = new ToasterNotification("Success", "Boo Yah! Your changes have been made.", ToasterNotification.SUCCESS)
-      this.toasterService.sendNotification(notification)
-    }, err => {
-      // user toaster service to create a error alert
-      const notification: ToasterNotification = new ToasterNotification("Error", "Sorry, I could not save your changes.", ToasterNotification.ERROR)
-      this.toasterService.sendNotification(notification)
-
-    })
+  updateCategories(categories: Array<string>) {
+    this.selectedCategories = categories;
   }
 }
