@@ -30,6 +30,7 @@ import { LocationSearchComponent } from './home/location-search/location-search.
 import { DatePickerComponent } from './date-picker/date-picker.component';
 import { ReviewComponent } from './review/review.component';
 import { ToasterComponent } from './toaster/toaster.component';
+import { CategoryModalComponent } from './category-modal/category-modal.component';
 import { CategoriesService } from './categories.service';
 
 // TODO: Remove apiKey
@@ -51,7 +52,8 @@ import { CategoriesService } from './categories.service';
     LocationSearchComponent,
     DatePickerComponent,
     ReviewComponent,
-    ToasterComponent
+    ToasterComponent,
+    CategoryModalComponent
   ],
   imports: [
     BrowserModule,

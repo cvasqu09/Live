@@ -27,9 +27,10 @@ export class ProfileComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    var id = localStorage.getItem("user_id")
-    this.userService.getUserInfo(id).subscribe((user) => {
-      this.user = user
+    this.user_id = localStorage.getItem("user_id")
+    this.userService.getUserInfo(this.user_id).subscribe((user) => {
+      this.user = user  
+      this.selectedCategories = user.categories
     })
   }
 
@@ -39,7 +40,7 @@ export class ProfileComponent implements OnInit {
     var changes: Object = {};
 
     // Initialize changes object to have selected categories and current Ice numbers
-    changes = {"categories": "testcat"/*this.selectedCategories*/, "ICENumbers": [{phoneNumber:"5555555555", provider:"verizon", confirmed: true}]/*this.currentICENumbers*/}
+    changes = {"categories": this.selectedCategories, "ICENumbers": [{phoneNumber:"5555555555", provider:"verizon", confirmed: true}]/*this.currentICENumbers*/}
 
     this.userService.editUser(this.user_id, changes).subscribe(user => {
       // use toaster service to create a success alert
@@ -52,5 +53,4 @@ export class ProfileComponent implements OnInit {
 
     })
   }
-
 }
