@@ -1,8 +1,14 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const favicon = require('serve-favicon');
+
 const path = require('path');
 const http = require('http');
 const app = express();
+
+// Ave atque vale
+app.use(favicon(path.join(__dirname, 'dist/assets/favicon.ico')));
+
 const mongoose = require('mongoose');
 require('dotenv').config();
 
