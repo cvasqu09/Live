@@ -1,15 +1,45 @@
 .att {
 	background-color: rgb(0, 159, 219);
+	border-color: rgb(0, 159, 219);
+}
+
+.att.dropdown-toggle:focus  {
+	background-color: #007099;
+	border-color: #007099;
+	box-shadow: rgba(0, 159, 219, .5)
 }
 
 .verizon {
 	background-color: rgb(235, 28, 36);
+	border-color: rgb(235, 28, 36);
+}
+
+.verizon.dropdown-toggle:focus{
+	background-color: #bc1016;
+	border-color: #bc1016;
+	box-shadow: rgba(235, 28, 36, .5);
 }
 
 .tmobile {
 	background-color: rgb(237, 0, 140);
+	border-color: rgb(237, 0, 140);
+}
+
+.tmobile.dropdown-toggle:focus {
+	background-color: #b30068;
+	border-color: #b30068;
+	border-color: rgba(237, 0, 140, .5);
 }
 
 .sprint {
 	background-color: rgb(255, 221, 5);
+	border-color: rgb(255, 221, 5);
+	color: black;
+}
+
+.sprint.dropdown-toggle:focus {
+	background-color: #e6c700;
+	border-color: #e6c700;
+	color: black;
+	box-shadow:  rgb(255, 221, 5, .5)
 }
