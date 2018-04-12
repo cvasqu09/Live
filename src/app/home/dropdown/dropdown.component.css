@@ -1,0 +1,8 @@
+.dropdown-overlay {
+	position: absolute;
+	left: -50px;
+	bottom: -50px;
+	border-radius: 50%;
+	font-size: 200%;
+	z-index: +1;
+}

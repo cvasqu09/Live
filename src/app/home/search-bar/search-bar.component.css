@@ -1,0 +1,8 @@
+.search-overlay {
+	position: absolute;
+	left: 10px;
+	bottom: -50px;
+	border-radius: 50%;
+	font-size: 200%;
+	z-index: +1;
+}

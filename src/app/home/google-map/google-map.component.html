@@ -2,6 +2,8 @@
   <div class="row">
     <!-- The eventCoord variable is passed from google-map (parent) to location-search (child) through
           @Input. This is used to retrive [lat, lng] of the address entered in the location-search bar -->
+    <app-search-bar class="col-sm-8"></app-search-bar>
+    <app-dropdown class="col-sm-4 .offset-sm-2"></app-dropdown>
     <app-location-search class="col-sm-12 py-1" [eventCoord]="centerCoord"></app-location-search>
   </div>
 </div>
@@ -21,7 +23,10 @@
   </agm-map>
 </div>
 
+
+
 <!-- Button for opening event creation -->
+
 <div class="button-overlay">
 	<button type="button" class="btn btn-success" data-toggle="modal" data-target="#eventModal">
 		<i class="fa fa-plus"></i>

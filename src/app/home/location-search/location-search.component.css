@@ -1,0 +1,8 @@
+.locationsearch-overlay {
+	position: absolute;
+	left: 300px;
+	bottom: -44px;
+	border-radius: 50%;
+	font-size: 200%;
+	z-index: +1;
+}
