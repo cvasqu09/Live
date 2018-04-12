@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { UserService } from '../user/user.service';
-import { ToasterNotification } from '../toaster/toaster-notification.model'
-import { ToasterService } from '../toaster/toaster.service'
+import { UserService } from '../../user/user.service';
+import { ToasterNotification } from '../../toaster/toaster-notification.model'
+import { ToasterService } from '../../toaster/toaster.service'
 
 @Component({
 	selector: 'app-category-modal',
@@ -11,7 +11,7 @@ import { ToasterService } from '../toaster/toaster.service'
 export class CategoryModalComponent implements OnInit {
 	@Input() openModal: boolean; 
 	@Input() selectedCategories: Array<string>;
-	@Output() categoriesUpdated: EventEmitter< Array<string> > = new EventEmitter< Array<string> >;
+	@Output() categoriesUpdated: EventEmitter< Array<string> > = new EventEmitter< Array<string> >();
 	categories: Array<string> = ['chess', 'basketball', 'sports', 'music', 'fifth'] // TODO: Change this to use central category list
 	updateCategories: Array<string>
 	numRowsNeeded: Array<number>;

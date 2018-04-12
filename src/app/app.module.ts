@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -32,6 +33,7 @@ import { ReviewComponent } from './review/review.component';
 import { ToasterComponent } from './toaster/toaster.component';
 import { CategoryModalComponent } from './category-modal/category-modal.component';
 import { CategoriesService } from './categories.service';
+import { AddIceNumberModalComponent } from './profile/add-ice-number-modal/add-ice-number-modal.component';
 
 // TODO: Remove apiKey
 @NgModule({
@@ -53,10 +55,12 @@ import { CategoriesService } from './categories.service';
     DatePickerComponent,
     ReviewComponent,
     ToasterComponent,
-    CategoryModalComponent
+    CategoryModalComponent,
+    AddIceNumberModalComponent
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     HttpModule,
     FormsModule,
     ReactiveFormsModule,
