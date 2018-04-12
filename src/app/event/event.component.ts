@@ -7,6 +7,7 @@ import { User } from '../user/user.model';
 import { MapsAPILoader } from '@agm/core';
 import { } from 'googlemaps';
 import { GoogleMapComponent } from '../home/google-map/google-map.component';
+import { CategoriesService } from '../categories.service';
 
 @Component({
   selector: 'app-event',
@@ -15,8 +16,8 @@ import { GoogleMapComponent } from '../home/google-map/google-map.component';
 })
 export class EventComponent implements OnInit {
   formReset: boolean = false;
-  selectedCategories: Array<string> = [];
-  categories: Array<string> = ["chess", "sports", "music"] // TODO: Have a global for supported categories
+  selectedCategories: any[]= [];
+  categories: any[];
   dropdownTouched: boolean = false;
   eventLat: number;
   eventLng: number;
@@ -34,10 +35,12 @@ export class EventComponent implements OnInit {
     private userService: UserService,
     private mapsAPI: MapsAPILoader,
     private ngZone: NgZone,
-    private googleMaps: GoogleMapComponent
-    ) {}
+    private googleMaps: GoogleMapComponent,
+    private mainCategories: CategoriesService
+  ) {}
 
   ngOnInit() {
+    this.categories = this.mainCategories.categories;
     this.mapsAPI.load().then(() => {
       let autocomplete = new google.maps.places.Autocomplete(this.searchLocation.nativeElement, {
         types: ["address"]
@@ -100,14 +103,14 @@ export class EventComponent implements OnInit {
     });
   }
 
-  onSelectCategory(category: string) {
+  onSelectCategory(category: any[]) {
     this.selectedCategories.push(category)
-    const index = this.categories.indexOf(category)
-    this.categories.splice(index, 1);
+    // const index = this.categories.indexOf(category)
+    //this.categories.splice(index, 1); Removes catagory from the hard list
   }
 
-  onRemoveCategory(category: string) {
-    this.categories.push(category)
+  onRemoveCategory(category: any[]) {
+    // this.categories.push(category) Adds the catagory from the selected cat back to the main one
     const index = this.selectedCategories.indexOf(category)
     this.selectedCategories.splice(index, 1);
   }

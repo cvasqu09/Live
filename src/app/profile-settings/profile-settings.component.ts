@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef} from '@angular/core';
 import { User } from '../user/user.model';
 import { UserService } from '../user/user.service';
+import { CategoriesService } from '../categories.service';
 
 @Component({
   selector: 'app-profile-settings',
@@ -13,27 +14,10 @@ export class ProfileSettingsComponent implements OnInit {
   @ViewChild('openCreateUserModal') openCreateUserModal:ElementRef;
 
   public settingsRequest = false;
-  public userCatagories = [];
+  public userCategories = [];
   public userICENumber: string = "";
   public userProvider: string = "att";
-  public catagories: any[] = [
-    {
-      "name": "Chess",
-      "id": "check-tag"
-    },
-    {
-      "name": "Baseball",
-      "id": "baseball-tag"
-    },
-    {
-      "name": "Volleyball",
-      "id": "volleyball-tag"
-    },
-    {
-      "name": "Disc Golf",
-      "id": "disc-golf-tag"
-    }
-  ]; // TODO: Generalize this object for the entire project
+  public categories: any[];
   public providers: any[] = [
     {"name" : "att"},
     {"name" : "verizon"},
@@ -41,9 +25,13 @@ export class ProfileSettingsComponent implements OnInit {
     {"name" : "sprint"}
   ];
 
-  constructor(private userService: UserService) { }
+  constructor(
+    private userService: UserService,
+    private mainCategories: CategoriesService
+  ) { }
 
   ngOnInit() {
+    this.categories = this.mainCategories.categories;
     this.openCreateUserModal.nativeElement.click();
   }
 
@@ -56,13 +44,13 @@ export class ProfileSettingsComponent implements OnInit {
     return this.settingsRequest;
   }
 
-  catagorySelected(catagory): void {
+  categorySelected(category): void {
 
-    if (this.userCatagories.includes(catagory)){
-      this.userCatagories.splice(this.userCatagories.indexOf(catagory),1);
+    if (this.userCategories.includes(category)){
+      this.userCategories.splice(this.userCategories.indexOf(category),1);
     }
     else {
-      this.userCatagories.push(catagory);
+      this.userCategories.push(category);
     }
   }
 
@@ -77,7 +65,7 @@ export class ProfileSettingsComponent implements OnInit {
     var fullName =  (<HTMLInputElement>document.getElementById("fName")).value + " " +(<HTMLInputElement>document.getElementById("lName")).value;
     this.userICENumber =  (<HTMLInputElement>document.getElementById("iceNumber")).value.replace(/\-/g, '').replace(/\(/g, '').replace(/\)/g, '');
 
-    const newUser = new User(fullName, this.userCatagories, [], 0, [{ "phoneNumber" : this.userICENumber, "provider": this.userProvider, "confirmed" : true}], localStorage.getItem("user_id"));
+    const newUser = new User(fullName, this.userCategories, [], 0, [{ "phoneNumber" : this.userICENumber, "provider": this.userProvider, "confirmed" : true}], localStorage.getItem("user_id"));
     console.log(newUser);
     this.userService.createUser(newUser).subscribe(
       response => {

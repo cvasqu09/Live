@@ -3,6 +3,7 @@ import { ViewEventComponent } from '../view-event/view-event.component';
 import { Event } from '../../event/event.model'
 import { EventService } from '../../event/event.service';
 import { Coord } from '../coord';
+import { CategoriesService } from '../../categories.service';
 
 @Component({
   selector: 'app-google-map',
@@ -183,7 +184,8 @@ export class GoogleMapComponent implements OnInit {
   markers: Event[] = [];
   constructor(
     public viewEvent: ViewEventComponent,
-    private eventService: EventService
+    private eventService: EventService,
+    private mainCategories: CategoriesService
   ) { }
 
   ngOnInit() {
@@ -229,11 +231,23 @@ export class GoogleMapComponent implements OnInit {
 
   getProperMarker(markerInfo): string {
 
+    const currentCategory = markerInfo.categories[0];
+    // If user joined the event
     if(markerInfo.rsvps.rsvpUsers.indexOf(localStorage.getItem('user_id')) != -1){
-      return "assets/markers/joined-event-32.png";
+      return "assets/markers/joined-event-48.png";
     }
+    // If event is full display this
+    else if (markerInfo.numPeople == markerInfo.rsvps.numRsvps){
+      return "assets/markers/full-event-48.png"
+    }
+    // Try to see if we have an icon, if not, use the default
     else {
-      return "assets/markers/default-event-32.png";
+      if (currentCategory.icon != ""){
+        return currentCategory.icon;
+      }
+      else {
+        return "assets/markers/default-event-48.png";
+      }
     }
   }
 }
