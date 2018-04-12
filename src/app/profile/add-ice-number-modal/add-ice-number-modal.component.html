@@ -13,7 +13,7 @@
 						<label class="h4" for="phoneNumber">Phone number:</label>
 					</div>
 					<div class="row">
-						<input type="text" class="col-sm-8 form-control" id="phoneNumber">
+						<input type="tel" class="col-sm-8 form-control" id="phoneNumber" [(ngModel)]="phoneNumber" placeholder="999-999-9999" required>
 					  <button class="btn btn-success dropdown-toggle col-sm-3 ml-auto" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" [ngClass]="getProviderClass()">
 					    <a >{{ selectedProvider }}</a>
 					  </button>
@@ -26,7 +26,7 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-primary" [disabled]="!validState()" (click)="onSaveChanges()" data-dismiss="modal">Save changes</button>
+				<button type="button" class="btn btn-primary" [disabled]="!validState() || $untouched" (click)="onSaveChanges()" data-dismiss="modal">Save changes</button>
 			</div>
 		</div>
 	</div>

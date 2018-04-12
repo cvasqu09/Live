@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./add-ice-number-modal.component.css']
 })
 export class AddIceNumberModalComponent implements OnInit {
+  phoneNumber: string;
 	selectedProvider: string = "Provider";
 	readonly providers: Array<string> = ["ATT", "Verizon", "Sprint", "T-Mobile"];
 
@@ -32,5 +33,19 @@ export class AddIceNumberModalComponent implements OnInit {
   			return ""
   	}
   }
+
+  validState() {
+    if(this.phoneNumber == null){
+      return false
+    }
+
+    this.phoneNumber = this.phoneNumber.replace(/\-/g, '').replace(/\(/g, '').replace(/\)/g, '').replace(/ /g, '');
+    if(this.phoneNumber.length == 10 && !isNaN(Number(this.phoneNumber)) && this.providers.includes(this.selectedProvider)){
+      return true;
+    }
+    return false
+  }
+
+  onSaveChanges()
 
 }
