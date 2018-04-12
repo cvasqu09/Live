@@ -1,5 +1,4 @@
 .agm-wrapper {
-
   height: 100%;
   width: 100%;
 }
@@ -30,4 +29,11 @@ agm-map {
 	bottom: 10px;
 	border-radius: 50%;
 	font-size: 200%;
+}
+
+.top-overlay {
+	position:  absolute;
+	right: 1rem;
+	z-index: 2
+
 }
