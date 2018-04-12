@@ -21,16 +21,6 @@ var startDateValidator = function (startDate) {
   return false;
 };
 
-var endDateValidator = function (endDate) {
-  diffInMilli = endDate.getTime() - this.start.getTime();
-  diffInDays = diffInMilli / (1000 * 60 * 60 * 24);
-
-  if (diffInDays <= 2 && diffInDays > 0) {
-    return true;
-  }
-  return false;
-};
-
 var eventSchema = new Schema({
   eventName: {
     type: String,
@@ -67,11 +57,7 @@ var eventSchema = new Schema({
   },
   end: {
     type: Date,
-    required: true,
-    validate: {
-      validator: endDateValidator,
-      message: 'Invalid date entered'
-    }
+    required: true
   },
   description: {
     type: String,
@@ -86,5 +72,14 @@ var eventSchema = new Schema({
   _id: { type: Schema.Types.ObjectId }
 },
 { versionKey: false });
+
+eventSchema.pre('validate', function (next) {
+  diffInMilli = this.end.getTime() - this.start.getTime();
+  diffInDays = diffInMilli / (1000 * 60 * 60 * 24);
+  if (diffInDays <= 2 && diffInDays > 0) {
+    next();
+  }
+  next(new Error('Invalid end date given. Make sure end date is within 2 days of the start date.'));
+});
 
 module.exports = mongoose.model('Event', eventSchema);
