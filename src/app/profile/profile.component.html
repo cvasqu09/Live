@@ -2,7 +2,7 @@
 	<form>
 		<div class="form-group">
 			<label class="h4" for="fullName">Name</label>
-			<input type="email" class="form-control" id="fullName" [value]="user?.fullName">
+			<input type="email" class="form-control" id="fullName" [value]="user?.fullName" readonly>
 		</div>
 		<div class="form-group">
 			<label class="h4" for="createdEvents">Your Events</label>
@@ -10,13 +10,20 @@
 		</div>
 		<div class="form-group">
 			<label class="h4" for="categories">Hobbies/Interests</label>
+			<button class="btn btn-success" data-toggle="modal" data-target="#categoryModal"> Edit </button>
 			<br>
-			<span *ngFor="let category of user?.categories" class="badge badge-pill badge-success">{{category}}</span>
+			<span *ngFor="let category of selectedCategories" class="badge badge-pill badge-success">{{category}}</span>
 		</div>
 		<div class="form-group">
 			<label class="h4" for="ice-numbers">ICE Numbers</label>
+			<button class="btn btn-success" data-toggle="modal" data-target="#ice-number-modal"> 		
+				<i class="fa fa-plus"></i> 
+			</button>
 			<app-ice-number *ngFor="let iceNumber of user?.ICENumbers" [number]="iceNumber"></app-ice-number>
 		</div>
 	</form>
 	<button class="btn btn-primary" (click)="auth.logout()" [routerLink]="['/home']">Logout</button>
 </div>
+
+<app-category-modal [openModal]="modalOpened" [selectedCategories]="selectedCategories" (categoriesUpdated)="updateCategories($event)"></app-category-modal>
+<app-add-ice-number-modal></app-add-ice-number-modal>

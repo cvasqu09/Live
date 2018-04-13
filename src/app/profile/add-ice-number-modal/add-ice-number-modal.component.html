@@ -1,0 +1,33 @@
+<div class="modal fade" id="ice-number-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Add In Case of Emergency Number</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="container">
+					<div class="row">
+						<label class="h4" for="phoneNumber">Phone number:</label>
+					</div>
+					<div class="row">
+						<input type="tel" class="col-sm-8 form-control" id="phoneNumber" [(ngModel)]="phoneNumber" placeholder="999-999-9999" required>
+					  <button class="btn btn-success dropdown-toggle col-sm-3 ml-auto" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" [ngClass]="getProviderClass()">
+					    <a >{{ selectedProvider }}</a>
+					  </button>
+					  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+			   	  	<a *ngFor="let provider of providers" class="dropdown-item" (click)="updateProviderButton(provider)">{{ provider }}</a>
+						</div>
+					</div>								
+				</div>
+		
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-primary" [disabled]="!validState() || $untouched" (click)="onSaveChanges()" data-dismiss="modal">Save changes</button>
+			</div>
+		</div>
+	</div>
+</div>
