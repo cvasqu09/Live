@@ -9,3 +9,12 @@ ul li {
 	padding: 2px;
 }
 
+.btn {
+	float: right;
+}
+
+
+.container {
+	height:  80%;
+	overflow: scroll;
+}
