@@ -17,7 +17,7 @@
     </ul>
   </div>
 </nav>
-<br>
+<br *ngIf="router.url !== '/home'">
 <app-toaster></app-toaster>
 <app-login-auth></app-login-auth>
 <router-outlet></router-outlet>
