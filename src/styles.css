@@ -19,3 +19,8 @@ body, html {
 
   cursor: pointer;
 }
+
+.navbar {
+
+  z-index: 5;
+}
