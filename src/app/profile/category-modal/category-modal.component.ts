@@ -40,7 +40,11 @@ export class CategoryModalComponent implements OnInit {
 	}
 
 	onSelected(category): void {
-		if(this.categoriesBuffer.includes(category)){
+		if(this.categoriesBuffer == null) {
+			this.categoriesBuffer = []
+			this.categoriesBuffer.push(category)
+		}
+		else if(this.categoriesBuffer.includes(category)){
 			const index = this.categoriesBuffer.indexOf(category)
 			this.categoriesBuffer.splice(index, 1);
 		} else {

@@ -15,7 +15,7 @@
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav mx-auto nav-fill w-40">
       <li class= "nav-item">
-        <a class="nav-link" [routerLink]="['/home']" routerLinkActive="active">
+        <a class="nav-link" [routerLink]="['/home']" routerLinkActive="active" (click)="clearNotifications()">
           <i class="fas fa-home fa-lg" data-fa-transform="right-1"></i>
           <p>Home</p>
         </a>
