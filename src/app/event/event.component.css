@@ -1,0 +1,32 @@
+.modal-title {
+	position: absolute;
+}
+
+.modal-footer {
+	padding-top: 0.8rem;
+	padding-bottom: 0rem;
+}
+
+.submit-btn {
+	float: right;
+}
+
+input.ng-touched.ng-invalid {
+	border: 2px solid rgba(244, 66, 66, .7);
+}
+
+.input-feedback {
+	color: rgba(244, 66, 66, .9);
+}
+
+.badge-pill {
+	height:  1.5rem;
+	margin-right: .2rem;
+	margin-top: .4rem;
+	padding: .4rem .4rem;
+}
+
+.badge-pill:hover {
+	background-color: #228e3b;
+	cursor: default;
+}

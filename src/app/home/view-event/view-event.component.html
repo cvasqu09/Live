@@ -1,0 +1,57 @@
+<button type="button" id="viewEventBtn" class="btn btn-primary" [hidden]="true" data-toggle="modal" data-target="#viewEventModal">
+  Select
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="viewEventModal" tabindex="-1" role="dialog" aria-labelledby="viewEventModalTitle" aria-hidden="false">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="event-header modal-header">
+        <h3 class="modal-title text-left" id="viewEventModalTitle">{{currentEvent.eventName}}</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body p-2">
+        <div class="row mx-auto">
+          <div class="event-date col">
+            <strong>{{currentEvent.start | date:'fullDate'}}</strong>
+          </div>
+          <div class="event-times col">
+            <strong>{{currentEvent.start | date:'shortTime'}} - {{currentEvent.end | date:'shortTime'}}</strong>
+          </div>
+        </div>
+        <hr>
+        <div class="row mx-2">
+          <div class="event-desc event-info">
+            <span class="event-section-title">Description</span><br>
+            {{currentEvent.description}}
+          </div>
+        </div>
+        <hr>
+        <div class="row mx-2">
+          <div class="event-location event-info">
+            <span class="event-section-title">Location</span><br>
+            {{currentEvent.address}}
+          </div>
+        </div>
+        <hr>
+        <div class="row mx-2">
+          <div class="event-rsvp event-info">
+            <span class="event-section-title">RSVP</span>
+            <div class="event-rsvp progress">
+              <div *ngIf="currentEvent?.rsvps?.numRsvps != currentEvent?.numPeople" class="progress-bar" [style.width]="(currentEvent?.rsvps?.numRsvps/currentEvent?.numPeople) * 100 + '%'">{{currentEvent.rsvps.numRsvps}} of {{currentEvent.numPeople}}</div>
+              <div *ngIf="currentEvent?.rsvps?.numRsvps == currentEvent?.numPeople" class="progress-bar" [style.width]="100 + '%'">Full!</div>
+            </div>
+            <div *ngIf="userRSVPEvent(currentEvent?.rsvps?.rsvpUsers); else notJoined">
+              <button class="btn btn-outline-primary btn-rsvp" disable>You're Joined!</button>
+            </div>
+            <ng-template #notJoined>
+              <button *ngIf="currentEvent?.rsvps?.numRsvps != currentEvent?.numPeople" class="btn btn-outline-primary btn-rsvp" (click)="updateRSVP()">Join Now!</button>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

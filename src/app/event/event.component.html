@@ -1,0 +1,160 @@
+<div class="modal fade" id="eventModal" role="dialog" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Create a New Event</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close" #closeButton (click)="onClose()">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<form (ngSubmit)="onSubmit(eventForm)" #eventForm="ngForm">
+					<div class="form-group">
+						<div class="form-row">
+							<label for="event-name" class="col-sm-3 col-form-label">Event Name:</label>
+							<input
+							type="text"
+							class="col-sm-9 form-control"
+							id="event-name"
+							ngModel
+							name="eventName"
+							required
+							#eventName="ngModel"
+							maxlength="40"
+							pattern="[a-zA-Z0-9\s]+">
+							<small class="input-feedback col-sm-9 offset-sm-3" *ngIf="eventName.invalid && eventName.touched">
+								Please enter a valid event name. Alphanumeric and whitespace allowed
+							</small>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="form-row">
+							<button type="button" class="btn btn-success dropdown-toggle col-sm-3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" (click)="onDropdownTouched()">
+								Categories
+							</button>
+							<div class="dropdown-menu">
+								<div *ngFor="let category of categories">
+									<button type="button"  *ngIf="selectedCategories?.indexOf(category) == -1" class="dropdown-item" (click)="onSelectCategory(category)">{{ category.name }}</button>
+								</div>
+							</div>
+							<div class="col-sm-9">
+								<span *ngFor="let category of selectedCategories" class="badge badge-pill badge-success" (click)="onRemoveCategory(category)">{{ category.name }} &times;</span>
+							</div>
+							<small class="input-feedback" *ngIf="selectedCategories?.length === 0" [ngStyle]="getCategoryButtonStyle()">Note: You must have at least one category selected</small>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="form-row">
+							<label for="num-people" class="col-sm-2 col-form-label">People:</label>
+							<input type="text"
+							class="col-sm-3 form-control"
+							id="num-people"
+							ngModel
+							name="numPeople"
+							#numPeople="ngModel"
+							pattern="([1-9]|1[0-9]|20)"
+							required>
+							<small class="input-feedback col-sm-9 offset-sm-2" *ngIf="numPeople.invalid && numPeople.touched">
+								Please enter the number of people required to attend. Between 1-20
+							</small>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="form-row">
+							<label for="location" class="col-sm-2 col-form-label">Location:</label>
+							<input type="text"
+								class="col-sm-10 form-control"
+								id="location"
+								ngModel
+								name="location"
+								placeholder="search for location"
+								autocorrect="off"
+								autocapitalize="off"
+								spellcheck="off"
+								type="text"
+								#search
+								#location="ngModel"
+								pattern="[a-zA-Z0-9\s]+"
+								required>
+							<small class="input-feedback col-sm-10 offset-sm-2" *ngIf="location.invalid && location.touched">
+								Please enter a valid location. Alphanumeric and whitespace allowed.
+							</small>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<div class="form-row">
+							<div class="col-sm-3 col-form-label">Start date:</div>
+							<app-date-picker [formReset]="formReset" (dateEmitter)="onDateChange('start', $event)"></app-date-picker>
+							<small class="input-feedback col-sm-9 offset-sm-3" *ngIf="startDate != null && !validStartDate() && startTime != null">
+								Please enter a start date within two days from now.
+							</small>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<div class="form-row">
+							<div class="col-sm-3 col-form-label">Start time:</div>
+							<input
+							type="time"
+							class="col-sm-3 form-control"
+							id="start-time"
+							ngModel
+							name="startTime"
+							#startTimeRef="ngModel"
+							[(ngModel)] = "startTime"
+							required>
+						</div>
+						<small class="input-feedback col-sm-9 offset-sm-3" *ngIf="startTimeRef.invalid && startTimeRef.touched">
+							Please enter a valid start time.
+						</small>
+					</div>
+
+					<div class="form-group">
+						<div class="form-row">
+							<div class="col-sm-3 col-form-label">End date:</div>
+							<app-date-picker [formReset]="formReset" (dateEmitter)="onDateChange('end', $event)"></app-date-picker>
+							<small class="input-feedback col-sm-9 offset-sm-3" *ngIf="bothDatesGiven() && !validEndDate()">
+								Please enter an end date within two days from the start date.
+							</small>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<div class="form-row">
+							<div class="col-sm-3 col-form-label">End time:</div>
+							<input
+							type="time"
+							class="col-sm-3 form-control"
+							id="end-time"
+							ngModel
+							name="endTime"
+							#endTimeRef="ngModel"
+							[(ngModel)]="endTime"
+							required>
+						</div>
+						<small class="input-feedback col-sm-9 offset-sm-3" *ngIf="endTimeRef.invalid && endTimeRef.touched">
+							Please enter a valid start time.
+						</small>
+					</div>
+
+					<div class="form-group">
+						<div class="form-row">
+							<label for="description" class="col-form-label">Description:</label>
+							<textarea
+							class="form-control"
+							id="description"
+							rows="3"
+							ngModel
+							maxlength="300"
+							name="description"></textarea>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="submit" class="btn btn-success submit-btn" [disabled]="!eventForm.valid || selectedCategories?.length === 0 || !validDates()">Create</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

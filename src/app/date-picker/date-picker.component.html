@@ -1,0 +1,19 @@
+<div class="col-sm-9 input-group">
+	<input
+	type="text"
+	class="form-control"
+	placeholder="yyyy-mm-dd"
+	name="dp" 
+	id="datepicker"
+	[(ngModel)]="model"
+	(ngModelChange)="onDateChange($event)"
+	ngbDatepicker
+	#datepicker="ngbDatepicker"
+	required>
+	<div class="input-group-append">
+		<button class="btn btn-outline-secondary" (click)="datepicker.toggle()" type="button">
+			<i class="fas fa-calendar-alt"></i>
+		</button>
+	</div>
+	<button type="button" class="btn btn-sm btn-outline-primary" (click)="selectToday()">Select Today</button>
+</div>

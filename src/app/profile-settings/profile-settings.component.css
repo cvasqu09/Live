@@ -1,0 +1,15 @@
+.input-group-text {
+
+  border-right: 0;
+  background-color: #ffffff;
+}
+
+.fa-user-circle, .fa-mobile-alt {
+
+  color: #abacad;
+}
+
+.form-control {
+
+  border-left: none;
+}

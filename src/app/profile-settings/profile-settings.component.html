@@ -1,0 +1,64 @@
+category<!-- Create New User Modal -->
+<button #openCreateUserModal class="btn btn-primary" id="openCreateUserModal" type="button" [hidden]="true" data-toggle="modal" data-target="#createUserModal">
+  Launch Create New User Modal
+</button>
+
+<div  class="modal fade" id="createUserModal" tabindex="-1" role="dialog" aria-labelledby="createUserModalTitle" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title text-center" id="loginModalTitle">Create new account!</h3>
+      </div>
+      <div class="modal-body text-center">
+        <form class="container" (ngSubmit)="onSubmit(newUserForm)" #newUserForm="ngForm">
+          <div class="form-group">
+            <div class="form-row">.
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">
+                    <i class="fa fa-user-circle"></i>
+                  </span>
+                </div>
+                <input type="text" class="form-control" id="fName" placeholder="First Name" required>
+              </div>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">
+                    <i class="fa fa-user-circle"></i>
+                  </span>
+                </div>
+                <input type="text" class="form-control" id="lName" placeholder="Last Name" required>
+              </div>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">
+                    <i class="fa fa-mobile-alt"></i>
+                  </span>
+                </div>
+                <input type="text" class="form-control" id="iceNumber" placeholder="Emergency Number" required>
+                <div class="input-group-append">
+                  <button class="btn btn-secondary dropdown-toggle" type="button" id="providersDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{userProvider}}</button>
+                  <div class="dropdown-menu">
+                    <a  *ngFor="let provider of providers" class="dropdown-item" (click)="providerSelected(provider.name)">{{provider.name}}</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <hr>
+            <h4>Select Categories</h4>
+            <div class="form-row">
+              <div class="btn-group-toggle" data-toggle="buttons" *ngFor="let category of categories" (click)=categorySelected(category.name)>
+                <label class="btn btn-secondary m-1" id={{category.id}}>
+                  <input type="checkbox" autocomplete="off">{{category.name}}
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-outline-success" data-dismiss="modal" (click)=submitNewUser() [disabled]="!newUserForm.valid || categories?.length === 0">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

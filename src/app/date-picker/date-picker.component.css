@@ -1,0 +1,18 @@
+.input-group {
+	padding-left: 0px;
+}
+
+.btn-outline-primary {
+	margin-left: .5rem;
+}
+
+.btn-outline-primary {
+	border-color: #05a828;
+	color: #05a828;
+}
+
+.btn-outline-primary:hover {
+	border-color: #ffffff;
+	color: #ffffff;
+	background-color: #05a828;
+}

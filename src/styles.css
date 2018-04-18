@@ -1,1 +1,26 @@
-/* You can add global styles to this file, and also import other style files */
+body, html {
+
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+.modal-title {
+
+  margin: 0 auto;
+}
+
+/* Used for Google Maps location autorecommend. Without this, it does not work in bootstrap modals */
+.pac-container {
+  z-index: 1054 !important;
+}
+
+.dropdown-item:hover {
+
+  cursor: pointer;
+}
+
+.navbar {
+
+  z-index: 5;
+}
