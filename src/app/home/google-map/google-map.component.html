@@ -2,25 +2,24 @@
   <div class="row">
     <!-- The eventCoord variable is passed from google-map (parent) to location-search (child) through
           @Input. This is used to retrive [lat, lng] of the address entered in the location-search bar -->
-    <app-search-bar class="col-sm-8"></app-search-bar>
-    <app-dropdown class="col-sm-4 .offset-sm-2"></app-dropdown>      
+    <app-search-bar class="col-sm-8" hidden></app-search-bar>
+    <app-dropdown class="col-sm-4 .offset-sm-2" hidden></app-dropdown>
     <app-location-search class="col-sm-12 py-1" [eventCoord]="centerCoord"></app-location-search>
   </div>
 </div>
-  <agm-map
+<agm-map
   [zoom] = "zoom"
   [latitude]="centerCoord.lat"
   [longitude]="centerCoord.lng"
   [styles]="styles">
-    <agm-marker
-      *ngFor="let m of markers; let i = index"
-      (markerClick)="setCurrentEvent(m)"
-      [latitude]="m.location[1]"
-      [longitude]="m.location[0]"
-      [iconUrl]="getProperMarker(m)">
-    </agm-marker>
-  </agm-map>
-
+  <agm-marker
+    *ngFor="let m of markers; let i = index"
+    (markerClick)="setCurrentEvent(m)"
+    [latitude]="m.location[1]"
+    [longitude]="m.location[0]"
+    [iconUrl]="getProperMarker(m)">
+  </agm-marker>
+</agm-map>
 
 <!-- Button for opening event creation -->
 <div class="button-overlay">

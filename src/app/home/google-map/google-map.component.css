@@ -33,7 +33,6 @@ agm-map {
 
 .top-overlay {
 	position: absolute;
-	right: 1rem;
 	top: 5rem;
 	z-index: 1;
 }
