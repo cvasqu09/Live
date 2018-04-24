@@ -1,18 +1,36 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="#">Live+</a>
+  <a class="navbar-brand" href="#"></a>
+
+  <div class="logo">
+    <img src="../assets/Logo.png" height="50" width="120">
+  </div>
+
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
   </button>
+  
   <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav">
-      <li class="nav-item" data-toggle="collapse" data-target="#navbarNav">
-        <a class="nav-link" [routerLink]="['/home']" routerLinkActive="active">Home</a>
+    <ul class="navbar-nav mx-auto nav-fill w-40">
+      <li class= "nav-item">
+        <a class="nav-link" [routerLink]="['/home']" routerLinkActive="active">
+          <i class="fas fa-home fa-lg" data-fa-transform="right-1"></i>
+          <p>Home</p>
+        </a>
       </li>
-      <li class="nav-item" data-toggle="collapse" data-target="#navbarNav">
-        <a class="nav-link" [routerLink]="['/profile']" routerLinkActive="active">Profile</a>
+      <li class="nav-item" data-target="#navbarNav">
+        <a class="nav-link" [routerLink]="['/profile']" routerLinkActive="active">
+          <i class="fas fa-user-circle fa-lg" data-fa-transform="right-1"></i>
+          <p>Profile</p>
+        </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/review']">Review</a>
+        <a class="nav-link" [routerLink]="['/review']">
+          <i class="fas fa-envelope fa-lg" data-fa-transform="right-1"></i>
+          <p>Review</p>
+        </a>
       </li>
     </ul>
   </div>
