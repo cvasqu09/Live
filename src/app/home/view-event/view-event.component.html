@@ -37,6 +37,13 @@
         </div>
         <hr>
         <div class="row mx-2">
+          <div class="rsvp-users">
+            <span class="rsvp-users-title event-info">Users Attending</span><br>
+            <span *ngFor="let user of rsvpUsers" class="badge badge-pill badge-success">{{ user.fullName }}</span>
+          </div>
+        </div>
+        <hr>
+        <div class="row mx-2">
           <div class="event-rsvp event-info">
             <span class="event-section-title">RSVP</span>
             <div class="event-rsvp progress">

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ElementRef, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { DatePipe, NgIf, NgForOf } from '@angular/common';
 import { EventService } from '../../event/event.service';
 import { Event } from '../../event/event.model';
@@ -15,35 +15,60 @@ export class ViewEventComponent implements OnInit {
   @Input() currentEvent: Event;
   userList: any = [];
   currentUser: string = localStorage.getItem('user_id');
+  rsvpUsers: any = [];
 
   constructor(
     private eventService: EventService,
-    private smsService: MessagingService
-  ) { }
+    private smsService: MessagingService,
+    private ref: ChangeDetectorRef
+  ) {}
 
   ngOnInit() {
 
   }
 
+  ngOnChanges() {
+    this.getRSVPUsers();
+  }
+
   // Retrieve the entire event object
   eventClicked(){
+    this.getRSVPUsers();
+
     var viewEventBtn: HTMLElement = document.getElementById("viewEventBtn") as HTMLElement;
     viewEventBtn.click();
   }
 
   updateRSVP(){
-
     this.currentEvent.rsvps['numRsvps']++;
     this.currentEvent.rsvps.rsvpUsers.push(localStorage.getItem("user_id"));
     this.eventService.editEventWithId(this.currentEvent._id, this.currentEvent).subscribe(
       response => {
         this.smsService.sendNotificationTexts().subscribe();
+        this.getRSVPUsers();
         // console.log(response);
       },
       error => {
-
+        console.log(this.currentEvent);
+        console.log(JSON.stringify(this.currentEvent))
+        console.log(JSON.stringify(error));
       }
     );
+  }
+
+  getRSVPUsers(): void {
+    if(this.currentEvent != null && this.currentEvent._id != null){
+      this.eventService.getRsvpUsers(this.currentEvent._id).subscribe(res => {
+        this.rsvpUsers = res.json();
+      }, err => {
+        console.log('error in get rsvpUsers' + err);
+      })
+    }
+  }
+
+  // Updates the modal to have the new rsvp users. 
+  updateView(): void {
+    this.ref.detectChanges()
   }
 
   userRSVPEvent(userList): boolean {

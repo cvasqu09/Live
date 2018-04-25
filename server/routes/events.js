@@ -58,6 +58,27 @@ router.post('/', function (req, res, next) {
   });
 });
 
+/* Used to retrieve the rsvp users for a given event */
+router.get('/:event_id/rsvpUsers', function (req, res, next) {
+  Event.findById(req.params.event_id, function (err, event) {
+    if (err) {
+      return res.status(500).json({
+        title: 'Error occurred while retrieving rsvp users',
+        message: err
+      });
+    }
+
+    if (event == null) {
+      return res.status(404).json({
+        title: '404 Error',
+        message: 'No event found'
+      });
+    }
+
+    res.status(200).json(event.rsvps.rsvpUsers);
+  }).populate('rsvps.rsvpUsers');
+});
+
 /* Used to edit an event with an id */
 router.patch('/:_id', function (req, res, next) {
   Event.findByIdAndUpdate(req.params._id, req.body, { new: true, runValidators: true }, function (err, event) {
