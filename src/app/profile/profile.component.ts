@@ -48,7 +48,7 @@ export class ProfileComponent implements OnInit {
 
   public getEventDetails(events: Array<string>): Array<Events>{
 
-    let tempEventList: Event[] = []; //Temp Array to store all the found events
+    let tempEventList: Array<Event> = []; //Temp Array to store all the found events
 
     for(let detailedEvent of events){
       this.eventService.getEventById(detailedEvent).subscribe((e) => {

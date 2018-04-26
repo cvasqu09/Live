@@ -1,7 +1,12 @@
-<div class="row">
-  <div class="col">
-    <h5>{{event.eventName}}</h5>
-  </div>
-  <div class="col text-right">
+<div class="container border-top border-bottom mb-1">
+  <div class="row">Title: {{event.eventName}}</div>
+  <div class="row">Time: </div>
+  <div class="row">Address: {{event.address}}</div>
+  <div class="row">Description: {{event.description}}</div>
+  <div class="row">
+    <div class="event-rsvp progress">
+      <div *ngIf="event?.rsvps?.numRsvps != event?.numPeople" class="progress-bar" [style.width]="(event?.rsvps?.numRsvps/event?.numPeople) * 100 + '%'">{{event?.rsvps?.numRsvps}} of {{event?.numPeople}}</div>
+      <div *ngIf="event?.rsvps?.numRsvps == event?.numPeople" class="progress-bar" [style.width]="100 + '%'">Full!</div>
+    </div>
   </div>
 </div>
