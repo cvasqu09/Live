@@ -17,6 +17,7 @@ export class UserService {
   getUserInfo(userId: string): Observable<any>{
   	return this.http.get(this.baseURL + userId)
 				.map((response: Response) => {
+					//console.log(this.transformIntoUserModel(response));
 					return this.transformIntoUserModel(response);
 				})
 				.catch((error: Response) => {
