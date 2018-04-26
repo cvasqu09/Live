@@ -79,6 +79,27 @@ router.get('/:event_id/rsvpUsers', function (req, res, next) {
   }).populate('rsvps.rsvpUsers');
 });
 
+/* Retrieve the eventOwner for a given event */
+router.get('/:event_id/eventOwner', function (req, res, next) {
+  Event.findById(req.params.event_id, function (err, event) {
+    if (err) {
+      return res.status(500).json({
+        title: 'Error occurred while retrieving event owner',
+        message: err
+      });
+    }
+
+    if (event == null) {
+      return res.status(404).json({
+        title: '404 Error',
+        message: 'No event found'
+      });
+    }
+
+    res.status(200).json(event.eventOwner);
+  }).populate('eventOwner');
+});
+
 /* Used to edit an event with an id */
 router.patch('/:_id', function (req, res, next) {
   Event.findByIdAndUpdate(req.params._id, req.body, { new: true, runValidators: true }, function (err, event) {

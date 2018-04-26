@@ -95,6 +95,17 @@ export class EventService {
       });
   }
 
+  // Get Event Owner
+  getEventOwner(eventId: string): Observable<any> {
+    return this.http.get(this.baseURL + eventId + '/eventOwner')
+      .map((response: Response) => {
+        return response.json();
+      })
+      .catch((error: Response) => {
+        return Observable.throw(error.json());
+      })
+  }
+
   private transformIntoEventModel(response: Response): Event {
   	const res = response.json();
   	return new Event(
