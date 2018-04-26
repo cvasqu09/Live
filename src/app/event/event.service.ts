@@ -103,12 +103,13 @@ export class EventService {
   		res.numPeople,
 			res.address,
   		res.location,
-  		res.startTime,
-  		res.endTime,
+  		res.start,
+  		res.end,
   		res.description,
   		res.eventOwner,
   		res._id,
-  		res.reports
+  		res.rsvps,
+      res.reports
   	)
   }
 }
