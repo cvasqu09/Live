@@ -17,9 +17,15 @@ export class ToasterComponent implements OnInit {
   ngOnInit() {
     this.toasterService.notificationObs.subscribe((notification: ToasterNotification) => {
       if(notification !== null){ 
-        const newNotification = new ToasterNotification(notification.title, notification.message, notification.type)
-        console.log("Received new notification");
-        this.notifications.push(newNotification)
+        if(notification.type == ToasterNotification.CLEAR){
+          // Clear all notifications
+          this.notifications.length = 0;
+        } else {
+          const newNotification = new ToasterNotification(notification.title, notification.message, notification.type)
+          console.log("Received new notification");
+          this.notifications.push(newNotification)
+        }
+
       }
     }, (err) => {
       const errorNotification = new ToasterNotification(err.title, err.message, ToasterNotification.ERROR)
