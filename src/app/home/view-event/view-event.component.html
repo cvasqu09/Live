@@ -21,6 +21,9 @@
             <strong>{{currentEvent.start | date:'shortTime'}} - {{currentEvent.end | date:'shortTime'}}</strong>
           </div>
         </div>
+        <div class="row mx-auto">
+          <button type="button" class="btn btn-danger danger-button" (click)="onReportButtonClicked()">Report This Event</button>
+        </div>
         <hr>
         <div class="row mx-2">
           <div class="event-desc event-info">
@@ -61,4 +64,6 @@
       </div>
     </div>
   </div>
-</div>
+</div>`
+
+<app-report-modal [currentEvent]="currentEvent"></app-report-modal>

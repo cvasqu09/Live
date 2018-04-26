@@ -2,12 +2,21 @@
   color: white;
 }
 
+.modal-title {
+  margin-left: .5rem;
+}
+
 .btn {
   color: #28a745;
 }
 
 .badge {
   margin-right: .2rem;
+}
+
+.danger-button {
+  margin-left: auto;
+  color: white;
 }
 
 .event-header {

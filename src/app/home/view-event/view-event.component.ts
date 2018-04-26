@@ -3,6 +3,7 @@ import { DatePipe, NgIf, NgForOf } from '@angular/common';
 import { EventService } from '../../event/event.service';
 import { Event } from '../../event/event.model';
 import { MessagingService } from '../../messaging.service';
+import { ReportModalComponent } from './report-modal/report-modal.component';
 
 @Component({
   selector: 'app-view-event',
@@ -11,7 +12,7 @@ import { MessagingService } from '../../messaging.service';
   providers: []
 })
 export class ViewEventComponent implements OnInit {
-
+  @ViewChild(ReportModalComponent) reportModalComponent;
   @Input() currentEvent: Event;
   userList: any = [];
   currentUser: string = localStorage.getItem('user_id');
@@ -102,5 +103,14 @@ export class ViewEventComponent implements OnInit {
     else {
       return false;
     }
+  }
+
+  onReportButtonClicked(){
+    // Close the current modal
+    var viewEventBtn: HTMLElement = document.getElementById("viewEventBtn") as HTMLElement;
+    viewEventBtn.click();
+
+    // Open the report modal and pass in the current event
+    this.reportModalComponent.openModal(this.currentEvent);
   }
 }

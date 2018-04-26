@@ -34,6 +34,7 @@ import { ToasterComponent } from './toaster/toaster.component';
 import { CategoryModalComponent } from './profile/category-modal/category-modal.component';
 import { CategoriesService } from './categories.service';
 import { AddIceNumberModalComponent } from './profile/add-ice-number-modal/add-ice-number-modal.component';
+import { ReportModalComponent } from './home/view-event/report-modal/report-modal.component';
 
 // TODO: Remove apiKey
 @NgModule({
@@ -56,7 +57,8 @@ import { AddIceNumberModalComponent } from './profile/add-ice-number-modal/add-i
     ReviewComponent,
     ToasterComponent,
     CategoryModalComponent,
-    AddIceNumberModalComponent
+    AddIceNumberModalComponent,
+    ReportModalComponent
   ],
   imports: [
     BrowserModule,
