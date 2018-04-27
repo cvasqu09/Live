@@ -47,6 +47,8 @@ export class ReportModalComponent implements OnInit {
   	const userId = localStorage.getItem('user_id')
   	const newReport: Report = new Report(this.report, this.currentEvent._id, userId)
   	console.log("submitting report: " + JSON.stringify(newReport));
+
+    // Send the report
   	this.reportService.sendReport(newReport).subscribe(res => {
   		console.log(res);
       this.reportSubmitted = true;
@@ -55,6 +57,14 @@ export class ReportModalComponent implements OnInit {
       this.errorOccurred = true;
       this.error = err.json().message;
   	})
+
+    // Update the number of rpeorts for the event
+    const reports = this.currentEvent.reports + 1;
+    this.eventService.editEventWithId(this.currentEvent._id, {"reports": reports}).subscribe(res => {
+      console.log("Number of reports updated: " + reports.toString())
+    }, err => {
+      console.log("error occurred while updatign reports: ")
+    })
   }
 
 }
