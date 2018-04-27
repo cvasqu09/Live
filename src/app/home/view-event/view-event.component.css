@@ -74,6 +74,18 @@
   color: white;
 }
 
+.btn-rsvp-leave {
+
+    border-color: #ff0000;
+    color: #ff0000;
+}
+
+.btn-rsvp-leave:hover {
+  border-color: #ff0000;
+  background-color: #ff0000;
+  color: white;
+}
+
 .event-header button {
   color: white;
 }

@@ -51,7 +51,7 @@
               <div *ngIf="currentEvent?.rsvps?.numRsvps == currentEvent?.numPeople" class="progress-bar" [style.width]="100 + '%'">Full!</div>
             </div>
             <div *ngIf="userRSVPEvent(currentEvent?.rsvps?.rsvpUsers); else notJoined">
-              <button class="btn btn-outline-primary btn-rsvp" disable>You're Joined!</button>
+              <button class="btn btn-outline-primary btn-rsvp btn-rsvp-leave" (click)="leaveRSVP()">Leave Event</button>
             </div>
             <ng-template #notJoined>
               <button *ngIf="currentEvent?.rsvps?.numRsvps != currentEvent?.numPeople" class="btn btn-outline-primary btn-rsvp" (click)="updateRSVP()">Join Now!</button>

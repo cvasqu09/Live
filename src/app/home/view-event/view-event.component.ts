@@ -56,6 +56,24 @@ export class ViewEventComponent implements OnInit {
     );
   }
 
+  leaveRSVP(){
+
+    this.currentEvent.rsvps['numRsvps']--;
+    this.currentEvent.rsvps.rsvpUsers.pop(localStorage.getItem("user_id"));
+    this.eventService.editEventWithId(this.currentEvent._id, this.currentEvent).subscribe(
+      response => {
+        this.smsService.sendNotificationTexts().subscribe();
+        this.getRSVPUsers();
+        // console.log(response);
+      },
+      error => {
+        console.log(this.currentEvent);
+        console.log(JSON.stringify(this.currentEvent))
+        console.log(JSON.stringify(error));
+      }
+    );
+  }
+
   getRSVPUsers(): void {
     if(this.currentEvent != null && this.currentEvent._id != null){
       this.eventService.getRsvpUsers(this.currentEvent._id).subscribe(res => {
@@ -66,7 +84,7 @@ export class ViewEventComponent implements OnInit {
     }
   }
 
-  // Updates the modal to have the new rsvp users. 
+  // Updates the modal to have the new rsvp users.
   updateView(): void {
     this.ref.detectChanges()
   }
