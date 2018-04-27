@@ -17,6 +17,7 @@
 .danger-button {
   margin-left: auto;
   color: white;
+  margin-right: .3rem;
 }
 
 .event-header {

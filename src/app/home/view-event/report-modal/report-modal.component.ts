@@ -15,6 +15,9 @@ export class ReportModalComponent implements OnInit {
 	@Input() currentEvent: Event;
 	eventOwner: string;
 	report: string = "";
+  reportSubmitted: boolean = false;
+  errorOccurred: boolean = false;
+  error: string;
 
   constructor(private eventService: EventService, private reportService: ReportService) { }
 
@@ -27,6 +30,9 @@ export class ReportModalComponent implements OnInit {
   	}, err => {
   		console.log('Error retrieving event owner: ' + err);
   	})
+    this.report = "";
+    this.reportSubmitted = false;
+    this.errorOccurred = false;
   	this.reportModalButton.nativeElement.click();
   }
 
@@ -43,8 +49,11 @@ export class ReportModalComponent implements OnInit {
   	console.log("submitting report: " + JSON.stringify(newReport));
   	this.reportService.sendReport(newReport).subscribe(res => {
   		console.log(res);
+      this.reportSubmitted = true;
   	}, err => {
   		console.log(err);
+      this.errorOccurred = true;
+      this.error = err.json().message;
   	})
   }
 
