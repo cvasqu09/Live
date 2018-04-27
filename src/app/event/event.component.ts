@@ -87,11 +87,16 @@ export class EventComponent implements OnInit {
 
       this.eventService.createEvent(event).subscribe(res => {
         // Reset the form and close the modal
-        console.log("successfully sent" + JSON.stringify(event))
+        console.log(res)
         eventForm.resetForm();
         this.formReset = true;
         this.onEventCreated.emit();
         this.closeButton.nativeElement.click();
+
+        //Adding Event to user
+        //const eventOwner: User = this.userService.getUserInfo(event.eventOwner);
+        //eventOwner.eventIds.push(event._id);
+        //this.userService.editUser(eventOwner) // Send the update user with new event
       }, err => {
         console.log("error sending" + JSON.stringify(err))
         // Return error

@@ -36,7 +36,6 @@ export class ProfileComponent implements OnInit {
       this.user = user
       this.selectedCategories = user.categories
       this.userDetailedEvents = this.getEventDetails(user.createdEventIds)
-      console.log(this.userDetailedEvents);
     });
 
 
@@ -46,7 +45,7 @@ export class ProfileComponent implements OnInit {
     this.selectedCategories = categories;
   }
 
-  public getEventDetails(events: Array<string>): Array<Events>{
+  public getEventDetails(events: Array<string>): Array<Event>{
 
     let tempEventList: Array<Event> = []; //Temp Array to store all the found events
 
