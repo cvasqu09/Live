@@ -59,19 +59,24 @@ export class ViewEventComponent implements OnInit {
   leaveRSVP(){
 
     this.currentEvent.rsvps['numRsvps']--;
-    this.currentEvent.rsvps.rsvpUsers.pop(localStorage.getItem("user_id"));
-    this.eventService.editEventWithId(this.currentEvent._id, this.currentEvent).subscribe(
-      response => {
-        this.smsService.sendNotificationTexts().subscribe();
-        this.getRSVPUsers();
-        // console.log(response);
-      },
-      error => {
-        console.log(this.currentEvent);
-        console.log(JSON.stringify(this.currentEvent))
-        console.log(JSON.stringify(error));
-      }
-    );
+    const userIndex = this.currentEvent.rsvps.rsvpUsers.indexOf(localStorage.getItem("user_id"));
+    // Make sure the user is even in the list
+    if(userIndex !== -1){
+      console.log(userIndex);
+      this.currentEvent.rsvps.rsvpUsers.splice(userIndex, 1);
+      this.eventService.editEventWithId(this.currentEvent._id, this.currentEvent).subscribe(
+        response => {
+          //this.smsService.sendNotificationTexts().subscribe();
+          this.getRSVPUsers();
+          // console.log(response);
+        },
+        error => {
+          console.log(this.currentEvent);
+          console.log(JSON.stringify(this.currentEvent))
+          console.log(JSON.stringify(error));
+        }
+      );
+    }
   }
 
   getRSVPUsers(): void {
