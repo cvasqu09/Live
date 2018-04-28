@@ -1,6 +1,6 @@
 import { Http, Response, Headers } from "@angular/http";
 import { Injectable } from '@angular/core';
-import { Observable } from "rxjs";
+import { Observable, BehaviorSubject } from "rxjs";
 import { Event } from './event.model';
 import { environment } from '../../environments/environment'
 
@@ -9,6 +9,13 @@ import 'rxjs/Rx';
 @Injectable()
 export class EventService {
 	baseURL = `${environment.domain_name}/api/events/`;
+  eventSent = new BehaviorSubject<Event>(null);
+  eventObs = this.eventSent.asObservable();
+
+  sendNotification(event: Event){
+    this.eventSent.next(event);
+  }
+
 
   constructor(private http: Http) {
 
@@ -59,17 +66,14 @@ export class EventService {
   }
 
   // Report Event
-  reportEventWithId(eventId: string): Observable<any> {
-  	return this.getEventById(eventId).flatMap((event: Event) => {
-  		const reports = event.reports++;
-  		return this.http.patch(this.baseURL + eventId, {"reports": reports})
-  			.map((response: Response) => {
-  				return this.transformIntoEventModel(response);
-  			})
-  			.catch((error: Response) => {
-  				return Observable.throw(error)
-  			})
-  	})
+  reportEvent(eventId: string){
+    return this.http.post(this.baseURL + eventId + '/report', eventId)
+            .map((response: Response) => {
+              return this.transformIntoEventModel(response);
+            })
+            .catch((error: Response) => {
+              return Observable.throw(error.json());
+            })
   }
 
   // Edit Event

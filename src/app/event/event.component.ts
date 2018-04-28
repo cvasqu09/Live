@@ -101,7 +101,6 @@ export class EventComponent implements OnInit {
         //this.userService.editUser(eventOwner) // Send the update user with new event
       }, err => {
         console.log("error sending" + JSON.stringify(err))
-        debugger
         const title = err.title;
         const message = err.message;
         this.error = { title, message };

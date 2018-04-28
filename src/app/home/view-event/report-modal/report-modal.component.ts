@@ -59,12 +59,13 @@ export class ReportModalComponent implements OnInit {
   	})
 
     // Update the number of rpeorts for the event
-    const reports = this.currentEvent.reports + 1;
-    this.eventService.editEventWithId(this.currentEvent._id, {"reports": reports}).subscribe(res => {
-      console.log("Number of reports updated: " + reports.toString())
+    this.eventService.reportEvent(this.currentEvent._id).subscribe(res => {
+      this.eventService.sendNotification(this.currentEvent);
+      console.log("Number of reports updated" );
     }, err => {
       console.log("error occurred while updatign reports: ")
     })
+
   }
 
 }
