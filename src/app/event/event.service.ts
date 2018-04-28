@@ -84,7 +84,16 @@ export class EventService {
   }
 
 
-  // update event
+  // Get RSVP users
+  getRsvpUsers(eventId: string): Observable<any> {
+    return this.http.get(this.baseURL + eventId + '/rsvpUsers')
+      .map((response: Response) => {
+        return response;
+      })
+      .catch((error: Response) => {
+        return Observable.throw(error.json());
+      });
+  }
 
   private transformIntoEventModel(response: Response): Event {
   	const res = response.json();
@@ -94,12 +103,13 @@ export class EventService {
   		res.numPeople,
 			res.address,
   		res.location,
-  		res.startTime,
-  		res.endTime,
+  		res.start,
+  		res.end,
   		res.description,
   		res.eventOwner,
   		res._id,
-  		res.reports
+  		res.rsvps,
+      res.reports
   	)
   }
 }
