@@ -3,6 +3,7 @@ const router = express.Router();
 const mongoose = require('mongoose');
 
 const Event = require('../models/event');
+const User = require('../models/user');
 
 /* Routes in this file will be prefixed by <host_name>/api/events */
 
@@ -45,16 +46,39 @@ router.get('/:_id', function (req, res, next) {
 router.post('/', function (req, res, next) {
   var event = new Event(req.body);
 
-  event.save(function (err, result) {
+  User.findById(event.eventOwner, function (err, user) {
     if (err) {
-      return res.status(400).json({
-        title: '400 Error',
-        error: err,
-        message: 'Bad request sent'
+      return res.status(500).json({
+        title: 'Error finding the event '
       });
     }
 
-    res.status(201).json(result);
+    if (user == null) {
+      return res.status(404).json({
+        title: '404 Error',
+        message: 'No event found'
+      });
+    }
+
+    // If user has too many strikes throw an error
+    if (user.strikes >= 3) {
+      return res.status(403).json({
+        title: '403 Blacklisted Boi',
+        message: 'Too many strikes. You\'re out!'
+      });
+    } else {
+      event.save(function (err, result) {
+        if (err) {
+          return res.status(400).json({
+            title: '400 Error',
+            error: err,
+            message: 'Bad request sent'
+          });
+        }
+
+        res.status(201).json(result);
+      });
+    }
   });
 });
 
