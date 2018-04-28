@@ -7,7 +7,7 @@
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="event-header modal-header">
-        <h3 class="modal-title text-left" id="viewEventModalTitle">{{currentEvent.eventName}}</h3>
+        <h3 class="modal-title text-left" id="viewEventModalTitle">{{currentEvent?.eventName}} <small>created by: {{ currentUser?.fullName }}</small></h3>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -15,10 +15,10 @@
       <div class="modal-body p-2">
         <div class="row mx-auto">
           <div class="event-date col">
-            <strong>{{currentEvent.start | date:'fullDate'}}</strong>
+            <strong>{{currentEvent?.start | date:'fullDate'}}</strong>
           </div>
           <div class="event-times col">
-            <strong>{{currentEvent.start | date:'shortTime'}} - {{currentEvent.end | date:'shortTime'}}</strong>
+            <strong>{{currentEvent?.start | date:'shortTime'}} - {{currentEvent?.end | date:'shortTime'}}</strong>
           </div>
         </div>
         <div class="row mx-auto">
@@ -28,21 +28,21 @@
         <div class="row mx-2">
           <div class="event-desc event-info">
             <span class="event-section-title">Description</span><br>
-            {{currentEvent.description}}
+            {{currentEvent?.description}}
           </div>
         </div>
         <hr>
         <div class="row mx-2">
           <div class="event-location event-info">
             <span class="event-section-title">Location</span><br>
-            {{currentEvent.address}}
+            {{currentEvent?.address}}
           </div>
         </div>
         <hr>
         <div class="row mx-2">
           <div class="rsvp-users">
             <span class="rsvp-users-title event-info">Users Attending</span><br>
-            <span *ngFor="let user of rsvpUsers" class="badge badge-pill badge-success">{{ user.fullName }}</span>
+            <span *ngFor="let user of rsvpUsers" class="badge badge-pill badge-success">{{ user?.fullName }}</span>
           </div>
         </div>
         <hr>

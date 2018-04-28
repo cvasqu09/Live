@@ -15,7 +15,8 @@ export class ViewEventComponent implements OnInit {
   @ViewChild(ReportModalComponent) reportModalComponent;
   @Input() currentEvent: Event;
   userList: any = [];
-  currentUser: string = localStorage.getItem('user_id');
+  currentUserId: string = localStorage.getItem('user_id');
+  currentUser: string;
   rsvpUsers: any = [];
 
   constructor(
@@ -25,11 +26,11 @@ export class ViewEventComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-
   }
 
   ngOnChanges() {
     this.getRSVPUsers();
+    this.getEventOwner();
   }
 
   // Retrieve the entire event object
@@ -90,7 +91,17 @@ export class ViewEventComponent implements OnInit {
     }
   }
 
-  // Updates the modal to have the new rsvp users.
+  getEventOwner(): void {
+    if(this.currentEvent != null){
+      this.eventService.getEventOwner(this.currentEvent._id).subscribe(res => {
+        this.currentUser = res;
+      }, err => {
+        console.log('error retrieving event owner' + err);
+      })
+    }
+  }
+
+  // Updates the modal to have the new rsvp users. 
   updateView(): void {
     this.ref.detectChanges()
   }

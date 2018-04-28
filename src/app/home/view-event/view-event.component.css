@@ -99,3 +99,7 @@
 .event-header button {
   color: white;
 }
+
+small {
+  font-size: 70%;
+}
