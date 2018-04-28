@@ -46,6 +46,8 @@ router.get('/:_id', function (req, res, next) {
 /* Used to create a new event */
 router.post('/', function (req, res, next) {
   var event = new Event(req.body);
+  id = mongoose.Types.ObjectId();
+  event._id = id;
 
   User.findById(event.eventOwner, function (err, user) {
     if (err) {
