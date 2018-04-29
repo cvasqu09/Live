@@ -2,7 +2,8 @@ import { Http, Response, Headers } from "@angular/http";
 import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject } from "rxjs";
 import { Event } from './event.model';
-import { environment } from '../../environments/environment'
+import { environment } from '../../environments/environment';
+import { UserService } from '../user/user.service';
 
 import 'rxjs/Rx';
 
@@ -17,7 +18,7 @@ export class EventService {
   }
 
 
-  constructor(private http: Http) {
+  constructor(private http: Http, private userService: UserService) { 
 
   }
 
@@ -64,6 +65,23 @@ export class EventService {
   			return Observable.throw(error.json());
   		})
   }
+
+  // Delete Outdated Events 
+  deleteOutdatedEvent(event: Event){ 
+    const currentTime = new Date()  
+    if (event.end < currentTime){ 
+      //give strikes 
+      var absentUsers = event.rsvps.rsvpUsers.filter(user => !event.presentUsers.includes(user)) 
+      for (var count = 0; count < absentUsers.length; count++){ 
+        this.userService.reportUser(absentUsers[count]._id).subscribe(res =>{ 
+          console.log("User Reported") 
+        }, err =>{ 
+          console.log("Error reporting user") 
+        }) 
+      } 
+      this.deleteEventWithId(event._id).subscribe() 
+    } 
+  } 
 
   // Report Event
   reportEvent(eventId: string){
