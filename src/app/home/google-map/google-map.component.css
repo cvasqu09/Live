@@ -31,6 +31,14 @@ agm-map {
 	font-size: 200%;
 }
 
+.refresh-button-overlay {
+	position: absolute;
+	right: 10px;
+	top: 65px;
+	border-radius: 50%;
+	font-size: 200%;
+}
+
 .top-overlay {
 	position: absolute;
 	top: 5rem;

@@ -7,6 +7,9 @@
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="event-header modal-header">
+        <button type="button" class="close m-0 p-0" (click)="refreshEventData(currentEvent?._id)">
+          <i class="fa fa-sync"></i>
+        </button>
         <h3 class="modal-title text-left" id="viewEventModalTitle">{{currentEvent?.eventName}} <small>created by: {{ currentUser?.fullName }}</small></h3>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
