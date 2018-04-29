@@ -229,6 +229,11 @@ export class GoogleMapComponent implements OnInit {
     this.zoom -= 1;
   }
 
+  refreshEvents(){
+
+    this.getEvents();
+  }
+
   getProperMarker(markerInfo): string {
 
     const currentCategory = markerInfo.categories[0];

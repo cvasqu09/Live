@@ -38,6 +38,13 @@
 	</button>
 </div>
 
+<!-- Refresh button to get new events without refreshing -->
+<div class="refresh-button-overlay">
+  <button type="button" class="btn btn-secondary" (click)="refreshEvents()">
+		<i class="fa fa-sync" aria-hidden="true"></i>
+	</button>
+</div>
+
 <!-- Event creation modal -->
 <app-event (onEventCreated)="onEventCreated()"></app-event>
 <app-view-event [currentEvent]='selectedEvent'></app-view-event>
