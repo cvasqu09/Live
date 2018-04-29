@@ -116,6 +116,10 @@ export class ViewEventComponent implements OnInit {
     }
   }
 
+  isMyEvent(): boolean {
+    return this.currentEvent.eventOwner == localStorage.getItem('user_id')
+  }
+
   onReportButtonClicked(){
     // Close the current modal
     var viewEventBtn: HTMLElement = document.getElementById("viewEventBtn") as HTMLElement;

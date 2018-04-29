@@ -69,6 +69,7 @@ var eventSchema = new Schema({
     numRsvps: { type: Number, default: 0 },
     rsvpUsers: [{ type: String, ref: 'User' }] // Array of user ids which are strings
   },
+  presentUsers: [{ type: String, ref: 'User' }],
   _id: { type: Schema.Types.ObjectId }
 },
 { versionKey: false });
