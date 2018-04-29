@@ -28,6 +28,7 @@
     "angular2-jwt": "^0.2.3",
     "body-parser": "^1.18.2",
     "bootstrap": "^4.0.0",
+    "bson-objectid": "^1.2.3",
     "core-js": "^2.4.1",
     "dotenv": "^5.0.0",
     "eslint": "^4.19.1",
@@ -39,6 +40,7 @@
     "nodemod": "^1.5.19",
     "nodemon": "^1.17.2",
     "npm": "^5.8.0",
+    "randomstring": "^1.1.5",
     "rxjs": "^5.5.6",
     "serve-favicon": "^2.5.0",
     "zone.js": "^0.8.19"
