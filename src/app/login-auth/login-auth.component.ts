@@ -22,6 +22,16 @@ export class LoginAuthComponent implements OnInit {
     this.auth.handleAuthentication();
     if(this.auth.isAuthenticated()){
 
+      this.eventService.getAllEvents().subscribe(res => {
+        console.log("all events gotten")
+        for (count = 0; count < res.length; count++){
+          deleteOutdatedEvent(res[count])
+        }
+      } err => {
+        console.log("error getting all events for deleting outdated events")
+      })
+      deleteOutdatedEvent()
+
       this.userService.getUserInfo(localStorage.getItem('user_id')).subscribe(
         response => {
           // console.log(response);

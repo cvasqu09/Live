@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from "rxjs";
 import { Event } from './event.model';
 import { environment } from '../../environments/environment'
-import { ErrorService } from '../error/error.service';
+import { UserService } from '../user/user.service'
 
 import 'rxjs/Rx';
 
@@ -11,7 +11,7 @@ import 'rxjs/Rx';
 export class EventService {
 	baseURL = `${environment.domain_name}/api/events/`;
 
-  constructor(private http: Http) {
+  constructor(private http: Http, private userService: UserService) {
 
   }
 
@@ -59,6 +59,23 @@ export class EventService {
   		})
   }
 
+  // Delete Outdated Events
+  deleteOutdatedEvent(event: Event){
+    const currentTime = new Date() 
+    if (event.end < currentTime){
+      //give strikes
+      var absentUsers = rsvpUsers.filter(user => !presentUsers.includes(user))
+      for (count = 0; count < absentUsers.length; count++){
+        this.userService.reportUser(absentUsers[count]._id).subscribe(res =>{
+          console.log("User Reported")
+        }, err =>{
+          console.log("Error reporting user")
+        })
+      }
+      this.deleteEventWithId(event._id).subscribe()
+    }
+  }
+
   // Report Event
   reportEventWithId(eventId: string): Observable<any> {
   	return this.getEventById(eventId).flatMap((event: Event) => {
@@ -93,6 +110,7 @@ export class EventService {
   		res.eventName,
   		res.categories,
   		res.numPeople,
+			res.address,
   		res.location,
   		res.startTime,
   		res.endTime,
