@@ -193,6 +193,9 @@ export class GoogleMapComponent implements OnInit {
     //This function will change the default values for the center of the map
     this.setCurrentPosition();
     this.getEvents();
+    this.eventService.eventObs.subscribe(res => {
+      this.getEvents();
+    })
   }
 
   private setCurrentPosition() {
