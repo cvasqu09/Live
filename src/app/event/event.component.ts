@@ -15,6 +15,7 @@ import { CategoriesService } from '../categories.service';
   styleUrls: ['./event.component.css']
 })
 export class EventComponent implements OnInit {
+  error: { title: string, message: string };
   formReset: boolean = false;
   selectedCategories: any[]= [];
   categories: any[];
@@ -29,6 +30,7 @@ export class EventComponent implements OnInit {
   @Output() onEventCreated = new EventEmitter<void>(); // Emits events to google-map.component in order to update.
   @ViewChild('closeButton') closeButton: ElementRef;
   @ViewChild('search') searchLocation: ElementRef;
+  @ViewChild('errortModalButton') errorModal: ElementRef;
 
   constructor(
     private eventService: EventService,
@@ -99,12 +101,16 @@ export class EventComponent implements OnInit {
         //this.userService.editUser(eventOwner) // Send the update user with new event
       }, err => {
         console.log("error sending" + JSON.stringify(err))
-        // Return error
+        const title = err.title;
+        const message = err.message;
+        this.error = { title, message };
+        this.closeButton.nativeElement.click();
+        this.errorModal.nativeElement.click();
       });
       // Set the formReset back to false so that it can be set to true upon the next submission
       this.formReset = false;
     }, err => {
-      console.log(err)
+      console.log(err);
     });
   }
 
