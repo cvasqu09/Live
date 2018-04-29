@@ -101,7 +101,7 @@ export class ViewEventComponent implements OnInit {
     }
   }
 
-  // Updates the modal to have the new rsvp users. 
+  // Updates the modal to have the new rsvp users.
   updateView(): void {
     this.ref.detectChanges()
   }
@@ -123,5 +123,15 @@ export class ViewEventComponent implements OnInit {
 
     // Open the report modal and pass in the current event
     this.reportModalComponent.openModal(this.currentEvent);
+  }
+
+  refreshEventData(eventId){
+
+    this.eventService.getEventById(eventId).subscribe(event => {
+
+      this.currentEvent = event;
+    });
+    this.getRSVPUsers();
+    this.updateView();
   }
 }
