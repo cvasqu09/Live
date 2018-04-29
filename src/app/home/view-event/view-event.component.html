@@ -45,8 +45,13 @@
         <div class="row mx-2">
           <div class="rsvp-users">
             <span class="rsvp-users-title event-info">Users Attending</span><br>
-
-            <span *ngFor="let user of rsvpUsers" class="badge badge-pill badge-success">{{ user.fullName }}</span>
+            <span *ngFor="let user of rsvpUsers" 
+            class="badge badge-pill"
+            [ngClass]="badgeColor(user)" 
+            [class.pointer]="isMyEvent()" 
+            (click)="isMyEvent() ? markUserJoined(user) : false">
+              {{ user.fullName }}
+            </span>
             <br>
             <small *ngIf="isMyEvent()">Tap when a user shows up to your event!</small>
           </div>
