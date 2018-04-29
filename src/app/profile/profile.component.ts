@@ -35,7 +35,7 @@ export class ProfileComponent implements OnInit {
     this.userService.getUserInfo(this.user_id).subscribe((user) => {
       this.user = user
       this.selectedCategories = user.categories
-      this.userDetailedEvents = this.getEventDetails(user.createdEventIds)
+      this.userDetailedEvents = this.getEventDetails(user.eventIds)
     });
 
 
@@ -48,7 +48,7 @@ export class ProfileComponent implements OnInit {
   public getEventDetails(events: Array<string>): Array<Event>{
 
     let tempEventList: Array<Event> = []; //Temp Array to store all the found events
-
+    console.log(events);
     for(let detailedEvent of events){
       this.eventService.getEventById(detailedEvent).subscribe((e) => {
         tempEventList.push(e);

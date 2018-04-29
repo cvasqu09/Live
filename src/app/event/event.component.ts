@@ -5,7 +5,6 @@ import { Event } from './event.model';
 import { UserService } from '../user/user.service';
 import { User } from '../user/user.model';
 import { MapsAPILoader } from '@agm/core';
-import { } from 'googlemaps';
 import { GoogleMapComponent } from '../home/google-map/google-map.component';
 import { CategoriesService } from '../categories.service';
 
@@ -72,6 +71,9 @@ export class EventComponent implements OnInit {
       const endUTCDate: Date = new Date(this.endDate.year, this.endDate.month - 1, this.endDate.day,
         Number(endTimeValues[0]), Number(endTimeValues[1]))
 
+      // Generate Object
+
+      //console.log(objectID);
       // Create an event with the form data and user info
       const event: Event = new Event(
         eventForm.value.eventName,
@@ -89,16 +91,24 @@ export class EventComponent implements OnInit {
 
       this.eventService.createEvent(event).subscribe(res => {
         // Reset the form and close the modal
-        console.log(res)
         eventForm.resetForm();
         this.formReset = true;
         this.onEventCreated.emit();
         this.closeButton.nativeElement.click();
 
         //Adding Event to user
-        //const eventOwner: User = this.userService.getUserInfo(event.eventOwner);
-        //eventOwner.eventIds.push(event._id);
-        //this.userService.editUser(eventOwner) // Send the update user with new event
+        let eventOwner: User;
+        this.userService.getUserInfo(event.eventOwner).subscribe(user => {
+
+          eventOwner = user;
+
+          eventOwner.eventIds.push(res._id);
+          this.userService.editUser(localStorage.getItem('user_id'), eventOwner).subscribe((user) =>{
+
+            
+          }); // Send the update user with new event
+        });
+
       }, err => {
         console.log("error sending" + JSON.stringify(err))
         const title = err.title;
