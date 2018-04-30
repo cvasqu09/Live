@@ -93,7 +93,7 @@ export class ViewEventComponent implements OnInit {
   }
 
   getEventOwner(): void {
-    if(this.currentEvent != null){
+    if(this.currentEvent != null && this.currentEvent._id != null){
       this.eventService.getEventOwner(this.currentEvent._id).subscribe(res => {
         this.currentUser = res;
       }, err => {

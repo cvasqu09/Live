@@ -26,7 +26,6 @@ router.get('/', function (req, res, next) {
     var parsedCategories = req.query['categories'].split(',');
     // Validate categories exist
     for (var i = 0; i < parsedCategories.length; i++) {
-      console.log('category is: ' + parsedCategories[i]);
       category = parsedCategories[i];
       if (!categories.includes(category)) {
         return res.status(400).json({
@@ -46,11 +45,6 @@ router.get('/', function (req, res, next) {
       return res.status(200).json(events);
     });
   }
-});
-
-router.get('', function (req, res, next) {
-  console.log(req.query.categories);
-  return res.status(200);
 });
 
 /* Retrieve a single event by id. The body-parser library will extract the id
