@@ -26,6 +26,7 @@ export class ViewEventComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+
   }
 
   ngOnChanges() {
@@ -92,7 +93,7 @@ export class ViewEventComponent implements OnInit {
   }
 
   getEventOwner(): void {
-    if(this.currentEvent != null){
+    if(this.currentEvent != null && this.currentEvent._id != null){
       this.eventService.getEventOwner(this.currentEvent._id).subscribe(res => {
         this.currentUser = res;
       }, err => {
@@ -116,6 +117,10 @@ export class ViewEventComponent implements OnInit {
     }
   }
 
+  isMyEvent(): boolean {
+    return this.currentEvent.eventOwner == localStorage.getItem('user_id')
+  }
+
   onReportButtonClicked(){
     // Close the current modal
     var viewEventBtn: HTMLElement = document.getElementById("viewEventBtn") as HTMLElement;
@@ -133,5 +138,20 @@ export class ViewEventComponent implements OnInit {
     });
     this.getRSVPUsers();
     this.updateView();
+  }
+
+  markUserJoined(user){
+    if(!this.currentEvent.presentUsers.includes(user._id)){
+      this.currentEvent.presentUsers.push(user._id);
+      this.eventService.editEventWithId(this.currentEvent._id, { presentUsers: this.currentEvent.presentUsers }).subscribe(res => {
+        console.log("Successfully joined: " + user.fullName);
+      }, err => {
+        console.log('Error updating present users');
+      })
+    }
+  }
+
+  badgeColor(user){
+    return this.currentEvent.presentUsers.includes(user._id) ? 'badge-success' : 'badge-secondary';
   }
 }

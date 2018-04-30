@@ -87,6 +87,7 @@ export class EventComponent implements OnInit {
         user._id,
         null,
         {numRsvps: 1, rsvpUsers: [user._id] },
+        [localStorage.getItem('user_id')],
         0);
 
       this.eventService.createEvent(event).subscribe(res => {
