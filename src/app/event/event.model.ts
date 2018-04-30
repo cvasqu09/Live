@@ -10,5 +10,6 @@ export class Event {
 							public eventOwner: string,
 							public _id: string = null,
 							public rsvps: { numRsvps: number, rsvpUsers: Array<string> },
+							public presentUsers: Array<string>,
 							public reports?: number){}
 }

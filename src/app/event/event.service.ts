@@ -42,6 +42,28 @@ export class EventService {
   		})
   }
 
+  // Get events by category
+  getEventsWithCategories(categories: Array<any>): Observable<any> {
+    if(categories.length == 0){
+     this.getAllEvents();
+    }
+
+    var queryCategories = []
+    for (let category of categories){
+      queryCategories.push(category.name)
+    }
+
+    return this.http.get(this.baseURL + '?categories=' + queryCategories.join())
+      .map((response: Response) => {
+        return response;
+      })
+      .catch((error: Response) => {
+        return Observable.throw(error.json());
+      })
+      
+    // return this.http.get(url + '?categories=' + )
+  }
+
 
   // Create Event
   createEvent(event: Event): Observable<any> {

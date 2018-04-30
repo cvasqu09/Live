@@ -1,0 +1,22 @@
+.dropdown-item:hover {
+	background-color: #28a745;
+}
+
+.dropdown a:hover {
+	color: #ffffff;
+}
+
+.dropdown-toggle {
+	background-color: #28a745;
+	border: 1px solid #25963f
+}
+
+.dropdown-toggle:hover, .dropdown-toggle:active, .show>.dropdown-toggle {
+	background-color: #25963f;
+	border: 1px solid #25963f
+}
+
+.badge-success {
+	margin-right: .2rem;
+	cursor: pointer;
+}
