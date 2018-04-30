@@ -8,17 +8,43 @@ const User = require('../models/user');
 
 /* Routes in this file will be prefixed by <host_name>/api/events */
 
+const categories = ['Chess', 'Baseball', 'Volleyball', 'Disc Golf', 'Basketball'];
+
 /* Route to retrieve all events */
 router.get('/', function (req, res, next) {
-  Event.find(function (err, events) {
-    if (err) {
-      return res.status(500).json({
-        title: '500 Internal Server Error',
-        message: 'Error occurred while getting event'
-      });
+  if (Object.keys(req.query).length === 0 && req.query.constructor === Object) {
+    Event.find(function (err, events) {
+      if (err) {
+        return res.status(500).json({
+          title: '500 Internal Server Error',
+          message: 'Error occurred while getting event'
+        });
+      }
+      return res.status(200).json(events);
+    });
+  } else {
+    var parsedCategories = req.query['categories'].split(',');
+    // Validate categories exist
+    for (var i = 0; i < parsedCategories.length; i++) {
+      category = parsedCategories[i];
+      if (!categories.includes(category)) {
+        return res.status(400).json({
+          title: '400 Bad Request',
+          message: 'Error occurred while getting event'
+        });
+      }
     }
-    res.status(200).json(events);
-  });
+
+    Event.find({ 'categories.name': { '$in': parsedCategories } }, function (err, events) {
+      if (err) {
+        return res.status(500).json({
+          title: '500 Internal Server Error',
+          message: 'Error occurred while getting event'
+        });
+      }
+      return res.status(200).json(events);
+    });
+  }
 });
 
 /* Retrieve a single event by id. The body-parser library will extract the id
