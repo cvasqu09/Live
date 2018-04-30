@@ -258,4 +258,16 @@ export class GoogleMapComponent implements OnInit {
       }
     }
   }
+
+  onCategoriesChanged(categories){
+    if(categories.length != 0){
+      this.eventService.getEventsWithCategories(categories).subscribe(res => {
+        this.markers = res.json();
+      }, err => {
+
+      })
+    } else {
+      this.getEvents();
+    }
+  }
 }

@@ -1,10 +1,13 @@
 <div class="dropdown">
   <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Dropdown button
+    Categories
   </button>
 	<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-		<div *ngFor="let category of presetCategories">
-			<a class="dropdown-item" href="#">{{ category.name }}</a>
+		<div *ngFor="let category of unselectedCategories">
+			<a class="dropdown-item" (click)="onSelectCategory(category)">{{ category.name }}</a>
 		</div>
+	</div>
+	<div>
+		<span *ngFor="let category of selectedCategories" class="badge badge-pill badge-success" (click)="onRemoveCategory(category)">{{category.name}}  &times;</span>
 	</div>
 </div>
