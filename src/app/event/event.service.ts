@@ -1,6 +1,6 @@
 import { Http, Response, Headers } from "@angular/http";
 import { Injectable } from '@angular/core';
-import { Observable } from "rxjs";
+import { Observable, BehaviorSubject } from "rxjs";
 import { Event } from './event.model';
 import { environment } from '../../environments/environment'
 
@@ -9,6 +9,13 @@ import 'rxjs/Rx';
 @Injectable()
 export class EventService {
 	baseURL = `${environment.domain_name}/api/events/`;
+  eventSent = new BehaviorSubject<Event>(null);
+  eventObs = this.eventSent.asObservable();
+
+  sendNotification(event: Event){
+    this.eventSent.next(event);
+  }
+
 
   constructor(private http: Http) {
 
@@ -35,6 +42,28 @@ export class EventService {
   		})
   }
 
+  // Get events by category
+  getEventsWithCategories(categories: Array<any>): Observable<any> {
+    if(categories.length == 0){
+     this.getAllEvents();
+    }
+
+    var queryCategories = []
+    for (let category of categories){
+      queryCategories.push(category.name)
+    }
+
+    return this.http.get(this.baseURL + '?categories=' + queryCategories.join())
+      .map((response: Response) => {
+        return response;
+      })
+      .catch((error: Response) => {
+        return Observable.throw(error.json());
+      })
+      
+    // return this.http.get(url + '?categories=' + )
+  }
+
 
   // Create Event
   createEvent(event: Event): Observable<any> {
@@ -59,17 +88,14 @@ export class EventService {
   }
 
   // Report Event
-  reportEventWithId(eventId: string): Observable<any> {
-  	return this.getEventById(eventId).flatMap((event: Event) => {
-  		const reports = event.reports++;
-  		return this.http.patch(this.baseURL + eventId, {"reports": reports})
-  			.map((response: Response) => {
-  				return this.transformIntoEventModel(response);
-  			})
-  			.catch((error: Response) => {
-  				return Observable.throw(error)
-  			})
-  	})
+  reportEvent(eventId: string){
+    return this.http.post(this.baseURL + eventId + '/report', eventId)
+            .map((response: Response) => {
+              return this.transformIntoEventModel(response);
+            })
+            .catch((error: Response) => {
+              return Observable.throw(error.json());
+            })
   }
 
   // Edit Event
@@ -84,7 +110,27 @@ export class EventService {
   }
 
 
-  // update event
+  // Get RSVP users
+  getRsvpUsers(eventId: string): Observable<any> {
+    return this.http.get(this.baseURL + eventId + '/rsvpUsers')
+      .map((response: Response) => {
+        return response;
+      })
+      .catch((error: Response) => {
+        return Observable.throw(error.json());
+      });
+  }
+
+  // Get Event Owner
+  getEventOwner(eventId: string): Observable<any> {
+    return this.http.get(this.baseURL + eventId + '/eventOwner')
+      .map((response: Response) => {
+        return response.json();
+      })
+      .catch((error: Response) => {
+        return Observable.throw(error.json());
+      })
+  }
 
   private transformIntoEventModel(response: Response): Event {
   	const res = response.json();
@@ -94,12 +140,13 @@ export class EventService {
   		res.numPeople,
 			res.address,
   		res.location,
-  		res.startTime,
-  		res.endTime,
+  		res.start,
+  		res.end,
   		res.description,
   		res.eventOwner,
   		res._id,
-  		res.reports
+  		res.rsvps,
+      res.reports
   	)
   }
 }

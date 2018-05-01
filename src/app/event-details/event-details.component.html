@@ -1,16 +1,18 @@
-<form>
-  <div class="form-group">
-		<label for="eventName">Event Name</label>
-		<input type="text" class="form-control" id="eventName" [value]="event.eventName">
+<div class="container border-top border-bottom mb-1">
+  <div class="row">Title: {{event.eventName}}</div>
+  <div class="row">Date: {{event.start | date:'fullDate'}}</div>
+  <div class="row">Time: {{event.start | date:'shortTime'}} - {{event.end | date:'shortTime'}}</div>
+  <div class="row">Address: {{event.address}}</div>
+  <div class="row">
+    Catagories: <span *ngFor="let cat of event?.categories" class="badge badge-pill badge-success">{{cat.name}}</span>
   </div>
-  <div class="form-group">
-		<label for="location">Location</label>
-		<input type="text" class="form-control" id="location" [value]="event.location">
+  <div class="row">Description: {{event.description}}</div>
+  <div class="row">
+    <div class="col-6">
+      <div class="event-rsvp progress">
+        <div *ngIf="event?.rsvps?.numRsvps != event?.numPeople" class="progress-bar" [style.width]="(event?.rsvps?.numRsvps/event?.numPeople) * 100 + '%'">{{event?.rsvps?.numRsvps}} of {{event?.numPeople}}</div>
+        <div *ngIf="event?.rsvps?.numRsvps == event?.numPeople" class="progress-bar" [style.width]="100 + '%'">Full!</div>
+      </div>
+    </div>
   </div>
-  <div class="form-group">
-		<label for="startTime">Start Time</label>
-		<input type="text" class="form-control" id="startTime" [value]="event.startTime">
-		<label for="endTime">End Time</label>
-		<input type="text" class="form-control" id="endTime" [value]="event.endTime">
-  </div>
-</form>
+</div>

@@ -1,7 +1,29 @@
+.btn:hover {
+  color: white;
+}
+
+.modal-title {
+  margin-left: .5rem;
+}
+
+.btn {
+  color: #28a745;
+}
+
+.badge {
+  margin-right: .2rem;
+}
+
+.danger-button {
+  margin-left: auto;
+  color: white;
+  margin-right: .3rem;
+}
+
 .event-header {
 
   color: white;
-  background-color: #1D1959;
+  background-color: #28a745;
 }
 
 .event-date, .event-times {
@@ -10,8 +32,7 @@
   text-align: center;
 }
 
-.event-section-title {
-
+.event-section-title, .rsvp-users-title {
   font-size: 12pt;
   color: #9B9B9C;
 }
@@ -32,10 +53,10 @@
   height: 40px;
 }
 
-.progress {
 
+.progress {
   border-width: 1px;
-  border-color: #1D1959;
+  border-color: #28a745;
   border-style: solid;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
@@ -43,29 +64,46 @@
 }
 
 .progress-bar {
+  background-color: #28a745;
+}
 
-  background-color: #1D1959;
+.pointer {
+  cursor: pointer;
 }
 
 .btn-rsvp {
-
   width: 100%;
   margin-top: -1px;
   border-top: none;
-  border-color: #1D1959;
+  border-color: #28a745;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
-  color: #1D1959;
+  color: #28a7459;
   font-weight: bold;
 }
 
 .btn-rsvp:hover {
+  border-color: #28a745;
+  background-color: #28a745;
+  color: white;
+}
 
-  border-color: #1D1959;
-  background-color: #1D1959;
+.btn-rsvp-leave {
+
+    border-color: #ff0000;
+    color: #ff0000;
+}
+
+.btn-rsvp-leave:hover {
+  border-color: #ff0000;
+  background-color: #ff0000;
   color: white;
 }
 
 .event-header button {
   color: white;
+}
+
+small {
+  font-size: 70%;
 }

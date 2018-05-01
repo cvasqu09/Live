@@ -5,7 +5,6 @@ import { Event } from './event.model';
 import { UserService } from '../user/user.service';
 import { User } from '../user/user.model';
 import { MapsAPILoader } from '@agm/core';
-import { } from 'googlemaps';
 import { GoogleMapComponent } from '../home/google-map/google-map.component';
 import { CategoriesService } from '../categories.service';
 
@@ -15,6 +14,7 @@ import { CategoriesService } from '../categories.service';
   styleUrls: ['./event.component.css']
 })
 export class EventComponent implements OnInit {
+  error: { title: string, message: string };
   formReset: boolean = false;
   selectedCategories: any[]= [];
   categories: any[];
@@ -29,6 +29,7 @@ export class EventComponent implements OnInit {
   @Output() onEventCreated = new EventEmitter<void>(); // Emits events to google-map.component in order to update.
   @ViewChild('closeButton') closeButton: ElementRef;
   @ViewChild('search') searchLocation: ElementRef;
+  @ViewChild('errortModalButton') errorModal: ElementRef;
 
   constructor(
     private eventService: EventService,
@@ -70,6 +71,9 @@ export class EventComponent implements OnInit {
       const endUTCDate: Date = new Date(this.endDate.year, this.endDate.month - 1, this.endDate.day,
         Number(endTimeValues[0]), Number(endTimeValues[1]))
 
+      // Generate Object
+
+      //console.log(objectID);
       // Create an event with the form data and user info
       const event: Event = new Event(
         eventForm.value.eventName,
@@ -83,23 +87,41 @@ export class EventComponent implements OnInit {
         user._id,
         null,
         {numRsvps: 1, rsvpUsers: [user._id] },
+        [localStorage.getItem('user_id')],
         0);
 
       this.eventService.createEvent(event).subscribe(res => {
         // Reset the form and close the modal
-        console.log("successfully sent" + JSON.stringify(event))
         eventForm.resetForm();
         this.formReset = true;
         this.onEventCreated.emit();
         this.closeButton.nativeElement.click();
+
+        //Adding Event to user
+        let eventOwner: User;
+        this.userService.getUserInfo(event.eventOwner).subscribe(user => {
+
+          eventOwner = user;
+
+          eventOwner.eventIds.push(res._id);
+          this.userService.editUser(localStorage.getItem('user_id'), eventOwner).subscribe((user) =>{
+
+            
+          }); // Send the update user with new event
+        });
+
       }, err => {
         console.log("error sending" + JSON.stringify(err))
-        // Return error
+        const title = err.title;
+        const message = err.message;
+        this.error = { title, message };
+        this.closeButton.nativeElement.click();
+        this.errorModal.nativeElement.click();
       });
       // Set the formReset back to false so that it can be set to true upon the next submission
       this.formReset = false;
     }, err => {
-      console.log(err)
+      console.log(err);
     });
   }
 

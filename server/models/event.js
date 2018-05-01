@@ -63,12 +63,13 @@ var eventSchema = new Schema({
     type: String,
     max: [300, 'Description is too long. Max 300 characters']
   },
-  eventOwner: { type: String, required: true },
+  eventOwner: { type: String, required: true, ref: 'User' },
   reports: { type: Number, default: 0 },
   rsvps: {
     numRsvps: { type: Number, default: 0 },
     rsvpUsers: [{ type: String, ref: 'User' }] // Array of user ids which are strings
   },
+  presentUsers: [{ type: String, ref: 'User' }],
   _id: { type: Schema.Types.ObjectId }
 },
 { versionKey: false });

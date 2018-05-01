@@ -30,3 +30,13 @@ input.ng-touched.ng-invalid {
 	background-color: #228e3b;
 	cursor: default;
 }
+
+.error-footer {
+	padding-bottom: .8rem;
+}
+
+.error-header {
+	color: #fff;
+	background-color: #dc3545;
+}
+

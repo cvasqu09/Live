@@ -2,9 +2,9 @@
   <div class="row">
     <!-- The eventCoord variable is passed from google-map (parent) to location-search (child) through
           @Input. This is used to retrive [lat, lng] of the address entered in the location-search bar -->
-    <app-search-bar class="col-sm-8" hidden></app-search-bar>
-    <app-dropdown class="col-sm-4 .offset-sm-2" hidden></app-dropdown>
-    <app-location-search class="col-sm-12 py-1" [eventCoord]="centerCoord"></app-location-search>
+    <!-- <app-search-bar class="col-sm-8" hidden></app-search-bar> -->
+    <app-dropdown class="col-sm-4" (categoriesChanged)="onCategoriesChanged($event)"></app-dropdown>
+    <app-location-search class="col-sm-4 offset-sm-2" [eventCoord]="centerCoord"></app-location-search>
   </div>
 </div>
 <agm-map
@@ -35,6 +35,13 @@
 <div class="zoom-out-button-overlay">
   <button type="button" class="btn btn-secondary" (click)="zoomOut()">
 		<i class="fa fa-minus"></i>
+	</button>
+</div>
+
+<!-- Refresh button to get new events without refreshing -->
+<div class="refresh-button-overlay">
+  <button type="button" class="btn btn-secondary" (click)="refreshEvents()">
+		<i class="fa fa-sync" aria-hidden="true"></i>
 	</button>
 </div>
 

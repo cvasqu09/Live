@@ -193,6 +193,9 @@ export class GoogleMapComponent implements OnInit {
     //This function will change the default values for the center of the map
     this.setCurrentPosition();
     this.getEvents();
+    this.eventService.eventObs.subscribe(res => {
+      this.getEvents();
+    })
   }
 
   private setCurrentPosition() {
@@ -229,6 +232,11 @@ export class GoogleMapComponent implements OnInit {
     this.zoom -= 1;
   }
 
+  refreshEvents(){
+
+    this.getEvents();
+  }
+
   getProperMarker(markerInfo): string {
 
     const currentCategory = markerInfo.categories[0];
@@ -248,6 +256,18 @@ export class GoogleMapComponent implements OnInit {
       else {
         return "assets/markers/default-event-48.png";
       }
+    }
+  }
+
+  onCategoriesChanged(categories){
+    if(categories.length != 0){
+      this.eventService.getEventsWithCategories(categories).subscribe(res => {
+        this.markers = res.json();
+      }, err => {
+
+      })
+    } else {
+      this.getEvents();
     }
   }
 }
